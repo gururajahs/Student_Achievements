@@ -3,10 +3,11 @@ const readline = require('readline');
 const {google} = require('googleapis');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets'];
+const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/spreadsheets'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
+//const TOKEN_PATH = '../data_collectors/token.json';
 const TOKEN_PATH = 'token.json';
 
 
@@ -14,6 +15,7 @@ module.exports = function() {
 
     return new Promise((resolve, reject) => {
         // Load client secrets from a local file.
+        //fs.readFile('../data_collectors/credentials.json', (err, content) => {
         fs.readFile('credentials.json', (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Google Drive API.
@@ -22,6 +24,7 @@ module.exports = function() {
     });
 
 }
+
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.

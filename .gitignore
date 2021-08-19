@@ -1,3 +1,5 @@
 /node_modules
 /create/credentials.json
 /create/token.json
+/data_collectors/credentials.json
+/data_collectors/token.json

@@ -1,4 +1,4 @@
-const {google, containeranalysis_v1alpha1} = require('googleapis');
+const {google} = require('googleapis');
 const get_auth = require("./get_auth");
 
 function create_spread_sheet(drive, year)
@@ -26,20 +26,19 @@ function create_spread_sheet(drive, year)
     });
 }
 
-function make_sheet1_general_format(sheets, spreadsheetId, year)
+function make_sheet1_general_format(sheets, spreadsheetId)
 {
     return new Promise((resolve, reject) => {
 
-        //var year = 2019;
         let values = [
             [
                 "USN",
                 "Name",
                 "Bmsce Mail Id",
-                `${year}`,
-                `${year+1}`,
-                `${year+2}`,
-                `${year+3}`
+                "year1",
+                "year2",
+                "year3",
+                "year4"
             ],
             ["=SEQUENCE(300)"]
         ];
@@ -73,7 +72,11 @@ function addSheet(sheets, spreadsheetId)
         var requests = [];
 
         requests.push({
-            addSheet: { },
+            addSheet: { 
+                properties:{
+                    sheetId: 1
+                }
+            },
         });
 
         const batchUpdateRequest = {requests};
@@ -137,12 +140,13 @@ function make_sheet2_general_format(sheets, spreadsheetId)
 async function isBatchPresent(drive, year) {
 
     //const drive = google.drive({version: 'v3', auth});
-    const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
-    var batch = `batch-${year}-${year+4}`;
-
-    var pageToken = null;
 
     return new Promise((resolve, reject) =>{
+
+        const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
+        var batch = `batch-${year}-${year+4}`;
+
+        var pageToken = null;
 
         do{
             drive.files.list({
@@ -184,7 +188,7 @@ async function create_new_batch(year)
     }
     var spreadsheetId = await create_spread_sheet(drive, year);
     const sheets = google.sheets({version: 'v4', auth});
-    await make_sheet1_general_format(sheets, spreadsheetId, year);
+    await make_sheet1_general_format(sheets, spreadsheetId);
     await addSheet(sheets, spreadsheetId);
     await make_sheet2_general_format(sheets, spreadsheetId);
 }
