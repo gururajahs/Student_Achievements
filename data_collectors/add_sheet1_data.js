@@ -14,12 +14,9 @@ function get_sheet1_data(auth, spreadsheetId, usn)
             range,
         }, (err, result) => {
             if (err) {
-                // Handle error
                 console.log(err);
             } else {
-                //const numRows = result.values ? result.values.length : 0;
-                //console.log(`${numRows} rows retrieved.`);
-                console.log(result.data.values);
+                //console.log(result.data.values);
                 resolve(result.data.values[0]);
             }
         });
@@ -43,24 +40,24 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
                 userData.year4
             ]
         ];
+
         var range = `Sheet1!B${userData.usn + 1}:G${userData.usn + 1}`;
         const resource = {
             values,
         };
         var valueInputOption = "RAW";
         
-        sheets.spreadsheets.values.append({
+        sheets.spreadsheets.values.update({
             spreadsheetId,
             range,
             valueInputOption,
             resource,
         }, (err, result) => {
             if (err) {
-              // Handle error.
                 console.log(err);
             } else {
-                //console.log(`${result.updates.updatedCells} cells appended.`);
-                resolve("sheet 2 updated");
+                console.log("Sheet 1 updated");
+                resolve("sheet 1 updated");
             }
         });
 
@@ -68,20 +65,26 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
 }
 
 //module.exports = (auth, spreadsheetId, userData) => {
-function set_sheet1_data(auth, spreadsheetId, userData) {
+function update_sheet1_data(auth, spreadsheetId, userData, year) {
 
     return new Promise(async (resolve, reject) => {
 
         var oldData = await get_sheet1_data(auth, spreadsheetId, userData.usn);
 
-        if(userData.year1 && (userData.year1 == 'yes' || oldData[3] == 'yes'))
-            userData.year1 = "yes";
-        if(userData.year2 && (userData.year2 == 'yes' || oldData[4] == 'yes'))
-            userData.year2 = "yes";
-        if(userData.year3 && (userData.year3 == 'yes' || oldData[5] == 'yes'))
-            userData.year3 = "yes";
-        if(userData.year4 && (userData.year4 == 'yes' || oldData[6] == 'yes'))
-            userData.year4 = "yes";
+        if(year < 1 || year > 4)
+            reject();
+
+        for(i = 3; i <= 6; ++i)
+            if(!oldData[i])
+                oldData[i] = 0
+
+        oldData[2 + year] = parseInt(oldData[2 + year])
+        oldData[2 + year] += 1
+
+        userData.year1 = parseInt(oldData[3])
+        userData.year2 = parseInt(oldData[4])
+        userData.year3 = parseInt(oldData[5])
+        userData.year4 = parseInt(oldData[6])
 
         await set_sheet1_data(auth, spreadsheetId, userData);
     
@@ -92,32 +95,14 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
 async function main()
 {
     const auth = await get_auth();
-    const spreadsheetId = await get_spreadsheetId(auth, 2019);
+    const spreadsheetId = await get_spreadsheetId(auth, 2018);
     var userData = {
         usn: 21,
         name: "Deven Prakash Paramaj1",
-        email: "devenparamaj@bmsce.ac.in",
-        year1: "yes",
-        year2: "no",
-        year3: null,
-        year4: "no",
-
+        email: "devenparamaj@bmsce.ac.in"
     };
-
-    var oldData = await get_sheet1_data(auth, spreadsheetId, userData.usn);
-
-    if(userData.year1 && (userData.year1 == 'yes' || oldData[3] == 'yes'))
-        userData.year1 = "yes";
-    if(userData.year2 && (userData.year2 == 'yes' || oldData[4] == 'yes'))
-        userData.year2 = "yes";
-    if(userData.year3 && (userData.year3 == 'yes' || oldData[5] == 'yes'))
-        userData.year3 = "yes";
-    if(userData.year4 && (userData.year4 == 'yes' || oldData[6] == 'yes'))
-        userData.year4 = "yes";
-
-    await set_sheet1_data(auth, spreadsheetId, userData);
-    
-
+    var year = 3;
+    await update_sheet1_data(auth, spreadsheetId, userData, year);
 }
 
 main();
