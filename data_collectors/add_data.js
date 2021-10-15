@@ -14,7 +14,8 @@ module.exports = (userData) => {
         await add_year_data(auth, spreadsheetId, userData);
         await add_achievement_count(auth, spreadsheetId, userData);
         await sort_year_data(auth, spreadsheetId, userData.year);
-
+        resolve("done");
+        
     });
 }
 
