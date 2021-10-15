@@ -1,13 +1,12 @@
 const {google} = require('googleapis');
 const get_auth = require("./get_auth");
 
-module.exports = (auth, year) => {
+module.exports = (auth, folderId, year) => {
 
     return new Promise((resolve, reject) =>{
 
         const drive = google.drive({version: 'v3', auth});
 
-        const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
         var batch = `batch-${year}-${year+4}`;
 
         var pageToken = null;

@@ -2,8 +2,8 @@ const {google} = require('googleapis');
 const get_auth = require('./get_auth');
 const get_spreadsheetId = require('./get_spreadsheetId');
 
-//module.exports = (auth, spreadsheetId, userData) => {
-function add_year_data(auth, spreadsheetId, userData) {
+module.exports = (auth, spreadsheetId, userData) => {
+//function append_year_data(auth, spreadsheetId, userData) {
 
     return new Promise((resolve, reject) => {
         
@@ -44,23 +44,24 @@ function add_year_data(auth, spreadsheetId, userData) {
 }
 
 
-async function main()
-{
-    const auth = await get_auth();
-    const spreadsheetId = await get_spreadsheetId(auth, 2018);
-    var userData = {
-        usn: 21,
-        name: "Deven Prakash Paramaj1",
-        email: "devenparamaj@bmsce.ac.in",
-        nameOfEvent: "ab",
-        detailsOfEvent: "cd",
-        level: "ef",//"Level(state/national/international)",
-        award: "fg",
-        year: 2,
-    };
+// async function main(userData)
+// {
+//     const auth = await get_auth();
+//     const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
+//     await append_year_data(auth, spreadsheetId, userData);
+// }
 
-    await add_year_data(auth, spreadsheetId, userData);
+// var userData = {
+//     usn: 48,
+//     department_id: "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc",
+//     batch: 2018,
+//     name: "Deven Prakash Paramaj",
+//     email: "devenparamaj.is19@bmsce.ac.in",
+//     nameOfEvent: "ab",
+//     detailsOfEvent: "cd",
+//     level: "ef",//"Level(state/national/international)",
+//     award: "fgi",
+//     year: 2,
+// };
 
-}
-
-main();
+// main(userData);

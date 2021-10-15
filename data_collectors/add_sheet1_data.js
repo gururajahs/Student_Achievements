@@ -64,22 +64,22 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
     });
 }
 
-//module.exports = (auth, spreadsheetId, userData) => {
-function update_sheet1_data(auth, spreadsheetId, userData, year) {
+module.exports = (auth, spreadsheetId, userData) => {
+//function add_achievement_count(auth, spreadsheetId, userData) {
 
     return new Promise(async (resolve, reject) => {
 
         var oldData = await get_sheet1_data(auth, spreadsheetId, userData.usn);
 
-        if(year < 1 || year > 4)
+        if(userData.year < 1 || userData.year > 4)
             reject();
 
         for(i = 3; i <= 6; ++i)
             if(!oldData[i])
                 oldData[i] = 0
 
-        oldData[2 + year] = parseInt(oldData[2 + year])
-        oldData[2 + year] += 1
+        oldData[2 + userData.year] = parseInt(oldData[2 + userData.year])
+        oldData[2 + userData.year] += 1
 
         userData.year1 = parseInt(oldData[3])
         userData.year2 = parseInt(oldData[4])
@@ -92,17 +92,20 @@ function update_sheet1_data(auth, spreadsheetId, userData, year) {
 
 }
 
-async function main()
-{
-    const auth = await get_auth();
-    const spreadsheetId = await get_spreadsheetId(auth, 2018);
-    var userData = {
-        usn: 21,
-        name: "Deven Prakash Paramaj1",
-        email: "devenparamaj@bmsce.ac.in"
-    };
-    var year = 3;
-    await update_sheet1_data(auth, spreadsheetId, userData, year);
-}
+// async function main(userData)
+// {
+//     const auth = await get_auth();
+//     const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
+//     await add_achievement_count(auth, spreadsheetId, userData);
+// }
 
-main();
+// var userData = {
+//     usn: 48,
+//     department_id: "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc",
+//     batch: 2018,
+//     name: "Deven Prakash Paramaj",
+//     year: 2,
+//     email: "devenparamaj.is19@bmsce.ac.in"
+// };
+
+// main(userData);
