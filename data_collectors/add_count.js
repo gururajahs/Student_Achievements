@@ -87,7 +87,7 @@ module.exports = (auth, spreadsheetId, userData) => {
         userData.year4 = parseInt(oldData[6])
 
         await set_sheet1_data(auth, spreadsheetId, userData);
-    
+        resolve("incremented count");
     });
 
 }
