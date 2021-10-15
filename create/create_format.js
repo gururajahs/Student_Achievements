@@ -4,8 +4,8 @@ const get_auth = require("./get_auth");
 function create_spread_sheet(drive, folderId, year)
 {
     return new Promise((resolve, reject) => {
-            //const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
-            var fileMetadata = {
+
+        var fileMetadata = {
             'name': `batch-${year}-${year+4}`,
             'mimeType': 'application/vnd.google-apps.spreadsheet',
             parents: [folderId]
@@ -16,7 +16,6 @@ function create_spread_sheet(drive, folderId, year)
             fields: "id"
         }, function (err, file) {
             if (err) {
-                // Handle error
                 console.error(err);
             } else {
                 console.log('File Id: ', file.data.id);
@@ -54,10 +53,8 @@ function make_sheet1_general_format(sheets, spreadsheetId)
             resource,
         }, (err, result) => {
             if (err) {
-                // Handle error
                 console.log(err);
             } else {
-                //console.log('%d cells updated.', result.updatedCells);
                 resolve("sheet 1 updated");
             }
         });
@@ -92,7 +89,6 @@ function addSheets(sheets, spreadsheetId)
             if (err) {
                 console.log(err);
             } else {
-                //console.log(response);
                 resolve("year sheets added");
             }
         });
@@ -154,7 +150,6 @@ async function isBatchPresent(drive, folderId, year) {
                 pageToken: pageToken
             }, function (err, res) {
                 if (err) {
-                    // Handle error
                     console.error(err);
                 } else {
                     var files = res.data.files;
@@ -234,7 +229,6 @@ async function main(year)
         console.log("batch already present");
         return;
     }
-    console.log("here instead");
 
     for(let department of departments)
     {
