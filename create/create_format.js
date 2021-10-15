@@ -34,6 +34,7 @@ function make_sheet1_general_format(sheets, spreadsheetId)
                 "USN",
                 "Name",
                 "Bmsce Mail Id",
+                "Phone No.",
                 "year1",
                 "year2",
                 "year3",
@@ -41,7 +42,7 @@ function make_sheet1_general_format(sheets, spreadsheetId)
             ],
             ["=SEQUENCE(999)"]
         ];
-        var range = "Sheet1!A1:G2";
+        var range = "Sheet1!A1:H2";
         const resource = {
             values,
         };

@@ -8,7 +8,7 @@ function get_sheet1_data(auth, spreadsheetId, usn)
         
         const sheets = google.sheets({version: 'v4', auth});
 
-        const range = `Sheet1!A${usn + 1}:G${usn + 1}`;
+        const range = `Sheet1!A${usn + 1}:H${usn + 1}`;
         sheets.spreadsheets.values.get({
             spreadsheetId,
             range,
@@ -34,6 +34,7 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
                 //userData.usn,
                 userData.name,
                 userData.email,
+                userData.phone,
                 userData.year1,
                 userData.year2,
                 userData.year3,
@@ -41,7 +42,7 @@ function set_sheet1_data(auth, spreadsheetId, userData) {
             ]
         ];
 
-        var range = `Sheet1!B${userData.usn + 1}:G${userData.usn + 1}`;
+        var range = `Sheet1!B${userData.usn + 1}:H${userData.usn + 1}`;
         const resource = {
             values,
         };
@@ -74,17 +75,17 @@ module.exports = (auth, spreadsheetId, userData) => {
         if(userData.year < 1 || userData.year > 4)
             reject();
 
-        for(i = 3; i <= 6; ++i)
+        for(i = 4; i <= 7; ++i)
             if(!oldData[i])
                 oldData[i] = 0
 
-        oldData[2 + userData.year] = parseInt(oldData[2 + userData.year])
-        oldData[2 + userData.year] += 1
+        oldData[3 + userData.year] = parseInt(oldData[3 + userData.year])
+        oldData[3 + userData.year] += 1
 
-        userData.year1 = parseInt(oldData[3])
-        userData.year2 = parseInt(oldData[4])
-        userData.year3 = parseInt(oldData[5])
-        userData.year4 = parseInt(oldData[6])
+        userData.year1 = parseInt(oldData[4])
+        userData.year2 = parseInt(oldData[5])
+        userData.year3 = parseInt(oldData[6])
+        userData.year4 = parseInt(oldData[7])
 
         await set_sheet1_data(auth, spreadsheetId, userData);
         resolve("incremented count");

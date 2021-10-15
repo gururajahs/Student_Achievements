@@ -22,14 +22,15 @@ module.exports = (userData) => {
 
 
 // var userData = {
-//     usn: 241,
+//     usn: 48,
 //     name: "Deven Prakash Paramaj",
 //     email: "devenparamaj.is19@bmsce.ac.in",
+//     phone: "1234567890",
 //     nameOfEvent: "ab",
 //     detailsOfEvent: "cd",
 //     level: "ef",//"Level(state/national/international)",
 //     award: "fg",
-//     department_id: "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc",
+//     department_id: "1s0xIu0UaUhwwRVsOybSz4CyM514u9sA0",
 //     batch: 2018,
 //     year: 1,
 // };

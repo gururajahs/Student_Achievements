@@ -12,6 +12,7 @@ var userData = {
     usn: null,
     name: null,
     email: null,
+    phone: null,
     nameOfEvent: null,
     detailsOfEvent: null,
     level: null,
