@@ -3,7 +3,7 @@ const get_auth = require('./get_auth');
 const get_spreadsheetId = require('./get_spreadsheetId');
 
 //module.exports = (auth, spreadsheetId, userData) => {
-function add_sheet2_data(auth, spreadsheetId, userData) {
+function add_year_data(auth, spreadsheetId, userData) {
 
     return new Promise((resolve, reject) => {
         
@@ -14,15 +14,13 @@ function add_sheet2_data(auth, spreadsheetId, userData) {
                 userData.usn,
                 userData.name,
                 userData.email,
-                userData.year,
-                userData.nameOfActivity,
-                userData.detailsOfActivity,
-                userData.placeHeld,//place where it was held
+                userData.nameOfEvent,
+                userData.detailsOfEvent,
                 userData.level,//"Level(state/national/international)",
                 userData.award//"Award/Price"
             ]
         ];
-        var range = "Sheet2!A:I";
+        var range = `year${userData.year}!A:G`;
         const resource = {
             values,
         };
@@ -35,11 +33,10 @@ function add_sheet2_data(auth, spreadsheetId, userData) {
             resource,
         }, (err, result) => {
             if (err) {
-              // Handle error.
                 console.log(err);
             } else {
-                //console.log(`${result.updates.updatedCells} cells appended.`);
-                resolve("sheet 2 updated");
+                console.log(`year${userData.year} sheet updated`);
+                resolve(`year${userData.year} sheet updated`);
             }
         });
 
@@ -50,21 +47,19 @@ function add_sheet2_data(auth, spreadsheetId, userData) {
 async function main()
 {
     const auth = await get_auth();
-    const spreadsheetId = await get_spreadsheetId(auth, 2019);
+    const spreadsheetId = await get_spreadsheetId(auth, 2018);
     var userData = {
         usn: 21,
         name: "Deven Prakash Paramaj1",
         email: "devenparamaj@bmsce.ac.in",
-        year: "year1",
-        nameOfActivity: "ab",
-        detailsOfActivity: "cd",
-        placeHeld: "de",//place where it was held
+        nameOfEvent: "ab",
+        detailsOfEvent: "cd",
         level: "ef",//"Level(state/national/international)",
-        award: "fg"
-
+        award: "fg",
+        year: 2,
     };
 
-    await add_sheet2_data(auth, spreadsheetId, userData);
+    await add_year_data(auth, spreadsheetId, userData);
 
 }
 

@@ -1,10 +1,10 @@
 const {google} = require('googleapis');
 const get_auth = require("./get_auth");
 
-function create_spread_sheet(drive, year)
+function create_spread_sheet(drive, folderId, year)
 {
     return new Promise((resolve, reject) => {
-            const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
+            //const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
             var fileMetadata = {
             'name': `batch-${year}-${year+4}`,
             'mimeType': 'application/vnd.google-apps.spreadsheet',
@@ -65,36 +65,6 @@ function make_sheet1_general_format(sheets, spreadsheetId)
     });
 }
 
-// function addSheet(sheets, spreadsheetId)
-// {
-//     return new Promise((resolve, reject) => {
-
-//         var requests = [];
-
-//         requests.push({
-//             addSheet: { 
-//                 properties:{
-//                     sheetId: 1
-//                 }
-//             },
-//         });
-
-//         const batchUpdateRequest = {requests};
-
-//         sheets.spreadsheets.batchUpdate({
-//             spreadsheetId,
-//             resource: batchUpdateRequest,
-//         }, (err, response) => {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 //console.log(response);
-//                 resolve("sheet 2 added");
-//             }
-//         });
-//     });
-// }
-
 function addSheets(sheets, spreadsheetId)
 {
     return new Promise((resolve, reject) => {
@@ -138,7 +108,6 @@ function make_year_sheets_general_format(sheets, spreadsheetId)
                 "USN",
                 "Name",
                 "Bmsce Mail Id",
-                "year",
                 "Name of Event",
                 "Details/Place of Event",
                 "Level", //(college/state/national/international)
@@ -148,7 +117,7 @@ function make_year_sheets_general_format(sheets, spreadsheetId)
 
         for(i = 1; i <= 4; ++i)
         {
-            var range = `year${i}!A1:I1`;
+            var range = `year${i}!A1:G1`;
             const resource = {
                 values,
             };
@@ -160,11 +129,9 @@ function make_year_sheets_general_format(sheets, spreadsheetId)
                 resource,
             }, (err, result) => {
                 if (err) {
-                    // Handle error
                     console.log(err);
                 } else {
-                    //console.log('%d cells updated.', result.updatedCells);
-                    resolve("sheet 2 updated");
+                    resolve(`year${i} sheet added`);
                 }
             });
         }
@@ -173,13 +140,11 @@ function make_year_sheets_general_format(sheets, spreadsheetId)
 }
 
 
-async function isBatchPresent(drive, year) {
+async function isBatchPresent(drive, folderId, year) {
 
     return new Promise((resolve, reject) =>{
 
-        const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
         var batch = `batch-${year}-${year+4}`;
-
         var pageToken = null;
 
         do{
@@ -209,22 +174,72 @@ async function isBatchPresent(drive, year) {
         
 }
 
-async function create_new_batch(year)
+async function create_new_batch(drive, sheets, folderId, year)
 {
+    var spreadsheetId = await create_spread_sheet(drive, folderId, year)
+    await make_sheet1_general_format(sheets, spreadsheetId);
+    await addSheets(sheets, spreadsheetId);
+    await make_year_sheets_general_format(sheets, spreadsheetId);
+    console.log("done : ", folderId);
+}
+
+
+function get_department_folder_ids(drive, folderId)
+{
+    return new Promise((resolve, reject) =>{
+
+        var pageToken = null;
+        department_ids = {};
+
+        do{
+            drive.files.list({
+                q: `'${folderId}' in parents`,
+                fields: 'nextPageToken, files(name, id)',
+                pageToken: pageToken
+            }, function (err, res) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    var files = res.data.files;
+                    for(let file of files)
+                    {
+                        department_ids[file.name] = file.id;
+                    }
+
+                    pageToken = res.nextPageToken;
+
+                    if(pageToken == null)
+                        resolve(department_ids);
+                }
+            });
+        }while(pageToken != null);
+    });
+}
+
+
+async function main(year)
+{
+    const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
+    const departments = ["CE", "ME", "EE", "EC", "IM", "CS", "TE", "IS", "EI", "ML", "BT", "CH", "AS", "AM"];
+
     const auth = await get_auth();
     const drive = google.drive({version: 'v3', auth});
-    var isPresent = await isBatchPresent(drive, year);
-    //console.log(isPresent);
+    const sheets = google.sheets({version: 'v4', auth});
+    const department_ids = await get_department_folder_ids(drive, folderId);
+
+    var isPresent = await isBatchPresent(drive, department_ids["CE"], year); // if it is there in the first department then it is there in every department
+
     if(isPresent == true)
     {
         console.log("batch already present");
         return;
     }
-    var spreadsheetId = await create_spread_sheet(drive, year);
-    const sheets = google.sheets({version: 'v4', auth});
-    await make_sheet1_general_format(sheets, spreadsheetId);
-    await addSheets(sheets, spreadsheetId);
-    await make_year_sheets_general_format(sheets, spreadsheetId);
+    console.log("here instead");
+
+    for(let department of departments)
+    {
+        create_new_batch(drive, sheets, department_ids[department], year) // not using await here coz they are not dependent on each other and can execute separately
+    }
 }
 
-create_new_batch(2018);
+main(2018);
