@@ -36,15 +36,22 @@ function get_department_id(auth, folderId, department) {
         
 }
 
-async function get_user_data(usn)
-{
-    const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am'; // folder is fixed
-    const auth = await get_auth();
-    data = {}; // 1BM19IS048
-    data.batch = parseInt("20" + usn.slice(3, 5));
-    data.department_id = await get_department_id(auth, folderId, usn.slice(5, 7));
-    data.usn = parseInt(usn.slice(7));
-    console.log(data);
+
+module.exports = (usn) => {
+//async function get_user_data(usn) {
+    
+    return new Promise(async (resolve, reject) => {
+
+        const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am'; // folder is fixed
+        const auth = await get_auth();
+        data = {}; // 1BM19IS048
+        data.batch = parseInt("20" + usn.slice(3, 5));
+        data.department_id = await get_department_id(auth, folderId, usn.slice(5, 7));
+        data.usn = parseInt(usn.slice(7));
+        //console.log(data);
+        resolve(data);
+
+    });
 }
 
-get_user_data("1BM19IS048");
+//get_user_data("1BM19IS048");
