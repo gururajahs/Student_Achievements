@@ -1,5 +1,6 @@
 const {google} = require('googleapis');
-const get_auth = require("./get_auth");
+const auth = require("../auth/get_auth");
+const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
 
 function create_department_folder(drive, folderId, department)
 {
@@ -27,9 +28,8 @@ function create_department_folder(drive, folderId, department)
 
 async function main()
 { 
-    const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am';//folder is fixed
-    var departments = ["CE", "ME", "EE", "EC", "IM", "CS", "TE", "IS", "EI", "ML", "BT", "CH", "AS", "AM"]
-    const auth = await get_auth();
+    const folderId = student_achievements_folder_id;
+    const departments = all_departments;
     const drive = google.drive({version: 'v3', auth});
     for(let department of departments)
     {

@@ -1,6 +1,6 @@
 const {google} = require('googleapis');
-const get_auth = require('./get_auth');
-const get_spreadsheetId = require('./get_spreadsheetId');
+const auth = require("../auth/get_auth");
+const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
 
 module.exports = (auth, spreadsheetId, sheet_id) => {
 //function sort(auth, spreadsheetId, sheet_id) {
@@ -45,7 +45,6 @@ module.exports = (auth, spreadsheetId, sheet_id) => {
 
 // async function main()
 // {
-//     const auth = await get_auth();
 //     const spreadsheetId = await get_spreadsheetId(auth, "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc", 2018);
 //     await sort(auth, spreadsheetId, 1);
 // }

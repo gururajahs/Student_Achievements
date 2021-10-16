@@ -1,5 +1,4 @@
 const {google} = require('googleapis');
-const get_auth = require("./get_auth");
 
 module.exports = (auth, folderId, year) => {
 

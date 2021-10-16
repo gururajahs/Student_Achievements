@@ -1,5 +1,6 @@
 const {google} = require('googleapis');
-const get_auth = require("./get_auth");
+const auth = require("../auth/get_auth");
+const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
 
 function get_department_id(auth, folderId, department) {
 
@@ -79,10 +80,9 @@ module.exports = (usn) => {
     
     return new Promise(async (resolve, reject) => {
 
-        const folderId = '1-9FENR7DWRuNF3oJ2T-wGbFDo56YP2Am'; // folder is fixed
-        const departments = new Set(["CE", "ME", "EE", "EC", "IM", "CS", "TE", "IS", "EI", "ML", "BT", "CH", "AS", "AM"]);
+        const folderId = student_achievements_folder_id;
+        const departments = new Set(all_departments);
 
-        const auth = await get_auth();
         data = {};
 
         data.batch = parseInt("20" + usn.slice(3, 5));

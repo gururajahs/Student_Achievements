@@ -1,4 +1,4 @@
-const get_auth = require('./get_auth');
+const auth = require('../auth/get_auth');
 const get_spreadsheetId = require('./get_spreadsheetId');
 const add_achievement_count = require('./add_count');
 const add_year_data = require('./add_year_data');
@@ -9,7 +9,6 @@ module.exports = (userData) => {
 
     return new Promise(async (resolve, reject) => {
 
-        const auth = await get_auth();
         const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
         await add_year_data(auth, spreadsheetId, userData);
         await add_achievement_count(auth, spreadsheetId, userData);

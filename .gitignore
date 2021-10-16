@@ -3,3 +3,5 @@
 /create/token.json
 /data_collectors/credentials.json
 /data_collectors/token.json
+/auth/protected_data.js
+/auth/service_account_credentials.json

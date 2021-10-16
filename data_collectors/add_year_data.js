@@ -1,5 +1,5 @@
 const {google} = require('googleapis');
-const get_auth = require('./get_auth');
+const auth = require("../auth/get_auth");
 const get_spreadsheetId = require('./get_spreadsheetId');
 
 module.exports = (auth, spreadsheetId, userData) => {
@@ -46,7 +46,6 @@ module.exports = (auth, spreadsheetId, userData) => {
 
 // async function main(userData)
 // {
-//     const auth = await get_auth();
 //     const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
 //     await append_year_data(auth, spreadsheetId, userData);
 // }
