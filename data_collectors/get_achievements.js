@@ -11,7 +11,7 @@ function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
         requests.push({
             addSheet: { 
                 properties:{
-                    sheetId: userData.usn,
+                    sheetId: userData.usn+userData.batch,
                     title: userData.email
                 }
             },
@@ -41,7 +41,7 @@ function delete_sheet_of_achievemets(sheets, spreadsheetId, userData)
 
         requests.push({
             deleteSheet: {
-                sheetId: userData.usn
+                sheetId: userData.usn+userData.batch
             },
         })
 
