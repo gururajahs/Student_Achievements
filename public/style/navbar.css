@@ -1,0 +1,59 @@
+body {
+    background-color: #F8F9FB !important;
+    max-height: 100vh;
+}
+.forms{
+    width: 100%;
+    height: 100vh;
+}
+.navbar {
+    background-color: #fff !important;
+    color:#30398C;
+    overflow-x: hidden;
+}
+.signOut {
+    background-color: #30398C;
+    color: white !important;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 10px;
+    display: none;
+}
+.signOut:hover{
+    background-color: #fff;
+    color: #30398C !important;
+    border:2px solid #30398C ;
+}
+@media screen and (max-width:1108px) {
+    .signOut {
+      max-width: 150px;
+      margin: 0 !important;
+      background-color: transparent;
+      color: black !important;
+    }
+    .image {
+        display: none;
+    }
+}
+.image{
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    object-fit:cover;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+.navis{
+  position: relative !important;
+  left: 50% !important;
+
+}
+@media screen and (max-width:992px) {
+    .navis{
+        left: 0 !important;
+      }   
+}

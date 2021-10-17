@@ -1,0 +1,34 @@
+.usnForm {
+    max-width: 500px;
+    padding: 3rem;
+    box-shadow: 2px 2px 5px gray;
+    background-color: white;
+    /* position: absolute;
+    margin:0 !important;
+    top: 10%;
+    right:20% */
+}
+.feedForm {
+    margin: 2rem 3rem;
+    max-width: 500px;
+    padding: 3rem;
+    box-shadow: 2px 2px 5px gray;
+    background-color: white;
+}
+
+.submitBtn {
+    background-color:white;
+    border: 2px solid #30398C;
+    border-radius: 5px;
+    color: #30398C;
+}
+.submitBtn:hover{
+    background-color: #30398C;
+    color: white;
+}
+@media screen and (max-width:992px) {
+    .feedForm {
+        margin: 1rem;
+        padding: 2rem 1rem;
+    }
+}
