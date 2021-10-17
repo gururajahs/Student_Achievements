@@ -32,8 +32,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/usn", (req, res) => {
-    console.log("hereere");
-    res.render("index.ejs");
+    res.render("usn.ejs");
+});
+
+app.post("/feed", (req, res) => {
+    console.log(req.body.usn);
+    res.render("feed.ejs");
+});
+
+app.post("/feed2", (req, res) => {
+    res.render("feed.ejs");
 });
 
 app.listen(port,() => {
