@@ -4,7 +4,7 @@
     <title>
         Student Achievements
     </title>
-    <meta name="google-signin-client_id" content="272476288648-gbr69du8vvu6pi71lh1vf0prndc2jcje.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="272476288648-km8fne9ac14oek1rod26m9f9d4hrr8fo.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
@@ -14,15 +14,24 @@
     <a href="/usn">usn</a>
 
     <a href="#" onclick="signOut();">Sign out</a>
-
+    <input type="hidden" name="name" id="name" class="input-text"/>
+    <input type="hidden" name="email" id="email" class="input-text"/>
+    <input type="hidden" name="image" id="image" class="input-text"/>
     <script>
 
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            // console.log('Name: ' + profile.getName());
+            // console.log('Image URL: ' + profile.getImageUrl());
+            // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            document.getElementById("name").value = profile.getName();
+            document.getElementById("image").value = profile.getImageUrl();
+            document.getElementById("email").value = profile.getEmail();
+            console.log(document.getElementById("email"));
+            console.log(document.getElementById("name"));
+            console.log(document.getElementById("image"));
+
         }
 
         function signOut() {

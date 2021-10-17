@@ -1,6 +1,6 @@
 
-module.exports = (usn) => {
-//function get_user_data(usn) {
+module.exports = (ph_num) => {
+//function validate_ph_number(ph_num) {
         
     return new Promise((resolve, reject) => {
 

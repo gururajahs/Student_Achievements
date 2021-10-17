@@ -89,16 +89,16 @@ module.exports = (usn) => {
 
         data.department = usn.slice(5, 7);
         if(!departments.has(data.department))
-            reject("Invalid usn");
+            reject("Invalid department");
 
         data.department_id = await get_department_id(auth, folderId, data.department);
         var isPresent = await isBatchPresent(auth, data.department_id, data.batch);
         if(isPresent == false)
-            reject("Invalid usn");
+            reject("Invalid batch");
 
         data.usn = parseInt(usn.slice(7));
         if(data.usn < 1 || data.usn > 999)
-            reject("Invalid usn");
+            reject("Invalid usn no");
 
         console.log(data);
         resolve(data);
