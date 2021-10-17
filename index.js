@@ -2,8 +2,8 @@ const {google} = require('googleapis');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const add_data = require('../data_collectors/add_data');
-const get_user_data = require('../data_collectors/get_user_data');
+// const add_data = require('./data_collectors/add_data');
+// const get_user_data = require('./data_collectors/get_user_data');
 
 const port = 5200;
 const app = express();
@@ -31,6 +31,11 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
-app.listen(port, async () => {
+app.get("/usn", (req, res) => {
+    console.log("hereere");
+    res.render("index.ejs");
+});
+
+app.listen(port,() => {
     console.log(`this log is working on ${port}`);
 });
