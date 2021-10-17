@@ -25,13 +25,23 @@
         <div class="collapse navbar-collapse navis" id="navbar">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="/addAchievement_again" style="color: green; margin-right: 1rem;">Add Achivement </a>
+              <form method="post" action="/addAchievement">
+                <input type="hidden" name="name" id="name" value="<%=userData.name%>" class="input-text"/>
+                <input type="hidden" name="email" id="email" value="<%=userData.email%>" class="input-text"/>
+                <input type="hidden" name="image" id="image" value="<%=userData.image%>" class="input-text"/>
+                <input type="hidden" name="usn" id="usn" value="<%=usn%>" class="input-text"/>
+                <input type="hidden" name="phone_no" id="phone_no" value="<%=userData.phone%>" class="input-text"/>
+                <!-- <a class="nav-link" href="/addAchievement_again" style="color: green; margin-right: 1rem;">Add Achivement</a> -->
+                <button class="nav-link add-achievement" type="submit" value="Submit">
+                  Add Achivement
+                </button>
+              </form>
             </li>
             <li class="nav-item">
               <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut"  style="display: block;color:white">Sign Out</a>
             </li>
             <li class="nav-item">
-              <img src="<%=image %>" alt="" class="image mx-2"/>
+              <img src="<%=userData.image%>" alt="" class="image mx-2"/>
             </li>
           </ul>
         </div>
@@ -51,15 +61,20 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% for(var i = 0; i < 5; ++i) { %>
-                      <tr>
-                        <th scope="row" class="d-none d-md-block"><%= i+1 %></th>
-                        <td >Bleh</td>
-                        <td>Bleh</td>
-                        <td>Awesome</td>
-                        <td>State</td>
-                        <td>Yes</td>
-                      </tr> 
+                      <% var count = 1; %>
+                      <% for(let achievement in achievements) { %>
+                        <% for(var i = 0; i < achievements[achievement].length; ++i) { %>
+                          <% if(achievements[achievement][i][0] == '#N/A') { break; } %>
+                        <tr>
+                          <th scope="row" class="d-none d-md-block"><%=count%></th>
+                          <td><%=achievement%></td>
+                          <td><%=achievements[achievement][i][3]%></td>
+                          <td><%=achievements[achievement][i][4]%></td>
+                          <td><%=achievements[achievement][i][5]%></td>
+                          <td><%=achievements[achievement][i][6]%></td>
+                        </tr> 
+                          <% count += 1 %>
+                        <% } %>
                       <% } %>
                     </tbody>
                   </table>
