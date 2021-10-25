@@ -110,7 +110,7 @@ function get_achievements(sheets, spreadsheetId, userData)
                 console.log(err);
             } else {
                 console.log("got all achievements");
-                data = {};
+                var data = {};
                 for(let i = 0; i < 4; ++i)
                     data[`year${i+1}`] = result.data.valueRanges[i].values;
                 resolve(data);
