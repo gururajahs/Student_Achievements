@@ -148,7 +148,8 @@ function view_achievements(departments, batches, start_academic_year, end_academ
 }
 
 
-const departments = all_departments;
+//const departments = all_departments;
+const departments = ["IS", "CS", "AM", "AS", "EC"];
 const batches = ["batch-2018-2022"];
 
 async function main()
