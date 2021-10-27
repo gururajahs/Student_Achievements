@@ -1,9 +1,9 @@
 <form class=" feedForm row needs-validation" novalidate id="feedForm" action="/addAchievement_again" method="post">
     <h4 class="text-left">Enter the following details</h4>
      <div class="col-12 mt-3">
-        <label for="year" class="form-label">Enter The Year of Study </label>
+        <label for="year" class="form-label">Select The Year of Study </label>
         <select name="year" class="form-select" required>
-            <option value="">--Please choose an option--</option>
+            <option value="">--Select the Year of Study --</option>
             <option value="1">Year 1</option>
             <option value="2">Year 2</option>
             <option value="3">Year 3</option>
@@ -15,14 +15,14 @@
      </div>
  
      <div class="col-12 mt-3">
-        <label for="nameOfEvent" class="form-label">Enter The Event Name </label>
+        <label for="nameOfEvent" class="form-label">Select The Event Name </label>
         <select name="nameOfEvent" class="form-select" required >
-              <option value="">--Please choose an option--</option>
+              <option value="">--Select The Event Name--</option>
                <option   value="Quiz Competition">Quiz Competition</option>
                <option   value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
                <option value="IEEE Event"  >IEEE Event</option>
-               <option  value="Any Techincal Events">Any Techincal Events</option>
-               <option   value="HackerRank Challenges/Competition">HackerRank Challenges/ Competetion</option>
+               <option  value="Any Technical Events">Any Technical Events</option>
+               <option   value="HackerRank Challenges/Competition">HackerRank Challenges/ Competition</option>
                <option   value="Paper or Publications">Paper or Publications</option>
                <option  value="Other">Other</option>
         </select>
@@ -33,16 +33,16 @@
 
 
       <div class="col-12 mt-3">
-        <label for="detailsOfEvent" class="form-label">Enter Details/Location of event</label>
-        <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter Details of Event" required></textarea>
+        <label for="detailsOfEvent" class="form-label">Enter the details or location of the event</label>
+        <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter the details or location of the event" required></textarea>
      
         <div class="invalid-feedback">
-            Add the location or any othe details
+            Add the location or any other details
           </div>
       </div>
 
       <div class="col-12 mt-3">  
-        <label for="level" class="form-label">Enter the level </label>
+        <label for="level" class="form-label">Select the level </label>
         <select name="level" class="form-select" required>
             <option value="">--Please choose an option--</option>
             <option value="college" >College</option>
@@ -58,7 +58,7 @@
       </div>
 
       <div class="col-12 mt-3">
-        <label  class="form-label" name="award"> Any Awards ?</label>
+        <label  class="form-label" name="award"> Did you win any award in this event?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="award" id="yes" value="yes">
           <label class="form-check-label" for="yes">
