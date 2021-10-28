@@ -1,46 +1,8 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
 const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
+const get_file_ids = require('../functions/get_file_ids');
 
-function get_file_ids(drive, folderId, req_files)
-{
-    return new Promise((resolve, reject) =>{
-
-        req_files = new Set(req_files);
-        var file_ids = {};
-        var pageToken = null;
-
-        do{
-
-            drive.files.list({
-                q: `'${folderId}' in parents`,
-                fields: 'nextPageToken, files(name, id)',
-                pageToken: pageToken
-            }, function (err, res) {
-                if (err) {
-                    // Handle error
-                    console.error(err);
-                } else {
-                    var files = res.data.files;
-
-                    for(var file of files)
-                    {
-                        if(req_files.has(file.name))
-                            file_ids[file.name] = file.id;
-                    }
-
-                    pageToken = res.nextPageToken;
-
-                    if(pageToken == null)
-                        resolve(file_ids);
-                }
-            });
-
-        }while(pageToken != null);
-
-    });
-
-}
 
 function get_batches_having_academic_year(batches, start_academic_year, end_academic_year)
 {
