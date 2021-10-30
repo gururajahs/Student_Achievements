@@ -1,14 +1,10 @@
-const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
-const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
 
-module.exports = (auth, spreadsheetId, sheet_id) => {
+module.exports = (sheet_id) => {
 //function sort(auth, spreadsheetId, sheet_id) {
 
     return new Promise((resolve, reject) => {
 
-        const sheets = google.sheets({version: 'v4', auth});
-        let requests = [];
+        var requests = [];
 
         requests.push({
             sortRange: {
@@ -27,18 +23,7 @@ module.exports = (auth, spreadsheetId, sheet_id) => {
             },
         });
         
-        const batchUpdateRequest = {requests};
-        sheets.spreadsheets.batchUpdate({
-            spreadsheetId,
-            resource: batchUpdateRequest,
-        }, (err, response) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log("sorted");
-                resolve("sorted");
-            }
-        });
+        resolve(requests);
 
     });
 }

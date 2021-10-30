@@ -9,8 +9,8 @@ function create_spread_sheet(drive, folderId, year)
     return new Promise((resolve, reject) => {
 
         var fileMetadata = {
-            'name': `batch-${year}-${year+4}`,
-            'mimeType': 'application/vnd.google-apps.spreadsheet',
+            name: `batch-${year}-${year+4}`,
+            mimeType: 'application/vnd.google-apps.spreadsheet',
             parents: [folderId]
         };
 
@@ -21,7 +21,7 @@ function create_spread_sheet(drive, folderId, year)
             if (err) {
                 console.error(err);
             } else {
-                console.log('File Id: ', file.data.id);
+                //console.log('File Id: ', file.data.id);
                 resolve(file.data.id);
             }
         });
@@ -56,6 +56,14 @@ function get_sheet1_general_format_requests()
                 fields: "*"
             }
         }];
+
+        requests.push({             // to add student in 1000 + usn row and then sort and add meta data
+            appendDimension: {
+                sheetId: 0,
+                dimension: "ROWS",
+                length: 1000
+            }
+        })
 
         resolve(requests);
         
@@ -177,6 +185,21 @@ function create_new_batch(drive, sheets, folderId, year)
     });
 }
 
+function sleep_s(sec)
+{
+    return new Promise((resolve, reject) => {
+        console.log("waiting");
+        setTimeout(resolve, sec * 1000);
+    });
+}
+
+function print_started()
+{
+    return new Promise((resolve, reject) => {
+        console.log("started");
+        resolve("started");
+    });
+}
 
 async function main(year)
 {
@@ -199,11 +222,25 @@ async function main(year)
     var promises = [];
     for(let department of departments)
     {
+        //await create_new_batch(drive, sheets, department_ids[department], year);
         var promise = create_new_batch(drive, sheets, department_ids[department], year);
         promises.push(promise);
     }
 
-    await Promise.all(promises);
+    //promises.push(sleep(15));
+    // for(let i = 0; i < 7; ++i)
+    //     await Promise.all(promises.slice(i*promises.length/7, (i+1)*promises.length/7));
+    // await sleep_for_60s();
+    var promises1 = promises.slice(0, 7);
+    promises1.push(print_started());
+    var promises2 = promises.slice(7, promises.length);
+    promises2.push(print_started());
+    await Promise.all(promises1);
+    console.log("here1");
+    await sleep_s(15);
+    console.log("here2");
+    await Promise.all(promises2);
+    console.log("here3");
 
     console.log("Done with all Departments");
 }

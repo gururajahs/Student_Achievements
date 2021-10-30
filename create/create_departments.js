@@ -7,8 +7,8 @@ function create_department_folder(drive, folderId, department)
     return new Promise((resolve, reject) => {
 
         var fileMetadata = {
-            'name': department,
-            'mimeType': 'application/vnd.google-apps.folder',
+            name: department,
+            mimeType: 'application/vnd.google-apps.folder',
             parents: [folderId]
         };
 

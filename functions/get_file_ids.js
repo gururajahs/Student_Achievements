@@ -16,6 +16,7 @@ module.exports = (auth, folderId, req_files) => {
             drive.files.list({
                 q: `'${folderId}' in parents`,
                 fields: 'nextPageToken, files(name, id)',
+                pageSize: 1000,
                 pageToken: pageToken
             }, function (err, res) {
                 if (err) {
@@ -27,12 +28,15 @@ module.exports = (auth, folderId, req_files) => {
                     for(var file of files)
                     {
                         if(req_files.has(file.name))
+                        {
                             file_ids[file.name] = file.id;
+                            req_files.delete(file.name);
+                        }
                     }
 
                     pageToken = res.nextPageToken;
 
-                    if(pageToken == null)
+                    if(req_files.size == 0 || pageToken == null)
                         resolve(file_ids);
                 }
             });
