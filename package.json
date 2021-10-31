@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "googleapis": "^82.0.0",
     "jquery": "^3.6.0",
+    "messagebird": "^3.7.1",
     "nodemon": "^2.0.13"
   }
 }

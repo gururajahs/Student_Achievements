@@ -21,7 +21,6 @@
                 <div class="container">
                   <span class="navbar-brand mb-0 h1">Student Achievement</span>
                   <div class="d-flex flex-row ">
-                      <div class="g-signin2" id="signIn" data-onsuccess="onSignIn"  ></div>
                       <a href="/" onclick="signOut();" id="signOut" class="signOut mx-2" >Sign out</a>
                   </div>
                 </div>
@@ -35,18 +34,23 @@
                         <img class="hero-img d-none d-md-block" src="https://webcampus.bmsce.in/assets/img/img15.png"  />
                     </div>
                     <div class="col-12 col-md-6 pt-5 p-5">
-                        <%- include('usnForm') %>
-                        <% if(isValid == false ) { %>
-                            <script>
-                                alert("Invalid usn, phone number or bmsce email id");
-                                window.location.href = "/";
-                            </script>
-                        <% } %>
+                        <form class="row usnForm" action="/verifyUser" method="post" id="signInForm">
+                            <h4 class="text-left">Student Achievement</h4>
+                            <p>One stop destination to save all you Achievements</p>
+                            <input type="hidden" name="name" id="name" class="input-text"/>
+                            <input type="hidden" name="email" id="email" class="input-text"/>
+                            <input type="hidden" name="image" id="image" class="input-text"/>
+                            <button class="signInbutton" id="my-signin2" data-onsuccess="onSignIn" type="submit"></button>
+                        </form>
+                    
                     </div>
                 </div>
             </div>
         </main>
-
+        <script>
+    </script>
+        
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
         <script src="js/signin.js"></script>
         <script src="js/signout.js"></script>
         <script src="/js/validate.js"></script>

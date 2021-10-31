@@ -52,6 +52,11 @@ body {
   left: 50% !important;
 
 }
+.signInbutton{
+    border: none;
+    background: transparent;
+    margin-top: 3rem;
+}
 @media screen and (max-width:992px) {
     .navis{
         left: 0 !important;
