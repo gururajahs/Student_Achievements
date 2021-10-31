@@ -114,11 +114,11 @@ app.get("/viewAchievements",async (req, res) => {
 });
 
 app.get("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, userData: userData, batch : batch,usn: USN,departments:departments,download:false});
+    res.render("studentAchievements.ejs", {isValid: true,  image: userData.image,userData: userData, batch : batch,usn: USN,departments:departments,download:false});
 });
 
 app.post("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, userData: userData,batch : batch, usn: USN,departments:departments,download:true});
+    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData,batch : batch, usn: USN,departments:departments,download:true});
 });
 
 app.listen(port,() => {
