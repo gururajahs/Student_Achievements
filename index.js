@@ -23,9 +23,10 @@ var userData = {
     detailsOfEvent: null,
     level: null,
     award: null,
-    department_id: null,
+    department: null,
     batch: null,
-    year: null
+    year: null,
+    spreadsheetId: null
 };
 
 var USN;
