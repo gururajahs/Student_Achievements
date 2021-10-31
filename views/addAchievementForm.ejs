@@ -4,10 +4,10 @@
         <label for="year" class="form-label">Select The Year of Study </label>
         <select name="year" class="form-select" required>
             <option value="">--Select the Year of Study --</option>
-            <option value="1">Year 1</option>
-            <option value="2">Year 2</option>
-            <option value="3">Year 3</option>
-            <option value="4">Year 4</option>
+            <% 
+            for(var i =1; i <= 3; ++i) { %>
+                <option  value="<%=i%>"><%=i%></option>
+            <% }%>
         </select>
        <div class="invalid-feedback">
          Year Cannot be Empty
@@ -16,10 +16,10 @@
  
      <div class="col-12 mt-3">
         <label for="nameOfEvent" class="form-label">Select The Event Name </label>
-        <select name="nameOfEvent" class="form-select" required >
+        <select name="nameOfEvent" class="form-select" required id="nameOfEvent" >
               <option value="">--Select The Event Name--</option>
-               <option   value="Quiz Competition">Quiz Competition</option>
-               <option   value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
+               <option value="Quiz Competition">Quiz Competition</option>
+               <option  value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
                <option value="IEEE Event"  >IEEE Event</option>
                <option  value="Any Technical Events">Any Technical Events</option>
                <option   value="HackerRank Challenges/Competition">HackerRank Challenges/ Competition</option>

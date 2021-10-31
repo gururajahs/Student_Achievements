@@ -29,21 +29,32 @@
         </header>
         
         <main>
-            <div class="container-fluid  mt-5 pt-5">
+            <div class="container-fluid  mt-5 pt-3">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-12 col-md-6 pt-5 p-5 text-center d-flex align-items-center justify-content-center">
-                        <form class="usnForm" action="/addAchievement" method="post" id="signInForm">
-                            <h4 id="display_sign_in" class="text-left">Sign in with Google</h4>
-                            <h2 id="display_name"></h2> 
-                            <h3 id="display_email"></h3>
-                            <img id="display_image" src="" style="border-radius: 0.5px">
+                        <form class="usnForm d-flex flex-column align-items-center justify-content-center" action="/addAchievement" method="post" id="signInForm">
+                            
+                            <h1 id="display_sign_in" class="text-left">Sign in with Google</h1>
+
+                            <div class="d-flex flex-column align-items-center justify-content-center" id="display_signin_info">
+                                <h3 id="display_name" class="mt-2"></h3> 
+                                <h6 id="display_email" style="color: gray;"></h6>
+                                <img id="display_image" src="https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png" style="border-radius: 0.5px" id="or-option" class="mx-2 rounded-circle m-2">
+                                <button class="btn btn-primary my-3 buttonBlue " id="or-option" type="submit">Continue</button>
+                            </div>
+                         
                             <input type="hidden" name="name" id="name" class="input-text"/>
                             <input type="hidden" name="email" id="email" class="input-text"/>
-                            <input type="hidden" name="image" id="image" class="input-text"/>
-                            <button type="submit">Continue</button>
+                            <input type="hidden" name="image" id="image" class="input-text" />
+                            <div class="container-fluid mb-3 " id="display_signin_info">
+                                <div id="option-button" class="m-2">
+                                    <span class="option-text" >
+                                      Change user
+                                    </span>
+                                  </div>
+                            </div>
                             <div id="my-signin2" data-onsuccess="onSignIn"></div>
                             
-                            <!-- <button class="signInbutton" id="my-signin2" data-onsuccess="onSignIn" type="submit" ></button> -->
                         </form>
                     </div>
                 </div>

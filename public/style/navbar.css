@@ -74,3 +74,31 @@ body {
     text-decoration: underline; 
     color: green;
 }
+.buttonBlue{
+    background-color: #30398C !important;
+}
+
+#or-option{
+    display: none;
+}
+
+#option-button {
+    display: none;
+    width: 100%;
+     height: 20px; 
+     border-bottom: 1px solid gray; 
+     text-align: center
+}
+.option-text {
+    font-size: 14px; 
+    background-color: white;
+    padding: 0 10px; 
+    font-style: italic;
+}
+
+#display_image {
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    object-fit:cover;
+}

@@ -12,6 +12,7 @@
     <link href="../style/navbar.css" rel="stylesheet" media="all">
     <link href="../style/form.css" rel="stylesheet" media="all">
     <link href="../style/feed.css" rel="stylesheet" media="all">
+    
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
@@ -28,27 +29,47 @@
         </header>
         
         <main>
-            <div class="container-fluid  mt-5 pt-5">
+            <div class="container-fluid  mt-5 pt-3">
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-12 col-md-6 pt-5 p-5 text-center d-flex align-items-center justify-content-center">
-                        <form class="usnForm" action="/studentAchievements" method="post" id="signInForm">
-                            <h4 class="text-left">Sign in with Google</h4>
+                    <div class="col-12 col-md-6 pt-5 p-3 text-center d-flex align-items-center justify-content-center">
+                        <form class="usnForm d-flex flex-column align-items-center justify-content-center" action="/studentAchievements" method="get" id="signInForm">
+                            <h1 id="display_sign_in" class="text-left">Sign in with Google</h1>
+
+                            <div class="d-flex flex-column align-items-center justify-content-center" id="display_signin_info">
+                                <h3 id="display_name" class="mt-2"></h3> 
+                                <h6 id="display_email" style="color: gray;"></h6>
+                                <img id="display_image" src="https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png" style="border-radius: 0.5px" id="or-option" class="mx-2 rounded-circle m-2">
+                                <button class="btn btn-primary my-3 buttonBlue " id="or-option" type="submit">Continue</button>
+                            </div>
+                         
                             <input type="hidden" name="name" id="name" class="input-text"/>
                             <input type="hidden" name="email" id="email" class="input-text"/>
-                            <input type="hidden" name="image" id="image" class="input-text"/>
-                            <button class="signInbutton" id="my-signin2" data-onsuccess="onSignIn" type="submit" ></button>
+                            <input type="hidden" name="image" id="image" class="input-text" />
+                            <div class="container-fluid mb-3 " id="display_signin_info">
+                                <div id="option-button" class="m-2">
+                                    <span class="option-text" >
+                                      Change user
+                                    </span>
+                                  </div>
+                            </div>
+                            <div id="my-signin2" data-onsuccess="onSignIn"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </main>
-     
+    
         <!-- <script>
             window.addEventListener('load', (event) => {
             const element = document.getElementsByClassName("signInbutton");
             element.click();});
         </script> -->
-        
+        <script>
+             setTimeout(function () {
+        $('#my-signin2 div div span span:last').text("Custom Sign in Text");
+      
+    }, 3000);
+        </script>
         <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
         <script src="js/signin.js"></script>
         <script src="js/signout.js"></script>

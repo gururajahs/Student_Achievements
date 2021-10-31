@@ -6,21 +6,6 @@
                 <div class="form-group">
                   <label for="departement" class="form-label">Choose the departments<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
                     <select class="mul-select" multiple="true" name="department" required>
-                      <!-- <option value="all">All</option>
-                        <option value="CE">CE</option>
-                        <option value="ME">ME</option>
-                        <option value="EE">EE</option>
-                        <option value="EC">EC</option>
-                        <option value="IM">IM</option>
-                        <option value="CS">CS</option>
-                        <option value="TE">TE</option>
-                        <option value="IS">IS</option>
-                        <option value="EI">EI</option>
-                        <option value="ML">ML</option>
-                        <option value="BT">BT</option>
-                        <option value="CH">CH</option>
-                        <option value="AS">AS</option>
-                        <option value="AM">AM</option> -->
                         <% 
                         for(var i =0; i < departments.length; ++i) { %>
                             <option  value="<%=departments[i]%>"><%=departments[i]%></option>
@@ -64,7 +49,10 @@
                <div class="col-3">
                 <% if(download == true) {%>
                   <img src="../img/download.svg" class="mt-5 pt-1" width="30">
-                <% }%>
+                <% } else {%>
+
+                   
+                  <% }%>
                </div>
               
             

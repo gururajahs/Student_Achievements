@@ -30,6 +30,7 @@ var userData = {
 };
 
 var USN;
+var curr_year=2;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -63,7 +64,7 @@ app.post("/getUserDetails", (req, res) => {
     userData.name = req.body.name;
     userData.email = req.body.email;
     userData.image = req.body.image;
-    res.render("getUserDetails.ejs", {isValid: true,image:userData.image,name:userData.name,email:userData.image});
+    res.render("getUserDetails.ejs", {isValid: true,image:userData.image,name:userData.name,email:userData.email});
 });
 
 app.post("/addAchievement", async (req, res) => {
@@ -71,7 +72,7 @@ app.post("/addAchievement", async (req, res) => {
         userData.name = req.body.name;
         userData.email = req.body.email;
         userData.image = req.body.image;
-
+        
         if( !userData.name || !userData.image || !userData.email)
             throw new Error("Invalid Not logged in");
         // USN = req.body.usn;
@@ -83,7 +84,7 @@ app.post("/addAchievement", async (req, res) => {
         // await validate_ph_number(req.body.phone_no);
         // userData.phone = req.body.phone_no;
         // console.log(userData);
-        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name});
+        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name,current_year:userData.year});
     }catch(error){
         res.render("index.ejs", {isValid: false, error:'Login Error'})
     }
@@ -95,16 +96,16 @@ app.post("/addAchievement_again", async (req, res) => {
         userData.detailsOfEvent = req.body.detailsOfEvent;
         userData.award = req.body.award;
         userData.level = req.body.level;
-        userData.year = parseInt(req.body.year);
+        console.log("hello",userData,userData.nameOfEvent, req.body.nameOfEvent);
+        userData.year = parseInt(req.body.year);   
+        // for(let field in userData)
+        //     if(field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
+        //         throw new Error("Invalid");
+        // await add_data(userData);
         console.log(userData);
-        for(let field in userData)
-            if(field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
-                throw new Error("Invalid");
-        await add_data(userData);
-        console.log(userData);
-        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name});
+        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name,current_year:userData.year});
     }catch(error){
-        res.render("addAchievement.ejs", {isValid: false,image:userData.image,name:userData.name});
+        res.render("addAchievement.ejs", {isValid: false,image:userData.image,name:userData.name,current_year:userData.year});
     }
 });
 
@@ -114,11 +115,11 @@ app.get("/viewAchievements",async (req, res) => {
 });
 
 app.get("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, userData: userData, batch : batch,usn: USN,departments:departments,download:false});
+    res.render("studentAchievements.ejs", {isValid: true,  image: userData.image,userData: userData, batch : batch,usn: USN,departments:departments,download:false});
 });
 
 app.post("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, userData: userData,batch : batch, usn: USN,departments:departments,download:true});
+    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData,batch : batch, usn: USN,departments:departments,download:true});
 });
 
 app.listen(port,() => {
