@@ -21,7 +21,7 @@ function create_spread_sheet(drive, folderId, year)
             if (err) {
                 console.error(err);
             } else {
-                //console.log('File Id: ', file.data.id);
+                console.log('Created File Id: ', file.data.id);
                 resolve(file.data.id);
             }
         });
@@ -156,11 +156,11 @@ function isBatchPresent(auth, folderId, year)
 }
 
 
-function create_new_batch(drive, sheets, folderId, year)
+function create_new_batch(sheets, spreadsheetId)
 {
     return new Promise(async (resolve, reject) =>{
 
-        var spreadsheetId = await create_spread_sheet(drive, folderId, year)
+        // var spreadsheetId = await create_spread_sheet(drive, folderId, year) removing it from here and doing this separately and sequentially first and then doing the sheet general format using batch requests
         
         var requests = [];
         var requests1 = await get_sheet1_general_format_requests();
@@ -177,29 +177,14 @@ function create_new_batch(drive, sheets, folderId, year)
             if (err) {
                 console.log(err);
             } else {
-                console.log("created : ", folderId);
-                resolve(`created ${folderId}`);
+                console.log("made general format : ", spreadsheetId);
+                resolve(`made general format ${spreadsheetId}`);
             }
         });
 
     });
 }
 
-function sleep_s(sec)
-{
-    return new Promise((resolve, reject) => {
-        console.log("waiting");
-        setTimeout(resolve, sec * 1000);
-    });
-}
-
-function print_started()
-{
-    return new Promise((resolve, reject) => {
-        console.log("started");
-        resolve("started");
-    });
-}
 
 async function main(year)
 {
@@ -219,30 +204,23 @@ async function main(year)
         return;
     }
 
-    var promises = [];
-    for(let department of departments)
+    var spreadsheetIds = [];
+    for(let department of departments) // creating all the spreadsheets first as this has to done sequentially and slowly because of user rate limit exceeded
     {
-        //await create_new_batch(drive, sheets, department_ids[department], year);
-        var promise = create_new_batch(drive, sheets, department_ids[department], year);
-        promises.push(promise);
+        let spreadsheetId = await create_spread_sheet(drive, department_ids[department], year);
+        spreadsheetIds.push(spreadsheetId);
     }
 
-    //promises.push(sleep(15));
-    // for(let i = 0; i < 7; ++i)
-    //     await Promise.all(promises.slice(i*promises.length/7, (i+1)*promises.length/7));
-    // await sleep_for_60s();
-    var promises1 = promises.slice(0, 7);
-    promises1.push(print_started());
-    var promises2 = promises.slice(7, promises.length);
-    promises2.push(print_started());
-    await Promise.all(promises1);
-    console.log("here1");
-    await sleep_s(15);
-    console.log("here2");
-    await Promise.all(promises2);
-    console.log("here3");
+    var promises = [];
+    for(let spreadsheetId of spreadsheetIds)
+    {
+        //await create_new_batch(drive, sheets, department_ids[department], year);
+        var promise = create_new_batch(sheets, spreadsheetId);
+        promises.push(promise);
+    }
+    await Promise.all(promises);
 
     console.log("Done with all Departments");
 }
 
-main(2019);
+main(2018);
