@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { render } = require('ejs');
-const messagebird = require('messagebird')('UVU6dkpSdJc93KGMrjGjE2gVp');
 
 // const add_data = require('./data_collectors/add_data');
 // const get_user_data = require('./data_collectors/get_user_data');

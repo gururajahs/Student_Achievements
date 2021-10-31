@@ -33,12 +33,17 @@
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-12 col-md-6 pt-5 p-5 text-center d-flex align-items-center justify-content-center">
                         <form class="usnForm" action="/addAchievement" method="post" id="signInForm">
-                            <h4 class="text-left">Sign in with Google</h4>
+                            <h4 id="display_sign_in" class="text-left">Sign in with Google</h4>
+                            <h2 id="display_name"></h2> 
+                            <h3 id="display_email"></h3>
+                            <img id="display_image" src="" style="border-radius: 0.5px">
                             <input type="hidden" name="name" id="name" class="input-text"/>
                             <input type="hidden" name="email" id="email" class="input-text"/>
                             <input type="hidden" name="image" id="image" class="input-text"/>
-                   
-                            <button class="signInbutton" id="my-signin2" data-onsuccess="onSignIn" type="submit" ></button>
+                            <button type="submit">Continue</button>
+                            <div id="my-signin2" data-onsuccess="onSignIn"></div>
+                            
+                            <!-- <button class="signInbutton" id="my-signin2" data-onsuccess="onSignIn" type="submit" ></button> -->
                         </form>
                     </div>
                 </div>

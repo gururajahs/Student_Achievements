@@ -223,4 +223,4 @@ async function main(year)
     console.log("Done with all Departments");
 }
 
-main(2018);
+main(2019);

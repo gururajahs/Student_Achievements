@@ -1,12 +1,16 @@
  function onSuccess(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        document.getElementById("name").value = profile.getName();
-        document.getElementById("image").value = profile.getImageUrl();
-        document.getElementById("email").value = profile.getEmail();
-        if(document.getElementById("name").value){
-        document.getElementById("signInForm").submit();
-    }
+    var profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    document.getElementById("name").value = profile.getName();
+    document.getElementById("image").value = profile.getImageUrl();
+    document.getElementById("email").value = profile.getEmail();
+    document.getElementById("display_sign_in").innerHTML = null;
+    document.getElementById("display_name").innerHTML = profile.getName();
+    document.getElementById("display_email").innerHTML = profile.getEmail();
+    document.getElementById("display_image").src = profile.getImageUrl();
+    // if(document.getElementById("name").value){
+    //     document.getElementById("signInForm").submit();
+    // }
 }
 function onFailure(error) {
     console.log(error);
