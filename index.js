@@ -11,7 +11,7 @@ const messagebird = require('messagebird')('UVU6dkpSdJc93KGMrjGjE2gVp');
 const port = 3000;
 const app = express();
 
-var departments = ["IS", "CS", "AM", "AS", "EC"];
+var departments = ["CE", "ME", "EE", "EC", "IM", "CS", "TE", "IS", "EI", "ML", "BT", "CH", "AS", "AM"];
 var batch = ["batch-2012-2016", "batch-2013-2017", "batch-2014-2018", "batch-2015-2019", "batch-2016-2020"];
 
 var userData = {
@@ -44,65 +44,26 @@ app.use('/js',express.static(__dirname +'public/js'));
 
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs",{error:''});
 });
 
-app.post("/verifyUser", async (req, res) => {
+app.post("/student_signup", (req, res) => {
+    res.render("student_signup.ejs");
+});
+
+app.post("/student_signin", (req, res) => {
+    res.render("student_signin.ejs");
+});
+
+app.post("/teacher_signin", (req, res) => {
+    res.render("teacher_signin.ejs");
+});
+
+app.post("/getUserDetails", (req, res) => {
     userData.name = req.body.name;
     userData.email = req.body.email;
     userData.image = req.body.image;
-    try{
-        //get user_data from through get_user_data
-        //if user already exists
-            //Redirect to addAchievement
-        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name});
-    }catch(error){
-        res.render("getUserDetails.ejs", {isValid: false,image:userData.image,name:userData.name,email:userData.image})
-    }
-});
-
-app.get("/getUserDetails", (req, res) => {
     res.render("getUserDetails.ejs", {isValid: true,image:userData.image,name:userData.name,email:userData.image});
-});
-
-app.post("/verifyPhone", function (req,res) {
-var phone_no = '+917975610270';
- messagebird.verify.create( phone_no, {
-     template:"Your Verification code is %token."
- }, function(err,response){
-     if(err){
-         console.log(err);
-         res.render("verifyPhone.ejs",{
-             error:err.errors[0].description,
-             isValid: true
-         });
-     }
-     else {
-         console.log(response);
-         res.render("verifyPhone.ejs", {
-             id: response.id
-        });
-     }
- })
-});
-
-app.post("/verifyToken", function (req,res) {
-    var id = req.body.id;
-    var token = req.body.token;
-    messagebird.verify.verify(id,token,function(err,response){
-         if(err){
-             console.log(err);
-             res.render("verifyPhone.ejs",{
-                 error:err.errors[0].description,
-                 id: id
-             });
-         }
-         else {
-             console.log(response);
-             //get all the userData
-             res.render("addAchievement.ejs",{isValid: true,image:userData.image,name:userData.name});
-         }
-     })
 });
 
 app.post("/addAchievement", async (req, res) => {
