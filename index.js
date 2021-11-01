@@ -1,16 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { render } = require('ejs');
-
-// const add_data = require('./data_collectors/add_data');
-// const get_user_data = require('./data_collectors/get_user_data');
-// const validate_ph_number = require('./data_collectors/validate_ph_number');
-// const get_achievements = require('./data_collectors/get_achievements');
+const auth = require('./auth/get_auth');
+const protected_data = require('./auth/protected_Data.json');
+const add_achievement = require('./data_collectors/add_achievement');
+const get_user_data = require('./data_collectors/get_user_data');
+const validate_ph_number = require('./data_collectors/validate_ph_number');
+const get_achievements = require('./data_collectors/get_achievements');
+const add_user = require('./data_collectors/add_user');
+const get_user = require('./data_collectors/get_user');
+const get_spreadsheetId = require("./functions/get_spreadsheet_id");
+const isBatchPresent = require("./functions/isBatchPresent");
 
 const port = 3000;
 const app = express();
 
-var departments = ["CE", "ME", "EE", "EC", "IM", "CS", "TE", "IS", "EI", "ML", "BT", "CH", "AS", "AM"];
+const departments = protected_data.all_departments;
 var batch = ["batch-2012-2016", "batch-2013-2017", "batch-2014-2018", "batch-2015-2019", "batch-2016-2020"];
 
 var userData = {
@@ -25,12 +30,11 @@ var userData = {
     award: null,
     department: null,
     batch: null,
-    year: null,
-    spreadsheetId: null
+    spreadsheetId: null,
+    presentYear: null,
+    yearOfAchievement: null
 };
 
-var USN;
-var curr_year=2;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -67,59 +71,126 @@ app.post("/getUserDetails", (req, res) => {
     res.render("getUserDetails.ejs", {isValid: true,image:userData.image,name:userData.name,email:userData.email});
 });
 
-app.post("/addAchievement", async (req, res) => {
+app.post("/register", async (req, res) => {
     try{
+
+        userData.usn = req.body.usn;
+        userData.phone = req.body.phone_no;
+        data = await get_user_data(req.body.usn);
+        
+        userData.department = data.department;
+        userData.batch = data.batch;
+        userData.presentYear = data.presentYear;
+
+        await validate_ph_number(userData.phone);
+
+        var departments_set = new Set(departments)
+        if(!departments_set.has(userData.department))
+            throw new Error("Invalid department");
+
+        var isPresent = await isBatchPresent(auth, protected_data.index_table_id, userData.batch);
+        if(isPresent == false)
+            throw new Error("Invalid batch");
+
+        userData.spreadsheetId = await get_spreadsheetId(auth, userData.department, userData.batch);
+
+        var user = await get_user(auth, userData.spreadsheetId, userData.email);
+        if(user)
+            throw new Error("User Already Registered");
+
+        await add_user(userData);
+        console.log(userData);
+
+        res.render("verify.ejs", {is_achievement_updated: null});
+    }catch(error){
+        res.render("index.ejs", {isValid: false, error:'Registration Error'})
+    }
+})
+
+app.post("/login", async (req, res) => {
+
+    try{
+
         userData.name = req.body.name;
         userData.email = req.body.email;
         userData.image = req.body.image;
+        userData.usn = req.body.usn;
         
-        if( !userData.name || !userData.image || !userData.email)
-            throw new Error("Invalid Not logged in");
-        // USN = req.body.usn;
-        // data = await get_user_data(req.body.usn);
-        // userData.usn = data.usn;
-        // userData.department_id = data.department_id;
-        // userData.batch = data.batch;
-        // console.log(req.body.phone_no);
-        // await validate_ph_number(req.body.phone_no);
-        // userData.phone = req.body.phone_no;
-        // console.log(userData);
-        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name,current_year:userData.year});
+        var data = await get_user_data(userData.usn);
+        
+        userData.department = data.department;
+        userData.batch = data.batch;
+        userData.presentYear = data.presentYear;
+        
+        userData.spreadsheetId = await get_spreadsheetId(auth, userData.department, userData.batch);
+
+        var user = await get_user(auth, userData.spreadsheetId, userData.email);
+        if(!user)
+            throw new Error("User Not Registered");
+        
+        if(user.usn.localeCompare(userData.usn) != 0)
+            throw new Error("Entered Wrong USN");
+        userData.phone = user.phone;
+
+        console.log(userData);
+
+        res.render("verify.ejs", {is_achievement_updated: null});
     }catch(error){
+        console.log(error);
+        res.render("index.ejs", {isValid: false, error:'Login Error'})
+    }
+})
+
+app.post("/addAchievement", async (req, res) => {
+    try{
+
+        if(!userData.name || !userData.image || !userData.email || !userData.usn || 
+            !userData.phone || !userData.department || !userData.batch || !userData.presentYear)
+            throw new Error("Invalid Not logged in");
+        
+        var is_achievement_updated = req.body.is_achievement_updated;
+
+        res.render("addAchievement.ejs", {isValid: true, is_achievement_updated: is_achievement_updated, image:userData.image,name:userData.name,current_year:userData.presentYear});
+    }catch(error){
+        console.log(error);
         res.render("index.ejs", {isValid: false, error:'Login Error'})
     }
 });
 
-app.post("/addAchievement_again", async (req, res) => {
+app.post("/updating_achievement", async (req, res) => {
+    
     try{
+
         userData.nameOfEvent = req.body.nameOfEvent;
         userData.detailsOfEvent = req.body.detailsOfEvent;
         userData.award = req.body.award;
         userData.level = req.body.level;
-        console.log("hello",userData,userData.nameOfEvent, req.body.nameOfEvent);
-        userData.year = parseInt(req.body.year);   
-        // for(let field in userData)
-        //     if(field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
-        //         throw new Error("Invalid");
-        // await add_data(userData);
+        userData.yearOfAchievement = parseInt(req.body.year);
+
+        for(let field in userData)
+            if(field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
+                throw new Error("Invalid");
+        await add_achievement(userData);
         console.log(userData);
-        res.render("addAchievement.ejs", {isValid: true,image:userData.image,name:userData.name,current_year:userData.year});
+
+        res.render("verify.ejs", {is_achievement_updated: true});
     }catch(error){
-        res.render("addAchievement.ejs", {isValid: false,image:userData.image,name:userData.name,current_year:userData.year});
+        res.render("verify.ejs", {is_achievement_updated: false});
     }
 });
 
 app.get("/viewAchievements",async (req, res) => {
-    // const data = await get_achievements(userData);
-    // res.render("viewAchievements.ejs", {isValid: true, userData: userData, usn: USN, achievements: data});
+    const data = await get_achievements(userData);
+    console.log(data);
+    res.render("viewAchievements.ejs", {isValid: true, userData: userData, usn: userData.usn, achievements: data});
 });
 
 app.get("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true,  image: userData.image,userData: userData, batch : batch,usn: USN,departments:departments,download:false});
+    res.render("studentAchievements.ejs", {isValid: true,  image: userData.image,userData: userData, batch : batch,usn: userData.usn,departments:departments,download:false});
 });
 
 app.post("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData,batch : batch, usn: USN,departments:departments,download:true});
+    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData,batch : batch, usn: userData.usn,departments:departments,download:true});
 });
 
 app.listen(port,() => {

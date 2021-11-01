@@ -31,7 +31,7 @@ function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
     });
 }
 
-function delete_sheet_of_achievemets(sheets, spreadsheetId, userData, sheetId)
+function delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId)
 {
     return new Promise((resolve, reject) => {
 
@@ -66,10 +66,10 @@ function get_achievement_of_year_by_filter(sheets, spreadsheetId, userData) {
 
         let values = [
             [
-                `=FILTER(year1!A:G, year1!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year2!A:G, year2!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year3!A:G, year3!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year4!A:G, year4!A:A=${userData.usn})`
+                `=FILTER(year1!A:G, year1!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year2!A:G, year2!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year3!A:G, year3!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year4!A:G, year4!A:A="${userData.usn}")`
             ]
         ];
 
@@ -146,7 +146,7 @@ module.exports = (userData) => {
         const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
         await get_achievement_of_year_by_filter(sheets, spreadsheetId, userData);
         const data = await get_achievements(sheets, spreadsheetId, userData);
-        await delete_sheet_of_achievemets(sheets, spreadsheetId, userData, sheetId);
+        await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
         //console.log(data, "final data");
         resolve(data);
         

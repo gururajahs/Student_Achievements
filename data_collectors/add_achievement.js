@@ -11,7 +11,7 @@ module.exports = (userData) => {
         //const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
         var requests = [];
         var requests1 = await get_add_year_data_requests(userData);
-        var requests2 = await get_sort_sheet_requests(userData.year);
+        var requests2 = await get_sort_sheet_requests(userData.yearOfAchievement);
         requests.push(...requests1, ...requests2);
 
         const resource = {requests};
