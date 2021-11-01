@@ -46,13 +46,33 @@
             <thead>
               <tr>
                 <th scope="col" class="d-none d-md-block">Sl.No</th>
+                <th scope="col">Department</th>
                 <th scope="col">Year</th>
+                <th scope="col">Usn</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
                 <th scope="col">Event</th>
                 <th scope="col">Details/Location</th>
                 <th scope="col">Level</th>
                 <th scope="col">Award</th>
               </tr>
-            </thead>    
+            </thead>  
+            
+            <% let i = 0; for(let department in data) { %>
+              <% for(let batch in data[department]) { %>
+                <% for(let year in data[department][batch]) {%>
+                  <% if(data[department][batch][year]) { %>
+                    <% for(let achievement of data[department][batch][year]) { %>
+                      <tr>
+                        <th scope="col"><%=i%></th>
+                        <th scope="col"><%=department%></th>
+                        <th scope="col"><%=year%></th>
+                        <% for(let ele of achievement) { %>
+                          <th scope="col"><%=ele%></th>
+                        <% } %>
+                      </tr>
+            <% i++; } } } } } %>
+
           </table>
     </div>
 </main>  

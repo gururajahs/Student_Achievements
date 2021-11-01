@@ -11,12 +11,14 @@ const add_user = require('./data_collectors/add_user');
 const get_user = require('./data_collectors/get_user');
 const get_spreadsheetId = require("./functions/get_spreadsheet_id");
 const isBatchPresent = require("./functions/isBatchPresent");
+const get_batches = require("./functions/get_batches");
+const view_achievements = require('./data_viewers/view_achievements');
 
 const port = 3000;
 const app = express();
 
 const departments = protected_data.all_departments;
-var batch = ["batch-2012-2016", "batch-2013-2017", "batch-2014-2018", "batch-2015-2019", "batch-2016-2020"];
+var all_batches = null;//["batch-2019-2023", "batch-2018-2022", "batch-2017-2021", "batch-2020-2024"];
 
 var userData = {
     usn: null,
@@ -185,12 +187,35 @@ app.get("/viewAchievements",async (req, res) => {
     res.render("viewAchievements.ejs", {isValid: true, userData: userData, usn: userData.usn, achievements: data});
 });
 
-app.get("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true,  image: userData.image,userData: userData, batch : batch,usn: userData.usn,departments:departments,download:false});
+app.post("/verify_lecturer",async (req, res) => {
+    all_batches = await get_batches(auth, protected_data.index_table_id);
+    res.render("verify_lecturer.ejs");
 });
 
 app.post("/studentAchievements",async (req, res) => {
-    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData,batch : batch, usn: userData.usn,departments:departments,download:true});
+
+    var selected_departments = [];
+    if(Array.isArray(req.body.selected_departments))
+        selected_departments = req.body.selected_departments;
+    else
+        selected_departments = [req.body.selected_departments];
+    
+    var selected_batches = req.body.selected_batches;
+    if(Array.isArray(req.body.selected_batches))
+        selected_batches = req.body.selected_batches;
+    else
+        selected_batches = [req.body.selected_batches];
+
+    var start_academic_year = parseInt(req.body.from_year);
+    var end_academic_year = parseInt(req.body.to_year);
+    var data = null;
+    //console.log(selected_departments, selected_batches, start_academic_year, end_academic_year);
+
+    if(selected_departments && selected_batches && start_academic_year && end_academic_year)
+        data = await view_achievements(selected_departments, selected_batches, start_academic_year, end_academic_year);
+    //console.log(data);
+
+    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData, batches: all_batches, usn: userData.usn, departments: departments, download: true, data: data});
 });
 
 app.listen(port,() => {

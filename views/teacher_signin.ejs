@@ -32,7 +32,7 @@
             <div class="container-fluid  mt-5 pt-3">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-12 col-md-6 pt-5 p-3 text-center d-flex align-items-center justify-content-center">
-                        <form class="usnForm d-flex flex-column align-items-center justify-content-center" action="/studentAchievements" method="get" id="signInForm">
+                        <form class="usnForm d-flex flex-column align-items-center justify-content-center" action="/verify_lecturer" method="post" id="signInForm">
                             <h1 id="display_sign_in" class="text-left">Sign in with Google</h1>
 
                             <div class="d-flex flex-column align-items-center justify-content-center" id="display_signin_info">
@@ -64,12 +64,7 @@
             const element = document.getElementsByClassName("signInbutton");
             element.click();});
         </script> -->
-        <script>
-             setTimeout(function () {
-        $('#my-signin2 div div span span:last').text("Custom Sign in Text");
-      
-    }, 3000);
-        </script>
+        
         <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
         <script src="js/signin.js"></script>
         <script src="js/signout.js"></script>

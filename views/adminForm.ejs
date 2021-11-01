@@ -4,23 +4,22 @@
         <div class="row justify-content-left align-items-center h-100">
             <div class="col col-sm-6 col-lg-4 col-xl-3">
                 <div class="form-group">
-                  <label for="departement" class="form-label">Choose the departments<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
-                    <select class="mul-select" multiple="true" name="department" required>
-                        <% 
-                        for(var i =0; i < departments.length; ++i) { %>
-                            <option  value="<%=departments[i]%>"><%=departments[i]%></option>
-                        <% }%>
+                  <label for="selected_departments" class="form-label">Choose the departments<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
+                    <select class="mul-select" multiple="true" name="selected_departments" required>
+                      <option value="all">All</option>
+                      <% for(var i = 0; i < departments.length; ++i) { %>
+                          <option  value="<%=departments[i]%>"><%=departments[i]%></option>
+                      <% }%>
                     </select>
                 </div> 
               </div>
               <div class="col col-sm-6 col-lg-4 col-xl-3">
                 <div class="form-group">
-                  <label for="batch" class="form-label">Choose the batch<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
-                    <select class="mul-select" multiple="true" name="batch" required>
+                  <label for="selected_batches" class="form-label">Choose the batch<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
+                    <select class="mul-select" multiple="true" name="selected_batches" required>
                       <option value="all">All</option>
-                      <% 
-                      for(var i =0; i < batch.length; ++i) { %>
-                          <option  value="<%=batch[i]%>"><%=batch[i]%></option>
+                      <% for(var i = 0; i < batches.length; ++i) { %>
+                          <option  value="<%=batches[i]%>"><%=batches[i]%></option>
                       <% }%>
                     </select>
                 </div> 

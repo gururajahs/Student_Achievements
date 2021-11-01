@@ -159,6 +159,7 @@ module.exports = (departments, batches, start_academic_year, end_academic_year) 
 //     var data = await view_achievements(departments, batches, 2019, 2022);
 //     console.log(data);
 //     console.log(data.IS);
+//     console.log(data.IS.year1);
 //     // const sheets = google.sheets({version: 'v4', auth});
 //     // await get_batch_ids_of_department(sheets, protected_data.index_table_id, departments, batches);
 // }
