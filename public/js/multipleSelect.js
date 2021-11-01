@@ -1,6 +1,31 @@
 $(document).ready(function(){
-    $(".mul-select").select2({placeholder: "Select One of the following"});
+    $(".department-select").select2({placeholder: "Select One of the following"});
+
+    $("#select-all").click(function(){
+        if($("#select-all").is(':checked')){
+            $(".department-select > option").prop("selected", "selected");
+            $(".department-select").trigger("change");
+        } else {
+            $(".department-select > option").removeAttr("selected");
+            $(".department-select").trigger("change");
+        }
+    });
 })
+
+$(document).ready(function(){
+    $(".batch-select").select2({placeholder: "Select One of the following"});
+
+    $("#select-batch-all").click(function(){
+        if($("#select-batch-all").is(':checked')){
+            $(".batch-select > option").prop("selected", "selected");
+            $(".batch-select").trigger("change");
+        } else {
+            $(".batch-select > option").removeAttr("selected");
+            $(".batch-select").trigger("change");
+        }
+    });
+})
+
 
 $(document).on('ready', function () {
         $("#from_year").on('change', function () {
@@ -12,4 +37,5 @@ $(document).on('ready', function () {
                 $("#to_year").append("<option value="+i+">"+i+"</option>");
             }
         });
+
  });

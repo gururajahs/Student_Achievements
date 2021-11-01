@@ -18,7 +18,7 @@ const port = 3000;
 const app = express();
 
 const departments = protected_data.all_departments;
-var all_batches = null;//["batch-2019-2023", "batch-2018-2022", "batch-2017-2021", "batch-2020-2024"];
+var all_batches = {values:null};//["batch-2019-2023", "batch-2018-2022", "batch-2017-2021", "batch-2020-2024"];
 
 var userData = {
     usn: null,
@@ -70,7 +70,7 @@ app.post("/getUserDetails", (req, res) => {
     userData.name = req.body.name;
     userData.email = req.body.email;
     userData.image = req.body.image;
-    res.render("getUserDetails.ejs", {isValid: true,image:userData.image,name:userData.name,email:userData.email});
+    res.render("getUserDetails.ejs", {isValid: true,userData: userData});
 });
 
 app.post("/register", async (req, res) => {
@@ -105,7 +105,7 @@ app.post("/register", async (req, res) => {
 
         res.render("verify.ejs", {is_achievement_updated: null});
     }catch(error){
-        res.render("index.ejs", {isValid: false, error:'Registration Error'})
+        res.render("index.ejs", {isValid: false, error:error})
     }
 })
 
@@ -139,7 +139,7 @@ app.post("/login", async (req, res) => {
         res.render("verify.ejs", {is_achievement_updated: null});
     }catch(error){
         console.log(error);
-        res.render("index.ejs", {isValid: false, error:'Login Error'})
+        res.render("index.ejs", {isValid: false, error:error})
     }
 })
 
@@ -152,7 +152,7 @@ app.post("/addAchievement", async (req, res) => {
         
         var is_achievement_updated = req.body.is_achievement_updated;
 
-        res.render("addAchievement.ejs", {isValid: true, is_achievement_updated: is_achievement_updated, image:userData.image,name:userData.name,current_year:userData.presentYear});
+        res.render("addAchievement.ejs", {isValid: true, is_achievement_updated: is_achievement_updated, userData: userData});
     }catch(error){
         console.log(error);
         res.render("index.ejs", {isValid: false, error:'Login Error'})
@@ -181,14 +181,14 @@ app.post("/updating_achievement", async (req, res) => {
     }
 });
 
-app.get("/viewAchievements",async (req, res) => {
+app.post("/viewAchievements",async (req, res) => {
     const data = await get_achievements(userData);
     console.log(data);
-    res.render("viewAchievements.ejs", {isValid: true, userData: userData, usn: userData.usn, achievements: data});
+    res.render("viewAchievements.ejs", {isValid: true, userData: userData,  achievements: data});
 });
 
 app.post("/verify_lecturer",async (req, res) => {
-    all_batches = await get_batches(auth, protected_data.index_table_id);
+     all_batches.values = await get_batches(auth, protected_data.index_table_id);
     res.render("verify_lecturer.ejs");
 });
 
@@ -209,13 +209,13 @@ app.post("/studentAchievements",async (req, res) => {
     var start_academic_year = parseInt(req.body.from_year);
     var end_academic_year = parseInt(req.body.to_year);
     var data = null;
-    //console.log(selected_departments, selected_batches, start_academic_year, end_academic_year);
+    console.log(selected_departments, selected_batches, start_academic_year, end_academic_year);
 
     if(selected_departments && selected_batches && start_academic_year && end_academic_year)
         data = await view_achievements(selected_departments, selected_batches, start_academic_year, end_academic_year);
-    //console.log(data);
+    console.log(data);
 
-    res.render("studentAchievements.ejs", {isValid: true, image: userData.image, userData: userData, batches: all_batches, usn: userData.usn, departments: departments, download: true, data: data});
+    res.render("studentAchievements.ejs", { userData: userData, all_batches: all_batches.values, departments: departments, download: true, data: data});
 });
 
 app.listen(port,() => {

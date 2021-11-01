@@ -5,7 +5,7 @@
         <select name="year" class="form-select" required>
             <option value="">--Select the Year of Study --</option>
             <% 
-            for(var i = 1; i <= current_year; ++i) { %>
+            for(var i = 1; i <= userData.presentYear; ++i) { %>
                 <option  value="<%=i%>"><%=i%></option>
             <% }%>
         </select>

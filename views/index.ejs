@@ -20,9 +20,6 @@
             <nav class="navbar">
                 <div class="container">
                   <span class="navbar-brand mb-0 h1">Student Achievement</span>
-                  <div class="d-flex flex-row ">
-                      
-                  </div>
                 </div>
               </nav>
         </header>
@@ -37,7 +34,7 @@
                         <div class="row usnForm" >
                             <h4 class="text-left">Student Achievement</h4>
                             <p>One stop destination to save all you Achievements</p>
-                            <%= error %> 
+                            <div style="color:red;"><%= error %> </div>   
                             <form class="mt-2" action="/student_signup" method="post" id="signInForm" >
                                 <button class="btn btn-outline-primary btn-lg btn-block w-100" type="submit" >Student sign up</button>
                             </form>
