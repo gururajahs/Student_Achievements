@@ -102,3 +102,7 @@ body {
     height:40px;
     object-fit:cover;
 }
+
+#display_signin_info{
+    display: none;
+}
