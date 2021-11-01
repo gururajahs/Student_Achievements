@@ -121,7 +121,7 @@ function get_batch_ids_of_department(sheets, spreadsheetId, departments, batches
 }
 
 
-// function view_achievements(departments, batches, start_academic_year, end_academic_year)
+//function view_achievements(departments, batches, start_academic_year, end_academic_year)
 module.exports = (departments, batches, start_academic_year, end_academic_year) =>
 {
     return new Promise(async (resolve, reject) =>{
@@ -156,7 +156,7 @@ module.exports = (departments, batches, start_academic_year, end_academic_year) 
 
 // async function main()
 // {
-//     var data = await view_achievements(departments, batches, 2019, 2021);
+//     var data = await view_achievements(departments, batches, 2019, 2022);
 //     console.log(data);
 //     console.log(data.IS);
 //     // const sheets = google.sheets({version: 'v4', auth});
