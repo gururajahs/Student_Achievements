@@ -1,4 +1,5 @@
- function onSuccess(googleUser) {
+function onSuccess(googleUser) {
+
     var profile = googleUser.getBasicProfile();
    
     //set the value to google info
@@ -8,23 +9,25 @@
    
     //if log in is successfull
     if(profile){
-          document.getElementById("display_signin_info").style.display="block";
-          document.getElementById("option-button").style.display="block";
-          document.getElementById("or-option").style.display= "block";
-          document.getElementById("display_sign_in").innerHTML = "You are logged in as";
+      document.getElementsByClassName("display_signin_info").style.display="block";
+      // document.getElementsByClassName("option-button").style.display="block";
+      // document.getElementsByClassName("or-option").style.display= "block";
+      document.getElementsById("display_usn").style.display= "block";
+      document.getElementsById("display_sign_in").innerHTML = "You are logged in as";
     }
-  else { 
-    document.getElementById("display_signin_info").style.display="none";
-    document.getElementById("option-button").style.display="none";
-    document.getElementById("display_sign_in").innerHTML = "Sign In With Google";
-  }
-    document.getElementById("display_name").innerHTML = profile.getName();
-    document.getElementById("display_email").innerHTML = profile.getEmail();
-    document.getElementById("display_image").src = profile.getImageUrl();
+    else { 
+      document.getElementsByClassName("display_signin_info").style.display="none";
+      // document.getElementsByClassName("option-button").style.display="none";
+      // document.getElementsByClassName("or-option").style.display= "none";
+      document.getElementsById("display_sign_in").innerHTML = "Sign In With Google";
+    }
+  document.getElementsById("display_name").innerHTML = profile.getName();
+  document.getElementsById("display_email").innerHTML = profile.getEmail();
+  document.getElementsById("display_image").src = profile.getImageUrl();
 }
 
 function onFailure(error) {
-    console.log(error);
+    console.log("on login failure", error);
 }
 function renderButton() {
     gapi.signin2.render('my-signin2', {

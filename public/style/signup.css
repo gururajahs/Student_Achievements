@@ -1,0 +1,25 @@
+.display_signin_info{
+    display: none;
+}
+
+#display_image {
+    display: none;
+    border-radius:50%;
+    width:40px;
+    height:40px;
+    object-fit:cover;
+}
+
+#option-button {
+     width: 100%;
+     height: 20px; 
+     border-bottom: 1px solid gray; 
+     text-align: center
+}
+
+.option-text {
+    font-size: 14px; 
+    background-color: white;
+    padding: 0 10px; 
+    font-style: italic;
+}

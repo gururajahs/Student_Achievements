@@ -65,18 +65,23 @@
 
 
 
-const get_file_ids = require('./functions/get_file_ids');
+// const get_file_ids = require('./functions/get_file_ids');
 const auth = require('./auth/get_auth');
-const {student_achievements_folder_id, all_departments} = require('./auth/protected_data');
+const get_user = require('./data_collectors/get_user');
+const protected_data = require('./auth/protected_Data.json');
+const get_spreadsheetId = require('./functions/get_spreadsheet_id')
+// const {student_achievements_folder_id, all_departments} = require('./auth/protected_data');
 
 async function main()
 {
+    var spreadsheetId = await get_spreadsheetId(auth, "IS", "batch-2019-2023");
+    await get_user(auth, spreadsheetId, "devenparamaj1.is19@bmsce.ac.in");
     //console.log(await get_file_ids(auth, student_achievements_folder_id, all_departments));
-    var a = [];
-    var b = [1, 2];
-    var c = [3, 4];
-    a.push(...b, ...c);
-    console.log(a);
+    // var a = [];
+    // var b = [1, 2];
+    // var c = [3, 4];
+    // a.push(...b, ...c);
+    // console.log(a);
 }
 
 main()

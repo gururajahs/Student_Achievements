@@ -1,11 +1,11 @@
-<form class=" feedForm row needs-validation" novalidate id="feedForm" action="/addAchievement_again" method="post">
+<form class=" feedForm row needs-validation" novalidate id="feedForm" action="/updating_achievement" method="post">
     <h4 class="text-left">Enter the following details</h4>
      <div class="col-12 mt-3">
         <label for="year" class="form-label">Select The Year of Study </label>
         <select name="year" class="form-select" required>
             <option value="">--Select the Year of Study --</option>
             <% 
-            for(var i =1; i <= 3; ++i) { %>
+            for(var i = 1; i <= current_year; ++i) { %>
                 <option  value="<%=i%>"><%=i%></option>
             <% }%>
         </select>

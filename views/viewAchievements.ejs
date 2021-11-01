@@ -26,12 +26,6 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
               <form method="post" action="/addAchievement">
-                <input type="hidden" name="name" id="name" value="<%=userData.name%>" class="input-text"/>
-                <input type="hidden" name="email" id="email" value="<%=userData.email%>" class="input-text"/>
-                <input type="hidden" name="image" id="image" value="<%=userData.image%>" class="input-text"/>
-                <input type="hidden" name="usn" id="usn" value="<%=usn%>" class="input-text"/>
-                <input type="hidden" name="phone_no" id="phone_no" value="<%=userData.phone%>" class="input-text"/>
-                <!-- <a class="nav-link" href="/addAchievement_again" style="color: green; margin-right: 1rem;">Add Achivement</a> -->
                 <button class="nav-link add-achievement" type="submit" value="Submit">
                   Add Achivement
                 </button>
@@ -60,7 +54,7 @@
                         <th scope="col">Award</th>
                       </tr>
                     </thead>
-                    <!-- <tbody>
+                    <tbody>
                       <% var count = 1; %>
                       <% for(let achievement in achievements) { %>
                         <% for(var i = 0; i < achievements[achievement].length; ++i) { %>
@@ -76,7 +70,7 @@
                           <% count += 1 %>
                         <% } %>
                       <% } %>
-                    </tbody> -->
+                    </tbody>
                   </table>
             </div>
         </main>

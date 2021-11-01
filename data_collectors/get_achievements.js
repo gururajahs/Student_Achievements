@@ -1,6 +1,5 @@
 const {google} = require('googleapis');
 const auth = require('../auth/get_auth');
-const get_spreadsheetId = require('./get_spreadsheetId');
 
 function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
 {
@@ -11,7 +10,6 @@ function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
         requests.push({
             addSheet: { 
                 properties:{
-                    sheetId: userData.usn+userData.batch,
                     title: userData.email
                 }
             },
@@ -22,18 +20,18 @@ function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
         sheets.spreadsheets.batchUpdate({
             spreadsheetId,
             resource: batchUpdateRequest,
-        }, (err, response) => {
+        }, (err, res) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log("sheet added");
-                resolve("added Sheet to_get_achievements");
+                console.log("sheet added", res.data.replies[0].addSheet.properties.sheetId);
+                resolve(res.data.replies[0].addSheet.properties.sheetId);
             }
         });
     });
 }
 
-function delete_sheet_of_achievemets(sheets, spreadsheetId, userData)
+function delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId)
 {
     return new Promise((resolve, reject) => {
 
@@ -41,7 +39,7 @@ function delete_sheet_of_achievemets(sheets, spreadsheetId, userData)
 
         requests.push({
             deleteSheet: {
-                sheetId: userData.usn+userData.batch
+                sheetId: sheetId
             },
         })
 
@@ -68,10 +66,10 @@ function get_achievement_of_year_by_filter(sheets, spreadsheetId, userData) {
 
         let values = [
             [
-                `=FILTER(year1!A:G, year1!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year2!A:G, year2!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year3!A:G, year3!A:A=${userData.usn})`, null, null, null, null, null, null,
-                `=FILTER(year4!A:G, year4!A:A=${userData.usn})`
+                `=FILTER(year1!A:G, year1!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year2!A:G, year2!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year3!A:G, year3!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year4!A:G, year4!A:A="${userData.usn}")`
             ]
         ];
 
@@ -143,11 +141,12 @@ module.exports = (userData) => {
     return new Promise(async (resolve, reject) => {
 
         const sheets = google.sheets({version: 'v4', auth});
-        const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
-        await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
+        // const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
+        const spreadsheetId = userData.spreadsheetId;
+        const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
         await get_achievement_of_year_by_filter(sheets, spreadsheetId, userData);
         const data = await get_achievements(sheets, spreadsheetId, userData);
-        await delete_sheet_of_achievemets(sheets, spreadsheetId, userData);
+        await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
         //console.log(data, "final data");
         resolve(data);
         
@@ -156,3 +155,16 @@ module.exports = (userData) => {
 }
 
 //main()
+
+
+// async function main()
+// {
+//     var userData = {
+//         email : "deven"
+//     };
+//     const sheets = google.sheets({version: 'v4', auth});
+//     var sheetId = await add_sheet_to_get_achievements(sheets, "1eJArd7fs6JHeDeU5fyK6G06XgN2Jt8Toa-Lu67fEgWM", userData);
+//     console.log(sheetId);
+// }
+
+// main();
