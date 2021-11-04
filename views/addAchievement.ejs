@@ -17,16 +17,6 @@
 </head>
 
 <body>
-   
-  <% if(isValid == false) { %>
-    <script>
-        alert("All Fields are Mandatory!");
-    </script>
-  <% }else if(isValid == true) { %>
-    <script>
-      alert("Cool!");
-    </script>
-  <% } %>
 
   <% if(is_achievement_updated == true) { %>
     <script>
@@ -52,6 +42,7 @@
             <div class="d-flex flex-column flex-md-row ">
            
               <form method="post" action="/viewAchievements" >
+                <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>"/>
                 <button class="nav-link add-achievement"  style="color: green; margin-right: 1rem;" type="submit">View Achievements </button>
               </form>
               <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut">Sign Out</a>

@@ -1,4 +1,7 @@
 <form class=" feedForm row needs-validation" novalidate id="feedForm" action="/updating_achievement" method="post">
+
+  <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>"/>
+
     <h4 class="text-left">Enter the following details</h4>
      <div class="col-12 mt-3">
         <label for="year" class="form-label">Select The Year of Study </label>

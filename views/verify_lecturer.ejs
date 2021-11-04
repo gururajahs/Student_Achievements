@@ -35,6 +35,7 @@
                     <div class="col-12 col-md-6 pt-5 p-5 text-center d-flex align-items-center justify-content-center">
                         <span class="badge badge-success">Registration Successfull</span>
                         <form class="" action="/studentAchievements" method="post" id="register">
+                            <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>"/>
                             <input type="hidden" name="selected_departments" values="" />
                             <input type="hidden" name="selected_batches" values="" />
                             <input type="hidden" name="from_year" values="0" />

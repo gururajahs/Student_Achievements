@@ -120,6 +120,43 @@ function get_batch_ids_of_department(sheets, spreadsheetId, departments, batches
     });
 }
 
+function get_data_in_format(data, start_academic_year, end_academic_year)
+{
+    return new Promise((resolve, reject) => {
+
+        var new_data = {};
+        
+        for(let i = start_academic_year; i < end_academic_year; ++i)
+            new_data[`${i}-${i+1}`] = [];
+        
+        for(let i = start_academic_year; i < end_academic_year; ++i)
+        {
+            for(let department in data)
+            {
+                for(let batch in data[department])
+                {
+                    var arr = batch.split("-");
+                    var start_year = parseInt(arr[1]);
+                    for(let year in data[department][batch])
+                    {
+                        let year_no = parseInt(year.match(/\d$/));
+                        if(data[department][batch][year] && (start_year+year_no-1 == i))
+                        {
+                            for(let achievement of data[department][batch][year])
+                            {
+                                var temp_arr = [];
+                                temp_arr.push(...achievement, department, batch, `${year_no}`);
+                                new_data[`${i}-${i+1}`].push(temp_arr);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //console.log(new_data);
+        resolve(new_data);
+    });
+}
 
 //function view_achievements(departments, batches, start_academic_year, end_academic_year)
 module.exports = (departments, batches, start_academic_year, end_academic_year) =>
@@ -144,7 +181,9 @@ module.exports = (departments, batches, start_academic_year, end_academic_year) 
         for(let i in data_temp)
             data[departments[i]] = data_temp[i];
 
-        resolve(data);
+        //console.log(data);
+        var new_data = await get_data_in_format(data, start_academic_year, end_academic_year);
+        resolve(new_data);
 
     });
 }
@@ -156,10 +195,9 @@ module.exports = (departments, batches, start_academic_year, end_academic_year) 
 
 // async function main()
 // {
-//     var data = await view_achievements(departments, batches, 2019, 2022);
+//     var data = await view_achievements(departments, batches, 2018, 2022);
 //     console.log(data);
-//     console.log(data.IS);
-//     console.log(data.IS.year1);
+//     // console.log(data.IS);
 //     // const sheets = google.sheets({version: 'v4', auth});
 //     // await get_batch_ids_of_department(sheets, protected_data.index_table_id, departments, batches);
 // }

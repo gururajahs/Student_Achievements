@@ -1,4 +1,7 @@
 <form class="adminform" action="/studentAchievements" method="post">
+
+  <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>"/>
+
     <div class="container-fluid h-100 bg-light text-dark">
         <br>
         <div class="row justify-content-left align-items-center h-100">
@@ -46,7 +49,7 @@
                 <label for="from_year" class="form-label">From </label>
                 <select name="from_year" class="form-select" id="from_year" required>
                     <% let year = new Date().getFullYear();
-                    for(var i = 2012; i < year; ++i) { %>
+                    for(var i = 2012; i <= year; ++i) { %>
                         <option  value="<%=i%>"><%=i%></option>
                     <% }%>
                 </select>
@@ -64,14 +67,7 @@
                <div class="col-9">
                 <button class="submitBtn btn mt-3" type="submit" value="Submit">View Student Achievement</button>
                </div>
-               <div class="col-3">
-                <% if(download == true) {%>
-                  <img src="../img/download.svg" class="mt-2 pt-1" width="30">
-                <% } else {%>
-
-                   
-                  <% }%>
-               </div>
+               
               
             
              </div>
@@ -79,4 +75,17 @@
           </div>
         </div>    
     </div>
+</form>
+
+<form method="post" action="/download">
+  
+  <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>"/>
+
+  <input type="text" name="data" value="<%=JSON.stringify(data)%>" />
+  <div class="col-3">
+    <% if(download == true) {%>
+      <img src="../img/download.svg" class="mt-2 pt-1" width="30">
+    <% }%>
+   </div>
+   <button type="submit">submit</button>
 </form>

@@ -70,18 +70,53 @@ const auth = require('./auth/get_auth');
 const get_user = require('./data_collectors/get_user');
 const protected_data = require('./auth/protected_Data.json');
 const get_spreadsheetId = require('./functions/get_spreadsheet_id')
+const is_lecturer = require('./functions/is_lecturer');
 // const {student_achievements_folder_id, all_departments} = require('./auth/protected_data');
 
 async function main()
 {
-    var spreadsheetId = await get_spreadsheetId(auth, "IS", "batch-2019-2023");
-    await get_user(auth, spreadsheetId, "devenparamaj1.is19@bmsce.ac.in");
+    // var spreadsheetId = await get_spreadsheetId(auth, "IS", "batch-2019-2023");
+    // await get_user(auth, spreadsheetId, "devenparamaj1.is19@bmsce.ac.in");
+    // var is_lect = await is_lecturer("gururajhs.ise@bmsce.ac.in");
+    // console.log(is_lect);
     //console.log(await get_file_ids(auth, student_achievements_folder_id, all_departments));
     // var a = [];
     // var b = [1, 2];
     // var c = [3, 4];
     // a.push(...b, ...c);
     // console.log(a);
+    console.log(Date.now());
+    
 }
 
 main()
+
+// <thead>
+//               <tr>
+//                 <th scope="col" class="d-none d-md-block">Sl.No</th>
+//                 <th scope="col">Department</th>
+//                 <th scope="col">Year</th>
+//                 <th scope="col">Usn</th>
+//                 <th scope="col">Name</th>
+//                 <th scope="col">Email</th>
+//                 <th scope="col">Event</th>
+//                 <th scope="col">Details/Location</th>
+//                 <th scope="col">Level</th>
+//                 <th scope="col">Award</th>
+//               </tr>
+//             </thead>  
+            
+//             <% let i = 1; for(let department in data) { %>
+//               <% for(let batch in data[department]) { %>
+//                 <% for(let year in data[department][batch]) {%>
+//                   <% if(data[department][batch][year]) { %>
+//                     <% for(let achievement of data[department][batch][year]) { %>
+//                       <tr>
+//                         <th scope="col"><%=i%></th>
+//                         <th scope="col"><%=department%></th>
+//                         <th scope="col"><%=year%></th>
+//                         <% for(let ele of achievement) { %>
+//                           <th scope="col"><%=ele%></th>
+//                         <% } %>
+//                       </tr>
+//             <% i++; } } } } } %>
