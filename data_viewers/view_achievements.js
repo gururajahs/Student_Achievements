@@ -158,8 +158,7 @@ function get_data_in_format(data, start_academic_year, end_academic_year)
     });
 }
 
-//function view_achievements(departments, batches, start_academic_year, end_academic_year)
-module.exports = (departments, batches, start_academic_year, end_academic_year) =>
+function view_achievements(auth, departments, batches, start_academic_year, end_academic_year)
 {
     return new Promise(async (resolve, reject) =>{
 
@@ -188,6 +187,8 @@ module.exports = (departments, batches, start_academic_year, end_academic_year) 
     });
 }
 
+
+module.exports = view_achievements;
 
 // const departments = protected_data.all_departments;
 // //const departments = ["IS", "CS", "AM", "AS", "EC"];

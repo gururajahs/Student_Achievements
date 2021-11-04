@@ -1,6 +1,5 @@
 
-module.exports = (sheet_id) => {
-//function sort(auth, spreadsheetId, sheet_id) {
+function get_sort_sheet_requests(sheet_id) {
 
     return new Promise((resolve, reject) => {
 
@@ -27,6 +26,8 @@ module.exports = (sheet_id) => {
 
     });
 }
+
+module.exports = get_sort_sheet_requests;
 
 // async function main()
 // {

@@ -1,5 +1,4 @@
 const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
 
 function get_row_data(sheets, spreadsheetId, row_no)
 {
@@ -14,10 +13,10 @@ function get_row_data(sheets, spreadsheetId, row_no)
             if (err) {
                 console.log(err);
             } else {
-                console.log(result.data.values[0]);
+                //console.log(result.data.values[0]);
                 data.usn = result.data.values[0][0];
                 data.phone = result.data.values[0][3];
-                console.log(data);
+                //console.log(data);
                 resolve(data);
             }
         });
@@ -25,8 +24,8 @@ function get_row_data(sheets, spreadsheetId, row_no)
     });
 }
 
-//function isBatchPresent(auth, spreadsheetId, batch)
-module.exports = (auth, spreadsheetId, email) =>
+
+function get_user(auth, spreadsheetId, email)
 {
     return new Promise((resolve, reject) =>{
 
@@ -53,13 +52,21 @@ module.exports = (auth, spreadsheetId, email) =>
             if (err) {
                 console.log(err);
             } else {
+                
                 if(!result.data.matchedDeveloperMetadata)
+                {
                     resolve(undefined);
-                row_no = result.data.matchedDeveloperMetadata[0].developerMetadata.location.dimensionRange.startIndex + 1;
-                console.log(row_no);
-                resolve(await get_row_data(sheets, spreadsheetId, row_no));
+                }
+                else{
+                    row_no = result.data.matchedDeveloperMetadata[0].developerMetadata.location.dimensionRange.startIndex + 1;
+                    //console.log(row_no);
+                    resolve(await get_row_data(sheets, spreadsheetId, row_no));
+                }
             }
         });
 
     });
 }
+
+
+module.exports = get_user;

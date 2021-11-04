@@ -27,7 +27,7 @@ function get_department_sheet_id(sheets, spreadsheetId, department) {
                 console.log(err);
             } else {
                 var index = result.data.matchedDeveloperMetadata[0].developerMetadata.location.dimensionRange.startIndex + 1;
-                console.log("department sheet index", index);
+                //console.log("department sheet index", index);
                 resolve(index);
             }
         });

@@ -1,5 +1,4 @@
 const {google} = require('googleapis');
-const auth = require('../auth/get_auth');
 
 function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
 {
@@ -24,7 +23,7 @@ function add_sheet_to_get_achievements(sheets, spreadsheetId, userData)
             if (err) {
                 console.log(err);
             } else {
-                console.log("sheet added", res.data.replies[0].addSheet.properties.sheetId);
+                //console.log("sheet added", res.data.replies[0].addSheet.properties.sheetId);
                 resolve(res.data.replies[0].addSheet.properties.sheetId);
             }
         });
@@ -52,7 +51,7 @@ function delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId)
             if (err) {
                 console.log(err);
             } else {
-                console.log("deleted sheet");
+                //console.log("deleted sheet");
                 resolve("delete sheet of achievements");
             }
         });
@@ -60,7 +59,7 @@ function delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId)
 }
 
 
-function get_achievement_of_year_by_filter(sheets, spreadsheetId, userData) {
+function add_filters_to_sheet(sheets, spreadsheetId, userData) {
 
     return new Promise((resolve, reject) => {
 
@@ -88,7 +87,7 @@ function get_achievement_of_year_by_filter(sheets, spreadsheetId, userData) {
             if (err) {
                 console.log(err);
             } else {
-                console.log("year filter added");
+                //console.log("year filter added");
                 resolve("year filter added");
             }
         });
@@ -96,7 +95,7 @@ function get_achievement_of_year_by_filter(sheets, spreadsheetId, userData) {
     });
 }
 
-function get_achievements(sheets, spreadsheetId, userData)
+function get_filtered_achievements(sheets, spreadsheetId, userData)
 {
     return new Promise((resolve, reject) => {
         var ranges = [`${userData.email}!A:G`,`${userData.email}!H:N`,`${userData.email}!O:U`,`${userData.email}!V:AB`];
@@ -107,7 +106,7 @@ function get_achievements(sheets, spreadsheetId, userData)
             if (err) {
                 console.log(err);
             } else {
-                console.log("got all achievements");
+                //console.log("got all achievements");
                 var data = {};
                 for(let i = 0; i < 4; ++i)
                     data[`year${i+1}`] = result.data.valueRanges[i].values;
@@ -116,6 +115,28 @@ function get_achievements(sheets, spreadsheetId, userData)
         });
     });
 }
+
+
+function get_achievements(auth, userData) {
+    
+    return new Promise(async (resolve, reject) => {
+
+        const sheets = google.sheets({version: 'v4', auth});
+        const spreadsheetId = userData.spreadsheetId;
+        const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
+        await add_filters_to_sheet(sheets, spreadsheetId, userData);
+        const data = await get_filtered_achievements(sheets, spreadsheetId, userData);
+        await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
+        //console.log(data, "final data");
+        resolve(data);
+        
+    });
+
+}
+
+module.exports = get_achievements;
+
+
 
 // var userData = {
 //     usn: 48,
@@ -130,31 +151,6 @@ function get_achievements(sheets, spreadsheetId, userData)
 //     batch: 2018,
 //     year: 1,
 // };
-
-
-
-
-
-module.exports = (userData) => {
-//async function main() {
-    
-    return new Promise(async (resolve, reject) => {
-
-        const sheets = google.sheets({version: 'v4', auth});
-        // const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
-        const spreadsheetId = userData.spreadsheetId;
-        const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
-        await get_achievement_of_year_by_filter(sheets, spreadsheetId, userData);
-        const data = await get_achievements(sheets, spreadsheetId, userData);
-        await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
-        //console.log(data, "final data");
-        resolve(data);
-        
-    });
-
-}
-
-//main()
 
 
 // async function main()

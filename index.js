@@ -101,7 +101,7 @@ app.post("/register", async (req, res) => {
         if(user)
             throw new Error("User Already Registered");
 
-        await add_user(userData);
+        await add_user(auth, userData);
 
         res.render("verify.ejs", {is_achievement_updated: null, userData: userData});
     }catch(error){
@@ -194,7 +194,7 @@ app.post("/updating_achievement", async (req, res) => {
         for(let field in userData)
             if(field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
                 throw new Error("Invalid");
-        await add_achievement(userData);
+        await add_achievement(auth, userData);
 
         res.render("verify.ejs", {is_achievement_updated: true, userData: userData});
     }catch(error){
@@ -206,7 +206,7 @@ app.post("/updating_achievement", async (req, res) => {
 app.post("/viewAchievements",async (req, res) => {
     try{
         var userData = JSON.parse(req.body.userData);
-        const data = await get_achievements(userData);
+        const data = await get_achievements(auth, userData);
         res.render("viewAchievements.ejs", {isValid: true, userData: userData,  achievements: data});
     }catch(error)
     {
@@ -258,7 +258,7 @@ app.post("/studentAchievements",async (req, res) => {
 
         if(selected_departments && selected_batches && start_academic_year && end_academic_year)
         {
-            data = await view_achievements(selected_departments, selected_batches, start_academic_year, end_academic_year);
+            data = await view_achievements(auth, selected_departments, selected_batches, start_academic_year, end_academic_year);
             download = true;
         }
 

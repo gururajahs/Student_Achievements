@@ -1,6 +1,5 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
-// const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
 const protected_data = require('../auth/protected_Data.json');
 
 function create_department_folder(drive, folderId, department)

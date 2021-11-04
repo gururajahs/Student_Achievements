@@ -1,6 +1,4 @@
 const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
-const get_spreadsheetId = require('../functions/get_spreadsheet_id');
 const get_sort_sheet_requests = require('./get_sort_sheet_requests');
 
 
@@ -65,12 +63,10 @@ function get_add_user_data_requests(userData, row_no, sheetId)
     });
 }
 
-//function add_user(userData)
-module.exports = (userData) =>
+function add_user(auth, userData)
 {
     return new Promise(async (resolve, reject) => {
 
-        // const spreadsheetId = await get_spreadsheetId(auth, userData.department, userData.batch);
         const usn_no = userData.usn.match(/\d{3}$/);
         const row_no = 1000 + parseInt(usn_no); // 1000 because before ones shouldn't get disturbed
         const sheetId = 0;
@@ -91,13 +87,15 @@ module.exports = (userData) =>
                 console.log(err);
             } else {
                 //console.log(result.data.replies[1].createDeveloperMetadata.developerMetadata);
-                console.log("added user");
+                //console.log("added user");
                 resolve("added user");
             }
         });
     });
     
 }
+
+module.exports = add_user;
 
 // var userData = {
 //     usn: "1BM19IS120",

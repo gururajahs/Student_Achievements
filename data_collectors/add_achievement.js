@@ -1,14 +1,11 @@
 const {google} = require('googleapis');
-const auth = require('../auth/get_auth');
 const get_add_year_data_requests = require('./get_add_year_data_requests');
 const get_sort_sheet_requests = require('./get_sort_sheet_requests');
 
-module.exports = (userData) => {
-//async function main(userData) {
+function add_achievement(auth, userData) {
 
     return new Promise(async (resolve, reject) => {
 
-        //const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
         var requests = [];
         var requests1 = await get_add_year_data_requests(userData);
         var requests2 = await get_sort_sheet_requests(userData.yearOfAchievement);
@@ -24,7 +21,7 @@ module.exports = (userData) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log("added achievement");
+                //console.log("added achievement");
                 resolve("added achievement");
             }
         });
@@ -32,7 +29,7 @@ module.exports = (userData) => {
     });
 }
 
-
+module.exports = add_achievement;
 
 // var userData = {
 //     usn: "1BM19IS048",
@@ -48,4 +45,4 @@ module.exports = (userData) => {
 //     year: 1,
 // };
 
-// main(userData);
+// add_achievment(userData);

@@ -1,10 +1,5 @@
-const auth = require("../auth/get_auth");
-const protected_data = require("../auth/protected_Data.json");
-const get_spreadsheetId = require("../functions/get_spreadsheet_id");
-const isBatchPresent = require("../functions/isBatchPresent");
 
-module.exports = (usn) => {
-//function get_user_data(usn) {
+function get_user_data(usn) {
     
     return new Promise(async (resolve, reject) => {
 
@@ -22,11 +17,13 @@ module.exports = (usn) => {
         if(data.usn < 1 || data.usn > 999)
             reject("Invalid usn no");
 
-        console.log(data);
+        //console.log(data);
         resolve(data);
 
     });
 }
+
+module.exports = get_user_data;
 
 // async function main()
 // {

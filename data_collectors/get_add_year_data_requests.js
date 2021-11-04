@@ -1,5 +1,5 @@
 
-module.exports = (userData) => {
+function get_add_year_data_requests(userData) {
 
     return new Promise((resolve, reject) => {
 
@@ -40,6 +40,7 @@ module.exports = (userData) => {
     });
 }
 
+module.exports = get_add_year_data_requests;
 
 
 // async function main(userData)
