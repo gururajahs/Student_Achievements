@@ -120,3 +120,123 @@ main()
 //                         <% } %>
 //                       </tr>
 //             <% i++; } } } } } %>
+
+
+
+// var data = {
+//     '2018-2019': [],
+//     '2019-2020': [
+//       [
+//         '1BM19IS048',
+//         'Deven Prakash Paramaj',
+//         'devenparamaj.is19@bmsce.ac.in',   
+//         'IEEE Event',
+//         '24 hr hackathon, BSN Hall, Bmsce',
+//         'international',
+//         'no',
+//         'IS',
+//         'batch-2019-2023',
+//         '1'
+//       ],
+//       [
+//         '1BM19IS120',
+//         'Preethi V Hiremath',
+//         'preethiv.is19@bmsce.ac.in',
+//         'HackerRank Challenges/Competition',
+//         'Bleh',
+//         'international',
+//         'yes',
+//         'IS',
+//         'batch-2019-2023',
+//         '1'
+//       ]
+//     ],
+//     '2020-2021': [
+//       [
+//         '1BM19IS048',
+//         'Deven Prakash Paramaj',
+//         'devenparamaj.is19@bmsce.ac.in',
+//         'IEEE Event',
+//         'ADFAS',
+//         'international',
+//         'no',
+//         'IS',
+//         'batch-2019-2023',
+//         '2'
+//       ],
+//       [
+//         '1BM19IS120',
+//         'Preethi V Hiremath',
+//         'preethiv.is19@bmsce.ac.in',
+//         'Quiz Competition',
+//         'Awesome Quiz',
+//         'college',
+//         'no',
+//         'IS',
+//         'batch-2019-2023',
+//         '2'
+//       ]
+//     ],
+//     '2021-2022': [
+//       [
+//         '1BM19IS120',
+//         'Preethi V Hiremath',
+//         'preethiv.is19@bmsce.ac.in',
+//         'Other',
+//         'PhaseShift - logomania coordinator',
+//         'college',
+//         'no',
+//         'IS',
+//         'batch-2019-2023',
+//         '3'
+//       ]
+//     ]
+// };
+
+
+// const departments = protected_data.all_departments;
+// //const departments = ["IS", "CS", "AM", "AS", "EC"];
+// const batches = ["batch-2019-2023"];
+
+// async function main()
+// {
+//     var data = await view_achievements(departments, batches, 2018, 2022);
+//     console.log(data);
+//     // console.log(data.IS);
+//     // const sheets = google.sheets({version: 'v4', auth});
+//     // await get_batch_ids_of_department(sheets, protected_data.index_table_id, departments, batches);
+// }
+
+// main();
+
+
+
+
+
+
+// var userData = {
+//     usn: 48,
+//     name: "Deven Prakash Paramaj",
+//     email: "devenparamaj.is19@bmsce.ac.in",
+//     phone: "1234567890",
+//     nameOfEvent: "ab",
+//     detailsOfEvent: "cd",
+//     level: "ef",//"Level(state/national/international)",
+//     award: "fg",
+//     department_id: "1s0xIu0UaUhwwRVsOybSz4CyM514u9sA0",
+//     batch: 2018,
+//     year: 1,
+// };
+
+
+// async function main()
+// {
+//     var userData = {
+//         email : "deven"
+//     };
+//     const sheets = google.sheets({version: 'v4', auth});
+//     var sheetId = await add_sheet_to_get_achievements(sheets, "1eJArd7fs6JHeDeU5fyK6G06XgN2Jt8Toa-Lu67fEgWM", userData);
+//     console.log(sheetId);
+// }
+
+// main();

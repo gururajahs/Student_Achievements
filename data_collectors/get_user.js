@@ -20,7 +20,6 @@ function get_row_data(sheets, spreadsheetId, row_no)
                 resolve(data);
             }
         });
-
     });
 }
 
@@ -53,8 +52,7 @@ function get_user(auth, spreadsheetId, email)
                 console.log(err);
             } else {
                 
-                if(!result.data.matchedDeveloperMetadata)
-                {
+                if(!result.data.matchedDeveloperMetadata){
                     resolve(undefined);
                 }
                 else{
@@ -64,9 +62,7 @@ function get_user(auth, spreadsheetId, email)
                 }
             }
         });
-
     });
 }
-
 
 module.exports = get_user;

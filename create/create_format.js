@@ -381,12 +381,3 @@ async function main(year)
 }
 
 main(2019);
-
-// async function trial()
-// {
-//     const sheets = google.sheets({version: 'v4', auth});
-//     await isBatchPresent(sheets, protected_data.index_table_id, "batch-2019-2023");
-//     //await get_no_of_batches(sheets, protected_data.index_table_id);
-// }
-
-// trial();

@@ -1,9 +1,6 @@
 const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
 const protected_data = require("../auth/protected_Data.json");
 const get_department_ids = require("../functions/get_department_ids");
-// const {student_achievements_folder_id, all_departments} = require('../auth/protected_data');
-// const get_file_ids = require('../functions/get_file_ids');
 
 
 function get_batches_having_academic_year(batches, start_academic_year, end_academic_year)
@@ -189,18 +186,3 @@ function view_achievements(auth, departments, batches, start_academic_year, end_
 
 
 module.exports = view_achievements;
-
-// const departments = protected_data.all_departments;
-// //const departments = ["IS", "CS", "AM", "AS", "EC"];
-// const batches = ["batch-2019-2023"];
-
-// async function main()
-// {
-//     var data = await view_achievements(departments, batches, 2018, 2022);
-//     console.log(data);
-//     // console.log(data.IS);
-//     // const sheets = google.sheets({version: 'v4', auth});
-//     // await get_batch_ids_of_department(sheets, protected_data.index_table_id, departments, batches);
-// }
-
-// main();

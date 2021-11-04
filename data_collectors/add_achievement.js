@@ -30,19 +30,3 @@ function add_achievement(auth, userData) {
 }
 
 module.exports = add_achievement;
-
-// var userData = {
-//     usn: "1BM19IS048",
-//     name: "Deven Prakash Paramaj",
-//     email: "devenparamaj.is19@bmsce.ac.in",
-//     phone: "1234567890",
-//     nameOfEvent: "ab",
-//     detailsOfEvent: "cd",
-//     level: "ef",//"Level(state/national/international)",
-//     award: "fg",
-//     department_id: "15_R_ddCagj-CFmvFuji3HVvE9UivHxy7",
-//     batch: 2019,
-//     year: 1,
-// };
-
-// add_achievment(userData);

@@ -1,6 +1,5 @@
 
-module.exports = (email) => {
-//function is_lecturer(email) {
+function is_lecturer(email) {
         
     return new Promise((resolve, reject) => {
 
@@ -12,3 +11,5 @@ module.exports = (email) => {
 
     });
 }
+
+module.exports = is_lecturer;

@@ -224,90 +224,12 @@ function download_achievements(email, data)
 
         const drive = google.drive({version: 'v3', auth});
         const spreadsheetId = await create_query_spreadsheet(drive, protected_data.student_achievements_folder_id, email);
-        //const spreadsheetId = "1YNAEsKxze41xaQjooq-tbDshLTz55vg4aS1itE1ASi8";
         await add_data_to_spreadsheet(auth, spreadsheetId, data);
         await download_file(drive, spreadsheetId);
         await delete_query_spreadsheet(drive, spreadsheetId);
-        resolve("query completed");
+        resolve("dowloaded achievments");
 
     });
 }
 
 module.exports = download_achievements;
-
-// async function download_achievement(email, data)
-// {
-//     await process_query(email, data);
-// }
-
-var data = {
-    '2018-2019': [],
-    '2019-2020': [
-      [
-        '1BM19IS048',
-        'Deven Prakash Paramaj',
-        'devenparamaj.is19@bmsce.ac.in',   
-        'IEEE Event',
-        '24 hr hackathon, BSN Hall, Bmsce',
-        'international',
-        'no',
-        'IS',
-        'batch-2019-2023',
-        '1'
-      ],
-      [
-        '1BM19IS120',
-        'Preethi V Hiremath',
-        'preethiv.is19@bmsce.ac.in',
-        'HackerRank Challenges/Competition',
-        'Bleh',
-        'international',
-        'yes',
-        'IS',
-        'batch-2019-2023',
-        '1'
-      ]
-    ],
-    '2020-2021': [
-      [
-        '1BM19IS048',
-        'Deven Prakash Paramaj',
-        'devenparamaj.is19@bmsce.ac.in',
-        'IEEE Event',
-        'ADFAS',
-        'international',
-        'no',
-        'IS',
-        'batch-2019-2023',
-        '2'
-      ],
-      [
-        '1BM19IS120',
-        'Preethi V Hiremath',
-        'preethiv.is19@bmsce.ac.in',
-        'Quiz Competition',
-        'Awesome Quiz',
-        'college',
-        'no',
-        'IS',
-        'batch-2019-2023',
-        '2'
-      ]
-    ],
-    '2021-2022': [
-      [
-        '1BM19IS120',
-        'Preethi V Hiremath',
-        'preethiv.is19@bmsce.ac.in',
-        'Other',
-        'PhaseShift - logomania coordinator',
-        'college',
-        'no',
-        'IS',
-        'batch-2019-2023',
-        '3'
-      ]
-    ]
-};
-
-//download_achievement("devenparamaj.is19@bmsce.ac.in", data);

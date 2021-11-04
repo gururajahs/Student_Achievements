@@ -41,25 +41,3 @@ function get_add_year_data_requests(userData) {
 }
 
 module.exports = get_add_year_data_requests;
-
-
-// async function main(userData)
-// {
-//     const spreadsheetId = await get_spreadsheetId(auth, userData.department_id, userData.batch);
-//     await append_year_data(auth, spreadsheetId, userData);
-// }
-
-// var userData = {
-//     usn: 48,
-//     department_id: "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc",
-//     batch: 2018,
-//     name: "Deven Prakash Paramaj",
-//     email: "devenparamaj.is19@bmsce.ac.in",
-//     nameOfEvent: "ab",
-//     detailsOfEvent: "cd",
-//     level: "ef",//"Level(state/national/international)",
-//     award: "fgi",
-//     year: 2,
-// };
-
-// main(userData);

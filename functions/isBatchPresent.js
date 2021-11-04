@@ -1,8 +1,6 @@
 const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
 
-//function isBatchPresent(auth, spreadsheetId, batch)
-module.exports = (auth, spreadsheetId, batch) =>
+function isBatchPresent(auth, spreadsheetId, batch)
 {
     return new Promise((resolve, reject) =>{
 
@@ -30,12 +28,17 @@ module.exports = (auth, spreadsheetId, batch) =>
             } else {
                 //console.log(result.data.sheets[0].data[0].startRow);
                 //console.log("isBatchPresent", result.data.matchedDeveloperMetadata);
-                if(result.data.matchedDeveloperMetadata)
+                if(result.data.matchedDeveloperMetadata) {
                     resolve(true);
-                else
+                }
+                else {
                     resolve(false);
+                }
             }
         });
 
     });
 }
+
+
+module.exports = isBatchPresent;

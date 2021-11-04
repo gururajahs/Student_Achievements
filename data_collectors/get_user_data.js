@@ -14,8 +14,9 @@ function get_user_data(usn) {
         data.department = usn.slice(5, 7);
 
         data.usn = parseInt(usn.slice(7));
-        if(data.usn < 1 || data.usn > 999)
+        if(data.usn < 1 || data.usn > 999){
             reject("Invalid usn no");
+        }
 
         //console.log(data);
         resolve(data);
@@ -24,10 +25,3 @@ function get_user_data(usn) {
 }
 
 module.exports = get_user_data;
-
-// async function main()
-// {
-//     await get_user_data("1BM19IS048");
-// }
-
-// main();

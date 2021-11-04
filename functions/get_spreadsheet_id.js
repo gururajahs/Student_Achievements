@@ -1,5 +1,4 @@
 const {google} = require('googleapis');
-const auth = require("../auth/get_auth");
 const protected_data = require("../auth/protected_Data.json");
 
 function get_department_sheet_id(sheets, spreadsheetId, department) {
@@ -65,18 +64,19 @@ function get_batch_spreadsheetId(sheets, spreadsheetId, department_sheet_id, bat
                 {
                     //console.log(metadata.developerMetadata.location.dimensionRange.sheetId);
                     if(metadata.developerMetadata.location.dimensionRange.sheetId == department_sheet_id)
+                    {
                         resolve(metadata.developerMetadata.metadataValue);
+                    }
                 }
                 reject("batch not found");
             }
         });
 
     });
-
 }
 
-//function get_spreadsheet_id(auth, department, batch) {
-module.exports = (auth, department, batch) => {
+
+function get_spreadsheet_id(auth, department, batch) {
 
     return new Promise(async (resolve, reject) => {
        
@@ -88,9 +88,4 @@ module.exports = (auth, department, batch) => {
     });
 }
 
-// async function main()
-// {
-//     var spreadsheet_id = await get_spreadsheet_id(auth, "IS", "batch-2019-2023");
-//     console.log(spreadsheet_id);
-// }
-// main();
+module.exports = get_spreadsheet_id;

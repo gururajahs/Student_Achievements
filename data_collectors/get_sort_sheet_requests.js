@@ -28,11 +28,3 @@ function get_sort_sheet_requests(sheet_id) {
 }
 
 module.exports = get_sort_sheet_requests;
-
-// async function main()
-// {
-//     const spreadsheetId = await get_spreadsheetId(auth, "1HkK1ea1gAKUbSs7EexCKHOoBCfLOwKjc", 2018);
-//     await sort(auth, spreadsheetId, 1);
-// }
-
-// main();

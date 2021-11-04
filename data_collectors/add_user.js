@@ -1,7 +1,6 @@
 const {google} = require('googleapis');
 const get_sort_sheet_requests = require('./get_sort_sheet_requests');
 
-
 function get_add_user_data_requests(userData, row_no, sheetId)
 {
     return new Promise((resolve, reject) => {
@@ -96,19 +95,3 @@ function add_user(auth, userData)
 }
 
 module.exports = add_user;
-
-// var userData = {
-//     usn: "1BM19IS120",
-//     name: "Preethi V Hiremath",
-//     email: "preethiv.is19@bmsce.ac.in",
-//     phone: "1234567890",
-//     department: "IS",
-//     batch: "batch-2019-2023",
-// };
-
-// async function main()
-// {
-//     await add_user(userData);
-// }
-
-// main();

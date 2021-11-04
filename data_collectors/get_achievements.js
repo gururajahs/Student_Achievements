@@ -135,32 +135,3 @@ function get_achievements(auth, userData) {
 }
 
 module.exports = get_achievements;
-
-
-
-// var userData = {
-//     usn: 48,
-//     name: "Deven Prakash Paramaj",
-//     email: "devenparamaj.is19@bmsce.ac.in",
-//     phone: "1234567890",
-//     nameOfEvent: "ab",
-//     detailsOfEvent: "cd",
-//     level: "ef",//"Level(state/national/international)",
-//     award: "fg",
-//     department_id: "1s0xIu0UaUhwwRVsOybSz4CyM514u9sA0",
-//     batch: 2018,
-//     year: 1,
-// };
-
-
-// async function main()
-// {
-//     var userData = {
-//         email : "deven"
-//     };
-//     const sheets = google.sheets({version: 'v4', auth});
-//     var sheetId = await add_sheet_to_get_achievements(sheets, "1eJArd7fs6JHeDeU5fyK6G06XgN2Jt8Toa-Lu67fEgWM", userData);
-//     console.log(sheetId);
-// }
-
-// main();
