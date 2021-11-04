@@ -1,13 +1,11 @@
 function onSuccess(googleUser) {
 
     var profile = googleUser.getBasicProfile();
-   
-    //set the value to google info
+
     document.getElementById("name").value = profile.getName();
     document.getElementById("image").value = profile.getImageUrl();
     document.getElementById("email").value = profile.getEmail();
    
-    //if log in is successfull
     if(profile){
       console.log("profile", profile);
       document.getElementById("display_sign_in").innerHTML = "You are logged in as";

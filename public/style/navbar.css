@@ -2,7 +2,8 @@ body {
     background-color: #F8F9FB !important;
     max-height: 100vh;
 }
-.forms{
+
+.forms {
     width: 100%;
     height: 100vh;
 }
@@ -10,9 +11,10 @@ body {
 .navbar {
     padding: 1rem 5rem;
     background-color: #fff !important;
-    color:#30398C;
+    color: #30398C;
     overflow-x: hidden;
 }
+
 .signOut {
     background-color: #30398C;
     color: white !important;
@@ -21,40 +23,47 @@ body {
     text-decoration: none;
     margin-left: 10px;
 }
-.signOut:hover{
+
+.signOut:hover {
     background-color: #fff;
     color: #30398C !important;
-    border:2px solid #30398C ;
+    border: 2px solid #30398C;
 }
-@media screen and (max-width:760px) {
+
+@media screen and (max-width:752px) {
+    .navbar {
+        padding: 1rem;
+    }
     .signOut {
-      max-width: 130px;
-      margin: 0 !important;
-      background-color: transparent;
-      color: black !important;
+        max-width: 130px;
+        margin: 0 !important;
+        background-color: transparent;
+        color: black !important;
     }
     .image {
-     display: none;
+        display: none;
     }
 }
-.image{
-    border-radius:50%;
-    width:40px;
-    height:40px;
-    object-fit:cover;
+
+.image {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
 }
+
 .add-achievement {
     background-color: transparent;
     color: green;
     margin-right: 1rem;
     border: none;
-     
-}
-.add-achievement:hover {
-    text-decoration: underline; 
-    color: green;
-}
-.buttonBlue{
-    background-color: #30398C !important;
 }
 
+.add-achievement:hover {
+    text-decoration: underline;
+    color: green;
+}
+
+.buttonBlue {
+    background-color: #30398C !important;
+}
