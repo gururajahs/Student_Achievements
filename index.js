@@ -38,15 +38,15 @@ app.get("/", (req, res) => {
 });
 
 app.post("/student_signup", (req, res) => {
-    res.render("student_signup.ejs");
+    res.render("auth/student_signup.ejs");
 });
 
 app.post("/student_signin", (req, res) => {
-    res.render("student_signin.ejs");
+    res.render("auth/student_signin.ejs");
 });
 
 app.post("/admin_signin", (req, res) => {
-    res.render("admin_signin.ejs");
+    res.render("auth/admin_signin.ejs");
 });
 
 app.post("/getUserDetails", (req, res) => {
@@ -230,7 +230,7 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.image = req.body.image;
         // is_lecturer(userData.email);
         app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
-        console.log("errorr", app.locals.all_batches);
+        console.log("error", app.locals.all_batches);
         res.render("verify_lecturer.ejs", { userData: userData });
 
     } catch (error) {

@@ -11,7 +11,7 @@ body {
 .navbar {
     padding: 1rem 5rem;
     background-color: #fff !important;
-    color: #30398C;
+    color: #30398C !important;
     overflow-x: hidden;
 }
 
@@ -30,9 +30,21 @@ body {
     border: 2px solid #30398C;
 }
 
-@media screen and (max-width:752px) {
+#signout {
+    display: none;
+    background-color: #30398C;
+    color: #F8F9FB;
+}
+
+#signout:hover {
+    background-color: #fff;
+    color: #30398C !important;
+    border: 2px solid #30398C;
+}
+
+@media screen and (max-width:768px) {
     .navbar {
-        padding: 1rem;
+        padding: 1rem 2rem;
     }
     .signOut {
         max-width: 130px;

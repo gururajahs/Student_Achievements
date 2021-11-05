@@ -1,29 +1,28 @@
-<form class="row usnForm needs-validation" novalidate id="usnForm" action="/register" method="post">
-  <h4 class="text-left">Enter the following details</h4>
+<form class="row usnForm needs-validation m-1 m-md-5" novalidate id="usnForm" action="/register" method="post">
+    <h4 class="text-left">Enter the following details</h4>
 
-  <div class="col-12 mt-3">
-    <label for="usn" class="form-label">USN</label>
-    <input type="text" style="text-transform:uppercase" class="form-control" id="usn" name="usn"
-      placeholder="Enter your USN" required>
-    <div class="invalid-feedback">
-      USN cannot be empty
+    <div class="col-12 mt-3">
+        <label for="usn" class="form-label">USN</label>
+        <input type="text" style="text-transform:uppercase" class="form-control" id="usn" name="usn" placeholder="Enter your USN" required>
+        <div class="invalid-feedback">
+            USN cannot be empty
+        </div>
     </div>
-  </div>
 
-  <div class="col-12 mt-3">
-    <label for="phone_no" class="form-label">Phone Number</label>
-    <input type="tel" class="form-control" id="phone_no" name="phone_no" placeholder="Enter your phone Number" required>
-    <div class="invalid-feedback">
-      Enter a valid Phone Number
+    <div class="col-12 mt-3">
+        <label for="phone_no" class="form-label">Phone Number</label>
+        <input type="tel" style="text-transform:uppercase" class="form-control" id="phone_no" name="phone_no" placeholder="Enter your phone Number" required>
+        <div class="invalid-feedback">
+            Enter a valid Phone Number
+        </div>
     </div>
-  </div>
 
-  <input type="hidden" name="name" id="name" class="input-text" value="<%=userData.name %>">
-  <input type="hidden" name="email" id="email" class="input-text" value="<%=userData.email %>" />
-  <input type="hidden" name="image" id="image" class="input-text" value="<%=userData.image %>" />
-  <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
+    <input type="hidden" name="name" id="name" class="input-text" value="<%=userData.name %>">
+    <input type="hidden" name="email" id="email" class="input-text" value="<%=userData.email %>" />
+    <input type="hidden" name="image" id="image" class="input-text" value="<%=userData.image %>" />
+    <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
 
-  <div class="col-12">
-    <button class=" submitBtn btn  mt-5" type="submit" value="Submit">Submit</button>
-  </div>
+    <div class="col-12">
+        <button class=" submitBtn btn  mt-5" type="submit" value="Submit">Submit</button>
+    </div>
 </form>
