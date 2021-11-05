@@ -12,6 +12,7 @@ $(document).ready(function() {
     });
 })
 
+
 $(document).ready(function() {
     $(".batch-select").select2({ placeholder: "Select the batches" });
 

@@ -1,5 +1,5 @@
 .usnForm {
-    max-width: 500px;
+    max-width: 100%;
     padding: 3rem;
     box-shadow: 2px 2px 5px gray;
     background-color: white;
@@ -46,9 +46,15 @@ td {
         margin: 1rem;
         padding: 2rem 1rem;
     }
+    .margin-top {
+        margin-top: 1rem;
+    }
+    i {
+        margin-left: 1rem;
+    }
 }
 
-@media screen and (max-width:420px) {
+@media screen and (max-width:576px) {
     .usnForm {
         padding: 3rem 1rem;
     }

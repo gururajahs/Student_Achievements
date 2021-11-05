@@ -2,111 +2,99 @@
 <html>
 
 <head>
-  <title>
-    Student Achievements
-  </title>
-  <!-- Google API -->
-  <meta name="google-signin-client_id"
-    content="272476288648-km8fne9ac14oek1rod26m9f9d4hrr8fo.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <!-- CSS -->
+    <title>
+        Student Achievements
+    </title>
+    <!-- Google API -->
+    <meta name="google-signin-client_id" content="272476288648-km8fne9ac14oek1rod26m9f9d4hrr8fo.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- CSS -->
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-  <link href="../style/navbar.css" rel="stylesheet" media="all">
-  <link href="../style/form.css" rel="stylesheet" media="all">
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <link href="../style/navbar.css" rel="stylesheet" media="all">
+    <link href="../style/form.css" rel="stylesheet" media="all">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-  <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="/">Student Achievement</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1" style=" color: #30398C;">Student Achievement</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="navbarTogglerDemo03">
-          <li class="nav-item active">
-          </li>
-        </ul>
-        <div class="d-flex flex-column flex-md-row ">
-          <form method="post" action="/addAchievement">
-            <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
-            <button class="nav-link add-achievement" style="color: green; margin-right: 1rem;" type="submit">Add
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="navbarTogglerDemo03">
+                    <li class="nav-item active">
+                    </li>
+                </ul>
+                <div class="d-flex flex-column flex-md-row ">
+                    <form method="post" action="/addAchievement">
+                        <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
+                        <button class="nav-link add-achievement" style="color: green; margin-right: 1rem;" type="submit">Add
               Achievements </button>
-          </form>
+                    </form>
 
-          <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut">Sign Out</a>
+                    <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut">Sign Out</a>
+                </div>
+                <img src="<%=userData.image%>" alt="" class="image mx-2" />
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="table-responsive container mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="d-none d-lg-block">Sl.No</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Event</th>
+                        <th scope="col" class="d-none d-lg-block">Details/Location</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Award</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% var count=1; %>
+                        <% for(let achievement in achievements) { %>
+                            <% for(var i=0; i < achievements[achievement].length; ++i) { %>
+                                <% if(achievements[achievement][i][0]=='#N/A' ) { break; } %>
+                                    <tr>
+                                        <th scope="row" class="d-none d-lg-block">
+                                            <%=count%>
+                                        </th>
+                                        <td>
+                                            <%=achievement%>
+                                        </td>
+                                        <td class="d-none d-lg-block">
+                                            <%=achievements[achievement][i][3]%>
+                                        </td>
+                                        <td>
+                                            <%=achievements[achievement][i][4]%>
+                                        </td>
+                                        <td>
+                                            <%=achievements[achievement][i][5]%>
+                                        </td>
+                                        <td>
+                                            <%=achievements[achievement][i][6]%>
+                                        </td>
+                                    </tr>
+                                    <% count +=1 %>
+                                        <% } %>
+                                            <% } %>
+                </tbody>
+            </table>
         </div>
-        <img src="<%=userData.image%>" alt="" class="image mx-2" />
-      </div>
-    </nav>
-  </header>
-  <main>
-    <div class="table-responsive container mt-5">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" class="d-none d-md-block">Sl.No</th>
-            <th scope="col">Year</th>
-            <th scope="col">Event</th>
-            <th scope="col">Details/Location</th>
-            <th scope="col">Level</th>
-            <th scope="col">Award</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% var count=1; %>
-            <% for(let achievement in achievements) { %>
-              <% for(var i=0; i < achievements[achievement].length; ++i) { %>
-                <% if(achievements[achievement][i][0]=='#N/A' ) { break; } %>
-                  <tr>
-                    <th scope="row" class="d-none d-md-block">
-                      <%=count%>
-                    </th>
-                    <td>
-                      <%=achievement%>
-                    </td>
-                    <td>
-                      <%=achievements[achievement][i][3]%>
-                    </td>
-                    <td>
-                      <%=achievements[achievement][i][4]%>
-                    </td>
-                    <td>
-                      <%=achievements[achievement][i][5]%>
-                    </td>
-                    <td>
-                      <%=achievements[achievement][i][6]%>
-                    </td>
-                  </tr>
-                  <% count +=1 %>
-                    <% } %>
-                      <% } %>
-        </tbody>
-      </table>
-    </div>
-  </main>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
-  <script src="js/signin.js"></script>
-  <script src="js/signout.js"></script>
-  <script src="/js/validate.js"></script>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="js/signin.js"></script>
+    <script src="js/signout.js"></script>
+    <script src="/js/validate.js"></script>
 </body>
 
 </html>

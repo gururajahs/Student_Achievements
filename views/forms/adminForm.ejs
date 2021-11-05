@@ -1,16 +1,16 @@
-<div class="container-fluid">
-    <div class="row p-0">
-        <div class="col-12 col-md-11 p-0 m-0">
-            <form class="adminform" action="/studentAchievements" method="post">
+<div class="container-fluid mt-1">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-11">
+            <form class="container container-fluid bg-light text-dark m-0 adminform" action="/studentAchievements" method="post">
                 <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
-
-                <div class="container-fluid h-100 bg-light text-dark">
-                    <br>
-                    <div class="row justify-content-left align-items-center h-100">
-                        <div class="col-12 col-xs-6 col-sm-6 col-md-3">
-                            <div class="row">
-                                <div class="form-group">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="row">
+                            <div class="form-group container-fluid">
+                                <div class="row">
                                     <label for="selected_departments" class="form-label">Choose the departments<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
+                                </div>
+                                <div class="row">
                                     <select class="department-select mul-select" multiple="true" name="selected_departments" id="mul-select" required>
                                     <% for(var i = 0; i < departments.length; ++i) { %>
                                         <option  value="<%=departments[i]%>"><%=departments[i]%></option>
@@ -18,77 +18,76 @@
                                 </select>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-success active btn-sm">
-                                  <input type="checkbox" id="select-all"> Select All
-                                </label>
+                        <div class="row">
+                            <div class="btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-success active btn-sm">
+                              <input type="checkbox" id="select-all"> Select All
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="row">
+                            <div class="form-group container-fluid">
+                                <div class="row">
+                                    <label for="selected_batches" class="form-label">Choose the batch<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
+                                </div>
+                                <div class="row">
+                                    <select class="batch-select mul-select" multiple="true" name="selected_batches" required>
+                                        <% for(let batch of all_batches) { %>
+                                            <option  value="<%=batch%>"><%=batch%></option>
+                                        <% }%>
+                                      </select>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-12 col-xs-6 col-sm-6 col-md-3">
-                            <div class="form-group">
-                                <label for="selected_batches" class="form-label">Choose the batch<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
-                                <select class="batch-select mul-select" multiple="true" name="selected_batches" required>
-                              <% for(let batch of all_batches) { %>
-                                  <option  value="<%=batch%>"><%=batch%></option>
-                              <% }%>
-                            </select>
-                            </div>
+                        <div class="row">
                             <div class="btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-success btn-sm">
-                            <input type="checkbox" id="select-batch-all"> Select All
-                          </label>
+                        <input type="checkbox" id="select-batch-all"> Select All
+                      </label>
                             </div>
                         </div>
-
-                        <div class="col-12 col-xs-4 col-sm-2 col-md-2 margin-top">
-                            <div class="row p-0 m-0">
-                                <div class="col-6 col-xs-3 col-md-6">
-                                    <div class="form-group">
-                                        <label for="from_year" class="form-label">From <span style="font-style:italic; font-size:10px;color:gray;"><br/>(Academic Year)</span></label>
-                                        <select name="from_year" class="form-select" id="from_year" required>
-                                      <% let year = new Date().getFullYear();
-                                      for(var i = 2012; i <= year; ++i) { %>
-                                          <option  value="<%=i%>"><%=i%></option>
-                                      <% }%>
-                                    </select>
-                                    </div>
-                                </div>
-                                <div class="col col-xs-3 col-md-6">
-                                    <div class="form-group">
-                                        <label for="to_year" class="form-label">To <span style="font-style:italic; font-size:10px;color:gray;"><br/>(Academic Year)</span> </label>
-                                        <select name="to_year" class="form-select" id="to_year" required>
-                                  <option  value="">--Select From year--</option>
+                    </div>
+                    <div class="container-fluid col-12 col-md-6 col-lg-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="from_year" class="form-label">From <span style="font-style:italic; font-size:10px;color:gray;"><br/>(Academic Year)</span></label>
+                                    <select name="from_year" class="form-select" id="from_year" required>
+                                  <% let year = new Date().getFullYear();
+                                  for(var i = 2012; i <= year; ++i) { %>
+                                      <option  value="<%=i%>"><%=i%></option>
+                                  <% }%>
                                 </select>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-12 col-xs-6 col-md-3 ">
-                            <div class="row">
-                                <div class="col-9">
-                                    <button class="submitBtn btn mt-2" type="submit" value="Submit">View Student Achievement</button>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="to_year" class="form-label">To <span style="font-style:italic; font-size:10px;color:gray;"><br/>(Academic Year)</span> </label>
+                                    <select name="to_year" class="form-select" id="to_year" required>
+                              <option  value="">--Select From year--</option>
+                            </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-md-6 col-lg-3 mt-1">
+                        <button class="submitBtn btn mt-1 mt-md-5 " type="submit" value="Submit">View Student Achievement</button>
+                    </div>
                 </div>
             </form>
         </div>
-
-        <div class="col-12 col-md-1 mt-5 pt-2">
-            <br>
+        <div class="col-12 col-md-1 align-items-center ">
             <form method="post" action="/download" id="download">
                 <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
                 <input type="hidden" name="data" value="<%=JSON.stringify(data)%>" />
                 <div class="form-group">
                     <div onclick="submitForm();">
                         <% if(download == true) {%>
-                            <i class="fa fa-download" style="color: green;font-size:40px;"></i>
+                            <i class="fa fa-download" style="color: green;font-size:40px;float: left;"></i>
                             <% }%>
                     </div>
                 </div>
@@ -96,7 +95,6 @@
         </div>
     </div>
 </div>
-
 <script>
     function submitForm() {
         document.getElementById("download").submit();
