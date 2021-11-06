@@ -33,7 +33,7 @@ body {
 #signout {
     display: none;
     background-color: #30398C;
-    color: #F8F9FB;
+    color: #F8F9FB !important;
 }
 
 #signout:hover {
@@ -51,6 +51,11 @@ body {
         margin: 0 !important;
         background-color: transparent;
         color: black !important;
+    }
+    .signOut:hover {
+        background-color: #fff;
+        color: #30398C !important;
+        border: none;
     }
     .image {
         display: none;
