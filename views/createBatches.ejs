@@ -36,9 +36,9 @@
                     </li>
                 </ul>
                 <div class="d-flex flex-column flex-md-row ">
-                    <form method="post" action="/createBatches">
+                    <form method="post" action="/studentAchievements">
                         <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
-                        <button class="nav-link add-achievement" style="color: green; margin-right: 1rem;" type="submit">Create Batches
+                        <button class="nav-link add-achievement" style="color: green; margin-right: 1rem;" type="submit">View Achievements
               </button>
                     </form>
 
@@ -50,40 +50,32 @@
     </header>
 
     <main>
-        <%- include('./forms/adminForm') %>
+        <%- include('./forms/createBatchesForm') %>
             <div class="container-fluid  justify-content-left table-responsive  mt-5 d-none d-md-block">
-                <table class="table">
-
+                <table class="table" style="max-width: 500px;">
                     <thead>
                         <tr>
-                            <th scope="col" class="d-none d-md-block">Sl.No</th>
-                            <th scope="col">Usn</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Event</th>
-                            <th scope="col">Details/Location</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Award</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Batch</th>
-                            <th scope="col">Year</th>
+                            <th scope="col" class="">Sl.No</th>
+                            <th scope="col">Batches</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <% let i=1;
+                        for(let batch in all_batches) { %>
 
-                    <% let i=1; for(let batch in data) { %>
-                        <% for(let achievement of data[batch]) { %>
                             <tr>
-                                <th scope="col">
+                                <td>
                                     <%=i%>
-                                </th>
-                                <% for(let ele of achievement) { %>
-                                    <th scope="col">
-                                        <%=ele%>
-                                    </th>
-                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= all_batches[batch] %>
+                                </td>
                             </tr>
-                            <% i++; } } %>
 
+                            <% i++;}%>
+
+
+                    </tbody>
                 </table>
             </div>
     </main>

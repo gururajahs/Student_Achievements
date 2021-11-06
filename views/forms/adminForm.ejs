@@ -36,8 +36,8 @@
                                 </div>
                                 <div class="row">
                                     <select class="batch-select mul-select" multiple="true" name="selected_batches" required>
-                                        <% for(let batch of all_batches) { %>
-                                            <option  value="<%=batch%>"><%=batch%></option>
+                                        <% for(let batch in all_batches) { %>
+                                            <option  value="<%=all_batches[batch]%>"><%=all_batches[batch]%></option>
                                         <% }%>
                                       </select>
                                 </div>

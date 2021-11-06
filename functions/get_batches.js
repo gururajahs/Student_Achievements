@@ -1,10 +1,10 @@
-const {google} = require('googleapis');
+const { google } = require('googleapis');
 
 function get_batches(auth, spreadsheetId) {
-    
+
     return new Promise((resolve, reject) => {
-        
-        const sheets = google.sheets({version: 'v4', auth});
+
+        const sheets = google.sheets({ version: 'v4', auth });
         var all_batches = [];
 
         const range = `IS!A:B`;
@@ -17,11 +17,15 @@ function get_batches(auth, spreadsheetId) {
             } else {
                 // console.log(result.data.values);
                 var files = result.data.values;
-                for(let file of files)
-                {
-                    all_batches.push(file[0]);
+                if (!files) {
+                    resolve(null);
+                } else {
+                    for (let file of files) {
+                        all_batches.push(file[0]);
+                    }
+                    resolve(all_batches);
                 }
-                resolve(all_batches);
+
             }
         });
     });

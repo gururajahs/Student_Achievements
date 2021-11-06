@@ -13,8 +13,10 @@ const isBatchPresent = require("./functions/isBatchPresent");
 const get_batches = require("./functions/get_batches");
 const view_achievements = require('./data_viewers/view_achievements');
 const write_to_excel = require('./data_viewers/write_to_excel');
+const create_batch = require('./create/create_batch');
 const is_lecturer = require('./functions/is_lecturer');
 const fs = require('fs');
+const { render } = require('ejs');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -292,6 +294,28 @@ app.post('/download', async(req, res) => {
 
 });
 
+app.post('/createBatches', creating_batch, (req, res) => {
+    var userData = JSON.parse(req.body.userData);
+    res.render('createBatches.ejs', { userData: userData, all_batches: app.locals.all_batches });
+})
+
+async function creating_batch(req, res, next) {
+    console.log("batch year", req.body.batch_year);
+    if (req.body.batch_year && req.body.batch_year.localeCompare("NaN") != 0) {
+        try {
+            var batch_year = parseInt(req.body.batch_year);
+            await create_batch(batch_year);
+            app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
+            console.log("createBatches : all batches", app.locals.all_batches);
+            next();
+        } catch (error) {
+            console.log("CONTACT THE DEVELOPER");
+        }
+
+    } else {
+        next();
+    }
+}
 
 app.listen(port, () => {
     console.log(`this log is working on ${port}`);
