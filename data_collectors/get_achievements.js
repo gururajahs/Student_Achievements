@@ -65,14 +65,14 @@ function add_filters_to_sheet(sheets, spreadsheetId, userData) {
 
         let values = [
             [
-                `=FILTER(year1!A:G, year1!A:A="${userData.usn}")`, null, null, null, null, null, null,
-                `=FILTER(year2!A:G, year2!A:A="${userData.usn}")`, null, null, null, null, null, null,
-                `=FILTER(year3!A:G, year3!A:A="${userData.usn}")`, null, null, null, null, null, null,
+                `=FILTER(year1!A:G, year1!A:A="${userData.usn}")`, null, null, null, null, null, null, null,
+                `=FILTER(year2!A:G, year2!A:A="${userData.usn}")`, null, null, null, null, null, null, null, 
+                `=FILTER(year3!A:G, year3!A:A="${userData.usn}")`, null, null, null, null, null, null, null,
                 `=FILTER(year4!A:G, year4!A:A="${userData.usn}")`
             ]
         ];
 
-        var range = `${userData.email}!A:G`;
+        var range = `${userData.email}!A:H`;
         const resource = {
             values,
         };
@@ -98,7 +98,7 @@ function add_filters_to_sheet(sheets, spreadsheetId, userData) {
 function get_filtered_achievements(sheets, spreadsheetId, userData)
 {
     return new Promise((resolve, reject) => {
-        var ranges = [`${userData.email}!A:G`,`${userData.email}!H:N`,`${userData.email}!O:U`,`${userData.email}!V:AB`];
+        var ranges = [`${userData.email}!A:H`,`${userData.email}!I:O`,`${userData.email}!P:V`,`${userData.email}!W:AC`];
         sheets.spreadsheets.values.batchGet({
             spreadsheetId,
             ranges,
@@ -117,18 +117,61 @@ function get_filtered_achievements(sheets, spreadsheetId, userData)
 }
 
 
+// function get_achievements(auth, userData) {
+    
+//     return new Promise(async (resolve, reject) => {
+
+//         const sheets = google.sheets({version: 'v4', auth});
+//         const spreadsheetId = userData.spreadsheetId;
+//         const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
+//         await add_filters_to_sheet(sheets, spreadsheetId, userData);
+//         const data = await get_filtered_achievements(sheets, spreadsheetId, userData);
+//         await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
+//         //console.log(data, "final data");
+//         resolve(data);
+        
+//     });
+
+// }
+
 function get_achievements(auth, userData) {
     
     return new Promise(async (resolve, reject) => {
 
         const sheets = google.sheets({version: 'v4', auth});
         const spreadsheetId = userData.spreadsheetId;
-        const sheetId = await add_sheet_to_get_achievements(sheets, spreadsheetId, userData);
-        await add_filters_to_sheet(sheets, spreadsheetId, userData);
-        const data = await get_filtered_achievements(sheets, spreadsheetId, userData);
-        await delete_sheet_of_achievemets(sheets, spreadsheetId, sheetId);
-        //console.log(data, "final data");
-        resolve(data);
+
+        var ranges = [];
+        for(let i = 1; i <= 4; ++i) {
+            ranges.push(`year${i}!A2:H`);
+        }
+
+        sheets.spreadsheets.values.batchGet({
+            spreadsheetId,
+            ranges,
+        }, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                //console.log("got all achievements");
+                var data = {};
+                for(let i = 0; i < 4; ++i) {
+                    var values = [];
+
+                    var rows = result.data.valueRanges[i].values;
+                    if(rows){
+                        for(let row of rows) {
+                            if(row[2].localeCompare(userData.email) == 0) {
+                                values.push(row);
+                            }
+                        }
+                    }
+
+                    data[`year${i+1}`] = values;
+                }
+                resolve(data);
+            }
+        });
         
     });
 

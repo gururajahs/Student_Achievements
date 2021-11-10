@@ -12,6 +12,7 @@ function write_to_sheet(sheet, rows)
             "Details or Location of Event",
             "Level",
             "Award",
+            "Certificate",
             "Department",
             "Batch",
             "Year Of Achievement"

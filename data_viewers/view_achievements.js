@@ -28,7 +28,7 @@ function get_batch_data(sheets, batch_id, years)
         var spreadsheetId = batch_id;
         var ranges = [];
         for(let year of years)
-            ranges.push(`${year}!A2:G`);
+            ranges.push(`${year}!A2:H`);
 
         sheets.spreadsheets.values.batchGet({
             spreadsheetId,

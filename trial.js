@@ -71,6 +71,7 @@ const get_user = require('./data_collectors/get_user');
 const protected_data = require('./auth/protected_Data.json');
 const get_spreadsheetId = require('./functions/get_spreadsheet_id')
 const is_lecturer = require('./functions/is_lecturer');
+const upload_certificate = require('./functions/get_upload_certificate_promise');
 // const {student_achievements_folder_id, all_departments} = require('./auth/protected_data');
 
 async function main()
@@ -85,8 +86,10 @@ async function main()
     // var c = [3, 4];
     // a.push(...b, ...c);
     // console.log(a);
-    console.log(Date.now());
+    //console.log(Date.now());
     
+    await upload_certificate(auth, "E:/Engineering college/documents/Deven Prakash Paramaj-ID Card.pdf", "dev1");
+
 }
 
 main()

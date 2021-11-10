@@ -16,7 +16,10 @@ const write_to_excel = require('./data_viewers/write_to_excel');
 const create_batch = require('./create/create_batch');
 const is_lecturer = require('./functions/is_lecturer');
 const fs = require('fs');
-const { render } = require('ejs');
+const fileUpload = require('express-fileupload');
+const add_file_to_temp = require('./functions/add_file_to_temp');
+const upload_certificate = require('./functions/upload_certificate');
+
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -63,6 +66,7 @@ app.post("/getUserDetails", (req, res) => {
         detailsOfEvent: null,
         level: null,
         award: null,
+        certificate: null,
         department: null,
         batch: null,
         spreadsheetId: null,
@@ -127,6 +131,7 @@ app.post("/login", async(req, res) => {
             detailsOfEvent: null,
             level: null,
             award: null,
+            certificate: null,
             department: null,
             batch: null,
             spreadsheetId: null,
@@ -183,6 +188,10 @@ app.post("/addAchievement", async(req, res) => {
     }
 });
 
+
+app.use(fileUpload())
+
+
 app.post("/updating_achievement", async(req, res) => {
 
     try {
@@ -194,10 +203,25 @@ app.post("/updating_achievement", async(req, res) => {
         userData.level = req.body.level;
         userData.yearOfAchievement = parseInt(req.body.year);
 
+        userData.certificate = "None";
+        if(req.files && req.files.certificate) {
+            var file = req.files.certificate;
+            var filename = `${Date.now()}.pdf`;
+            var filepath = await add_file_to_temp(file, filename);
+            userData.certificate = await upload_certificate(auth, filepath, userData.email);
+            fs.unlink(filepath, (err) => {
+                //console.log("file deleted");
+            });
+        } else {
+            console.log("no certificate");
+        }
+
         for (let field in userData)
             if (field != 'year1' && field != 'year2' && field != 'year3' && field != 'year4' && !userData[field])
                 throw new Error("Invalid");
+
         await add_achievement(auth, userData);
+        userData.certificate = "None"; // so that the same certificate doesn't get attached for the next achievement for which they didn't add certificate
 
         res.render("verify.ejs", { is_achievement_updated: true, userData: userData });
     } catch (error) {
@@ -232,7 +256,7 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.image = req.body.image;
         // is_lecturer(userData.email);
         app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
-        console.log("error", app.locals.all_batches);
+        // console.log("error", app.locals.all_batches);
         res.render("verify_lecturer.ejs", { userData: userData });
 
     } catch (error) {

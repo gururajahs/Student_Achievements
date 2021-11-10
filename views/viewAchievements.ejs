@@ -59,9 +59,11 @@
                 </thead>
                 <tbody>
                     <% var count=1; %>
-                        <% for(let achievement in achievements) { %>
-                            <% for(var i=0; i < achievements[achievement].length; ++i) { %>
-                                <% if(achievements[achievement][i][0]=='#N/A' ) { break; } %>
+                        <% for(let achievement in achievements) {
+
+                            if(!achievements[achievement]) { continue; } 
+
+                            for(var i=0; i < achievements[achievement].length; ++i) { %>
                                     <tr>
                                         <th scope="row" class="d-none d-lg-block">
                                             <%=count%>

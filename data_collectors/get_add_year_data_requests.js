@@ -9,8 +9,9 @@ function get_add_year_data_requests(userData) {
             userData.email,
             userData.nameOfEvent,
             userData.detailsOfEvent,
-            userData.level,//"Level(state/national/international)",
-            userData.award//"Award/Price"
+            userData.level, // "Level(state/national/international)",
+            userData.award, // "Award/Price"
+            userData.certificate
         ];
         var values = [];
 

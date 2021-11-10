@@ -98,7 +98,8 @@ function get_year_sheets_general_format_requests() {
             "Name of Event",
             "Details or Location of Event",
             "Level",
-            "Award"
+            "Award",
+            "Certificate"
         ];
         var values = [];
 
