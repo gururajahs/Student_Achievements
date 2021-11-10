@@ -1,4 +1,4 @@
-<form class=" feedForm row needs-validation" novalidate id="feedForm" action="/updating_achievement" method="post">
+<form class=" feedForm row needs-validation" novalidate id="feedForm" action="/updating_achievement" method="post" enctype="multipart/form-data">
     <% if(is_achievement_updated==true) { %>
         <div class="alert alert-success">
             <strong>Congratulations!</strong> Achievement Added Successfully
@@ -18,83 +18,103 @@
             <% } %>
                 <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
                 <h4 class="text-left">Enter the following details</h4>
-                <div class="col-12 mt-3">
-                    <label for="year" class="form-label">Select The Year of Study </label>
-                    <select name="year" class="form-select" required>
-      <option value="">--Select the Year of Study --</option>
-      <% for(var i=1; i <=userData.presentYear; ++i) { %>
-        <option value="<%=i%>">
-          <%=i%>
-        </option>
-        <% }%>
-    </select>
-                    <div class="invalid-feedback">
-                        Year Cannot be Empty
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="year" class="form-label">Select The Year of Study </label>
+                            <select name="year" class="form-select" required>
+                                        <option value="">--Select the Year of Study --</option>
+                                        <% for(var i=1; i <=userData.presentYear; ++i) { %>
+                                            <option value="<%=i%>">
+                                            <%=i%>
+                                            </option>
+                                            <% }%>
+                                        </select>
+                            <div class="invalid-feedback">
+                                Year Cannot be Empty
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6  mt-3">
+                            <label for="nameOfEvent" class="form-label">Select The Event Name </label>
+                            <select name="nameOfEvent" class="form-select" required id="nameOfEvent">
+                                        <option value="">--Select The Event Name--</option>
+                                        <option value="Quiz Competition">Quiz Competition</option>
+                                        <option value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
+                                        <option value="IEEE Event">IEEE Event</option>
+                                        <option value="Any Technical Events">Any Technical Events</option>
+                                        <option value="PhaseShift">Phaseshift</option>
+                                        <option value="HackerRank Challenges/Competition">HackerRank Challenges/ Competition</option>
+                                        <option value="Paper or Publications">Paper or Publications</option>
+                                        <option value="Other">Other</option>
+                                </select>
+                            <div class="invalid-feedback">
+                                Event Name Cannot be Empty
+                            </div>
+                        </div>
+
                     </div>
+
+
+
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <label for="detailsOfEvent" class="form-label">Enter the details or location of the event</label>
+                            <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter the details or location of the event" required></textarea>
+
+                            <div class="invalid-feedback">
+                                Add the location or any other details
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <label for="level" class="form-label">Select the level </label>
+                            <select name="level" class="form-select" required>
+                                        <option value="">--Select the level of event--</option>
+                                        <option value="college">College</option>
+                                        <option value="district">District</option>
+                                        <option value="state">State</option>
+                                        <option value="national">National</option>
+                                        <option value="international">International</option>
+                                </select>
+
+                            <div class="invalid-feedback">
+                                Level Cannot be empty
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <label class="form-label" name="award"> Did you win any award in this event?</label>
+                        <div class="col-12 mt-1 d-flex d-row">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="award" id="yes" value="yes">
+                                <label class="form-check-label" for="yes">Yes</label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="award" id="no" value="no" checked>
+                                <label class="form-check-label" for="no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="certificate">Select a file:</label>
+                            <input type="file" id="certificate" name="certificate"><br><br>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <button class="submitBtn btn mt-5 " type="submit " value="Submit ">Submit</button>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="col-12 mt-3">
-                    <label for="nameOfEvent" class="form-label">Select The Event Name </label>
-                    <select name="nameOfEvent" class="form-select" required id="nameOfEvent">
-      <option value="">--Select The Event Name--</option>
-      <option value="Quiz Competition">Quiz Competition</option>
-      <option value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
-      <option value="IEEE Event">IEEE Event</option>
-      <option value="Any Technical Events">Any Technical Events</option>
-      <option value="HackerRank Challenges/Competition">HackerRank Challenges/ Competition</option>
-      <option value="Paper or Publications">Paper or Publications</option>
-      <option value="Other">Other</option>
-    </select>
-                    <div class="invalid-feedback">
-                        Event Name Cannot be Empty
-                    </div>
-                </div>
 
-
-                <div class="col-12 mt-3">
-                    <label for="detailsOfEvent" class="form-label">Enter the details or location of the event</label>
-                    <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter the details or location of the event" required></textarea>
-
-                    <div class="invalid-feedback">
-                        Add the location or any other details
-                    </div>
-                </div>
-
-                <div class="col-12 mt-3">
-                    <label for="level" class="form-label">Select the level </label>
-                    <select name="level" class="form-select" required>
-      <option value="">--Select the level of event--</option>
-      <option value="college">College</option>
-      <option value="district">District</option>
-      <option value="state">State</option>
-      <option value="national">National</option>
-      <option value="international">International</option>
-    </select>
-
-                    <div class="invalid-feedback">
-                        Level Cannot be empty
-                    </div>
-                </div>
-
-                <div class="col-12 mt-3">
-                    <label class="form-label" name="award"> Did you win any award in this event?</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="award" id="yes" value="yes">
-                        <label class="form-check-label" for="yes">
-        Yes
-      </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="award" id="no" value="no" checked>
-                        <label class="form-check-label" for="no">
-        No
-      </label>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button class="submitBtn btn  mt-5" type="submit" value="Submit">Submit</button>
-                </div>
 </form>
 <script>
 </script>

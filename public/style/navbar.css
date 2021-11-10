@@ -15,6 +15,10 @@ body {
     overflow-x: hidden;
 }
 
+.select2 {
+    padding: 0;
+}
+
 .signOut {
     background-color: #30398C;
     color: white !important;

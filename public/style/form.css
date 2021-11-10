@@ -9,9 +9,14 @@
     right:20% */
 }
 
+.addAchievement {
+    max-width: 100vh;
+    overflow-y: hidden;
+}
+
 .feedForm {
     margin: 2rem 3rem;
-    max-width: 500px;
+    /* max-width: 500px; */
     padding: 3rem;
     box-shadow: 2px 2px 5px gray;
     background-color: white;
