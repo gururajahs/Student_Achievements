@@ -10,8 +10,8 @@
                                 <div class="row">
                                     <label for="selected_departments" class="form-label">Choose the departments<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
                                 </div>
-                                <div class="row">
-                                    <select class="department-select mul-select" multiple="true" name="selected_departments" id="mul-select" required>
+                                <div class="row ">
+                                    <select class="department-select mul-select p-0" multiple="true" name="selected_departments" id="mul-select" required>
                                     <% for(var i = 0; i < departments.length; ++i) { %>
                                         <option  value="<%=departments[i]%>"><%=departments[i]%></option>
                                     <% }%>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3">
-                        <div class="row">
+                        <div class="row pl-3">
                             <div class="form-group container-fluid">
                                 <div class="row">
                                     <label for="selected_batches" class="form-label">Choose the batch<span style="font-style:italic; font-size:10px;color:gray;"><br/>(Multiple selection available)</span> </label>
