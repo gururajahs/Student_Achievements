@@ -6,6 +6,6 @@ function signOut() {
     document.getElementById("name").value = null;
     document.getElementById("image").value = null;
     document.getElementById("email").value = null;
-    document.getElementById("signIn").style.display= "block";
-    document.getElementById("signOut").style.display= "none";
+    // document.getElementById("signIn").style.display= "block";
+    // document.getElementById("signOut").style.display= "none";
 }
