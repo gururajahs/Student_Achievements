@@ -3,6 +3,11 @@ body {
     max-height: 100vh;
 }
 
+.body {
+    max-height: 100vh;
+    overflow-y: hidden;
+}
+
 .forms {
     width: 100%;
     height: 100vh;
@@ -47,6 +52,14 @@ body {
 }
 
 @media screen and (max-width:768px) {
+    body {
+        max-height: 100%;
+        overflow-y: scroll;
+    }
+    .body {
+        max-height: auto;
+        overflow-y: scroll;
+    }
     .navbar {
         padding: 1rem 2rem;
     }
