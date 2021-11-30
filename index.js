@@ -38,6 +38,12 @@ app.use('/img', express.static(__dirname + 'public/img'));
 app.use('/js', express.static(__dirname + 'public/js'));
 
 
+app.enable('trust proxy')
+app.use((req, res, next) => {
+    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+})
+
+
 app.get("/", (req, res) => {
     res.render("index.ejs", { error: '' });
 });
