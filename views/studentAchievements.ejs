@@ -38,11 +38,11 @@
                 <div class="d-flex flex-column flex-md-row ">
                     <form method="post" action="/createBatches">
                         <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
-                        <button class="nav-link add-achievement" style="color: green; margin-right: 1rem;" type="submit">Create Batches
+                        <button class="nav-link add-achievement" style="color: green; " type="submit">Create Batches
               </button>
                     </form>
 
-                    <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut">Sign Out</a>
+                    <a class="nav-link signOut mx-2" href="/" onclick="signOut();" id="signOut" style="margin-right: 1rem;">Sign Out</a>
                 </div>
                 <img src="<%=userData.image%>" alt="" class="image mx-2" />
             </div>
