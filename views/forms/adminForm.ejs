@@ -81,13 +81,13 @@
             </form>
         </div>
         <div class="col-12 col-md-1 align-items-center ">
-            <form method="post " action="/download " id="download ">
+            <form action="/download" method="post" id="download">
                 <input type="hidden" name="userData" id="userData " value="<%=JSON.stringify(userData)%>" />
                 <input type="hidden" name="data" value="<%=JSON.stringify(data)%>" />
                 <div class="form-group">
                     <div onclick="submitForm();">
                         <% if(download == true) {%>
-                            <i class="fa fa-download" style="color: green;font-size:40px;float: left;"></i>
+                            <i class="fa fa-download" style="color: green;font-size:40px;float:left;"></i>
                             <% }%>
                     </div>
                 </div>
