@@ -41,7 +41,11 @@ app.use('/js', express.static(__dirname + 'public/js'));
 app.enable('trust proxy');
 app.use((req, res, next) => {
     //console.log(req.headers.host);
-    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+    if(req.headers.host != "localhost:3000") {
+        req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+    } else {
+        next();
+    }
 });
 
 
