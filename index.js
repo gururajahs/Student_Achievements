@@ -37,6 +37,7 @@ app.use('/style', express.static(__dirname + 'public/style'));
 app.use('/img', express.static(__dirname + 'public/img'));
 app.use('/js', express.static(__dirname + 'public/js'));
 
+
 // should be removed when u want to use localhost
 app.enable('trust proxy');
 app.use((req, res, next) => {
