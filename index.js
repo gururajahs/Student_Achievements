@@ -38,11 +38,11 @@ app.use('/img', express.static(__dirname + 'public/img'));
 app.use('/js', express.static(__dirname + 'public/js'));
 
 // should be removed when u want to use localhost
-// app.enable('trust proxy');
-// app.use((req, res, next) => {
-//     //console.log(req.headers.host);
-//     req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
-// });
+app.enable('trust proxy');
+app.use((req, res, next) => {
+    //console.log(req.headers.host);
+    req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+});
 
 
 app.get("/", (req, res) => {
