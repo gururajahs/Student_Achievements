@@ -1,4 +1,4 @@
-<form class="container bg-light text-dark m-0 adminform" action="/createBatches" method="post">
+<form class="container bg-light text-dark m-0 adminform" id="createBatch" action="/createBatches" method="post">
     <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
     <div class="row mt-3">
         <div class="col-4">
@@ -18,10 +18,15 @@
             </div>
         </div>
 
-        <div class="col-2 mt-2">
-            <button class=" submitBtn btn  mt-4" type="submit" value="Submit">Submit</button>
+        <div class="col-2 mt-3">
+            <button id="submitbutton2" class="submitBtn btn btn-contained mt-1 mt-md-3 btn-block has-spinner" style="float: right;background-color: #30398C; color: white;" type="submit " value="Submit "><span class="spinner"><img src="/img/ss.svg" width="30" height="30" style="margin-left: -1rem;"></span>Submit</button>
         </div>
     </div>
 
 
 </form>
+<script>
+    $('#createBatch').submit(function() {
+        $(this).find('#submitbutton2').prop('disabled', true);
+    });
+</script>

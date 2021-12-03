@@ -15,9 +15,9 @@
 }
 
 .feedForm {
-    margin: 2rem 3rem;
-    /* max-width: 500px; */
-    padding: 3rem;
+    margin: 1rem 3rem;
+    max-width: 900px;
+    padding: 2rem 3rem;
     box-shadow: 2px 2px 5px gray;
     background-color: white;
 }

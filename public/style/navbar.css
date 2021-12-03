@@ -4,8 +4,8 @@ body {
 }
 
 .body {
-    max-height: 100vh;
-    overflow-y: hidden;
+    /* max-height: 100;
+    overflow-y: hidden; */
 }
 
 .forms {

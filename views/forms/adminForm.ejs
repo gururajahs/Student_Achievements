@@ -1,7 +1,7 @@
 <div class="container-fluid mt-1">
     <div class="row align-items-center">
         <div class="col-12 col-md-11">
-            <form class="container container-fluid bg-light text-dark m-0 adminform" action="/studentAchievements" method="post">
+            <form class="container container-fluid bg-light text-dark m-0 adminform" id="adminForm" action="/studentAchievements" method="post">
                 <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 ">
@@ -75,7 +75,8 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 mt-2">
-                        <button class=" submitBtn btn mt-1 mt-md-5 py-1 " style="margin-top: 5.5rem;" type="submit " value="Submit ">View Student Achievement</button>
+                        <button id="submitbutton1" class="submitBtn btn btn-contained mt-2 mt-md-5 btn-block has-spinner1" style="float: right;background-color: #30398C; color: white;" type="submit " value="Submit "><span class="spinner1"><img src="/img/ss.svg" width="30" height="30" style="margin-left: -1rem;"></span>View Achievement</button>
+                        <!-- <button id="submitbutton1" class="submitBtn btn mt-1 mt-md-5 py-1 has-spinner" style="margin-top: 5.5rem;" type="submit " value="Submit "><span class="spinner"><img src="/img/ss.svg" width="30" height="30" style="margin-left: -1rem;"></span>View Student Achievement</button> -->
                     </div>
                 </div>
             </form>
@@ -95,8 +96,9 @@
         </div>
     </div>
 </div>
+<!-- <script src="js/disable_submit_button.js"></script> -->
 <script>
-    function submitForm() {
-        document.getElementById("download").submit();
-    }
+    $('#adminForm').submit(function() {
+        $(this).find('#submitbutton1').prop('disabled', true);
+    });
 </script>

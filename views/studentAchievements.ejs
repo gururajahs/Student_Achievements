@@ -20,6 +20,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .spinner1 {
+            opacity: 0;
+            display: none;
+            width: 20px;
+            height: 10px;
+            -webkit-transition: opacity 0.25s, max-width 0.45s;
+            -moz-transition: opacity 0.25s, max-width 0.45s;
+            -o-transition: opacity 0.25s, max-width 0.45s;
+            transition: opacity 0.25s, max-width 0.45s;
+        }
+        
+        .has-spinner1.active {
+            cursor: progress;
+        }
+        
+        .has-spinner1.active .spinner {
+            display: inline-block;
+            opacity: 1;
+            max-width: 50px;
+        }
+    </style>
+
 </head>
 
 <body>
