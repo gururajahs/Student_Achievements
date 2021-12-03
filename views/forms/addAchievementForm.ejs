@@ -13,7 +13,7 @@
 
         <% }else if(is_achievement_updated==false) { %>
             <div class="alert alert-danger" role="alert">
-                <strong>Oops!</strong> Failed to Achievement.Try Again
+                <strong>Oops!</strong> Failed to Add Achievement. Try Again
             </div>
             <% } %>
                 <input type="hidden" name="userData" id="userData" value="<%=JSON.stringify(userData)%>" />
@@ -21,9 +21,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-sm-6 mt-3">
-                            <label for="year" class="form-label">Select The Year of Study </label>
+                            <label for="year" class="form-label">Select The Year of Achievement</label>
                             <select name="year" class="form-select" required>
-                                        <option value="">--Select the Year of Study --</option>
+                                        <option value="">--Select the Year of Achievement--</option>
                                         <% for(var i=1; i <=userData.presentYear; ++i) { %>
                                             <option value="<%=i%>">
                                             <%=i%>
@@ -35,9 +35,9 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6  mt-3">
-                            <label for="nameOfEvent" class="form-label">Select The Event Name </label>
+                            <label for="nameOfEvent" class="form-label">Select The Event Type</label>
                             <select name="nameOfEvent" class="form-select" required id="nameOfEvent">
-                                        <option value="">--Select The Event Name--</option>
+                                        <option value="">--Select The Event Type--</option>
                                         <option value="Quiz Competition">Quiz Competition</option>
                                         <option value="Coding Competition/Hackathons">Coding Competition/Hackathons</option>
                                         <option value="IEEE Event">IEEE Event</option>
@@ -58,20 +58,20 @@
 
                     <div class="row">
                         <div class="col-12 mt-3">
-                            <label for="detailsOfEvent" class="form-label">Enter the details or location of the event</label>
-                            <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter the details or location of the event" required></textarea>
+                            <label for="detailsOfEvent" class="form-label">Enter the Name, details/location of the Event</label>
+                            <textarea class="form-control" id="detailsOfEvent" name="detailsOfEvent" placeholder="Enter the Name, details/location of the Event" required></textarea>
 
                             <div class="invalid-feedback">
-                                Add the location or any other details
+                                Add the Name, location or any other details
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-12 mt-3">
-                            <label for="level" class="form-label">Select the level </label>
+                            <label for="level" class="form-label">Select the level of the Event</label>
                             <select name="level" class="form-select" required>
-                                        <option value="">--Select the level of event--</option>
+                                        <option value="">--Select the level of the Event--</option>
                                         <option value="college">College</option>
                                         <option value="district">District</option>
                                         <option value="state">State</option>
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="row mt-3">
-                        <label class="form-label" name="award"> Did you win any award in this event?</label>
+                        <label class="form-label" name="award">Did you win any award in this event?</label>
                         <div class="col-12 mt-1 d-flex d-row">
 
                             <div class="form-check">
@@ -104,7 +104,7 @@
 
                     <div class="row d-flex justify-content-between">
                         <div class="col-12 col-sm-3 mt-1 mt-md-3">
-                            <label for="certificate">Select a file:</label>
+                            <label for="certificate">Add Certificate : *optional*</label>
                             <input type="file" id="certificate" name="certificate"><br><br>
                         </div>
                         <div class="col-12 col-sm-3">

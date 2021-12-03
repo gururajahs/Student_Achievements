@@ -38,6 +38,18 @@ app.use('/img', express.static(__dirname + 'public/img'));
 app.use('/js', express.static(__dirname + 'public/js'));
 
 
+// should be removed when u want to use localhost
+app.enable('trust proxy');
+app.use((req, res, next) => {
+    //console.log(req.headers.host);
+    if(req.headers.host != "localhost:3000") {
+        req.secure ? next() : res.redirect('https://' + req.headers.host + req.url)
+    } else {
+        next();
+    }
+});
+
+
 app.get("/", (req, res) => {
     res.render("index.ejs", { error: '' });
 });
@@ -54,25 +66,33 @@ app.post("/admin_signin", (req, res) => {
     res.render("auth/admin_signin.ejs");
 });
 
+
+class UserDataObject {
+    constructor() {
+
+        this.usn = null;
+        this.name = null;
+        this.image = null;
+        this.email = null;
+        this.phone = null;
+        this.nameOfEvent = null;
+        this.detailsOfEvent = null;
+        this.level = null;
+        this.award = null;
+        this.certificate = null;
+        this.department = null;
+        this.batch = null;
+        this.spreadsheetId = null;
+        this.presentYear = null;
+        this.yearOfAchievement = null;
+
+    }
+}
+
+
 app.post("/getUserDetails", (req, res) => {
 
-    var userData = {
-        usn: null,
-        name: null,
-        image: null,
-        email: null,
-        phone: null,
-        nameOfEvent: null,
-        detailsOfEvent: null,
-        level: null,
-        award: null,
-        certificate: null,
-        department: null,
-        batch: null,
-        spreadsheetId: null,
-        presentYear: null,
-        yearOfAchievement: null
-    };
+    var userData = new UserDataObject();
 
     userData.name = req.body.name;
     userData.email = req.body.email;
@@ -80,7 +100,8 @@ app.post("/getUserDetails", (req, res) => {
     res.render("getUserDetails.ejs", { userData: userData });
 });
 
-app.post("/register", async(req, res) => {
+
+app.post("/register", async (req, res) => {
     try {
 
         var userData = JSON.parse(req.body.userData);
@@ -115,29 +136,13 @@ app.post("/register", async(req, res) => {
         console.log(error);
         res.render("index.ejs", { isValid: false, error: error })
     }
-})
+});
 
 
-app.post("/login", async(req, res) => {
+app.post("/login", async (req, res) => {
     try {
 
-        var userData = {
-            usn: null,
-            name: null,
-            image: null,
-            email: null,
-            phone: null,
-            nameOfEvent: null,
-            detailsOfEvent: null,
-            level: null,
-            award: null,
-            certificate: null,
-            department: null,
-            batch: null,
-            spreadsheetId: null,
-            presentYear: null,
-            yearOfAchievement: null
-        };
+        var userData = new UserDataObject();
 
         userData.name = req.body.name;
         userData.email = req.body.email;
@@ -167,7 +172,8 @@ app.post("/login", async(req, res) => {
     }
 });
 
-app.post("/addAchievement", async(req, res) => {
+
+app.post("/addAchievement", async (req, res) => {
     try {
 
         var userData = JSON.parse(req.body.userData);
@@ -189,9 +195,7 @@ app.post("/addAchievement", async(req, res) => {
 });
 
 
-app.use(fileUpload())
-
-
+app.use(fileUpload());
 app.post("/updating_achievement", async(req, res) => {
 
     try {
@@ -210,10 +214,10 @@ app.post("/updating_achievement", async(req, res) => {
             var filepath = await add_file_to_temp(file, filename);
             userData.certificate = await upload_certificate(auth, filepath, userData.email);
             fs.unlink(filepath, (err) => {
-                //console.log("file deleted");
+                // console.log("file deleted");
             });
         } else {
-            console.log("no certificate");
+            // console.log("no certificate");
         }
 
         for (let field in userData)
@@ -229,6 +233,7 @@ app.post("/updating_achievement", async(req, res) => {
         res.render("verify.ejs", { is_achievement_updated: false, userData: userData });
     }
 });
+
 
 app.post("/viewAchievements", async(req, res) => {
     try {
@@ -256,7 +261,6 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.image = req.body.image;
         // is_lecturer(userData.email);
         app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
-        // console.log("error", app.locals.all_batches);
         res.render("verify_lecturer.ejs", { userData: userData });
 
     } catch (error) {
@@ -300,7 +304,6 @@ app.post("/studentAchievements", async(req, res) => {
 
 app.post('/download', async(req, res) => {
 
-    //console.log("in download", req.body.data);
     var data = JSON.parse(req.body.data);
     var filepath = `./temp/${Date.now()}.xlsx`;
 
@@ -318,10 +321,12 @@ app.post('/download', async(req, res) => {
 
 });
 
+
 app.post('/createBatches', creating_batch, (req, res) => {
     var userData = JSON.parse(req.body.userData);
     res.render('createBatches.ejs', { userData: userData, all_batches: app.locals.all_batches });
 })
+
 
 async function creating_batch(req, res, next) {
     console.log("batch year", req.body.batch_year);
@@ -340,6 +345,7 @@ async function creating_batch(req, res, next) {
         next();
     }
 }
+
 
 app.listen(port, () => {
     console.log(`this log is working on ${port}`);
