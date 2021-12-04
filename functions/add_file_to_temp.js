@@ -8,7 +8,7 @@ function add_file_to_temp(file, filename)
                 console.log("couldn't upload to node js server", err);
                 reject("upload failed to node js server");
             } else {
-                console.log("file uploaded to node js server");
+                //console.log("file uploaded to node js server");
                 resolve(filepath);
             }
         });

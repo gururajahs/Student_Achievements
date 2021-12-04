@@ -30,7 +30,7 @@ function get_certificate_folder_id(auth, spreadsheetId) {
                 console.log(err);
             } else {
                 var folder_id = result.data.matchedDeveloperMetadata[0].developerMetadata.metadataValue;
-                console.log("certificate folder id", folder_id);
+                //console.log("certificate folder id", folder_id);
                 resolve(folder_id);
             }
         });
@@ -65,7 +65,7 @@ function upload_certificate(auth, filepath, filename)
                 console.error(err);
                 reject(err);
             } else {
-                console.log("file uploaded to drive successfully", file.data.webViewLink);
+                //console.log("file uploaded to drive successfully", file.data.webViewLink);
                 resolve(file.data.webViewLink);
             }
         });
