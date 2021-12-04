@@ -37,12 +37,37 @@ function get_certificate_folder_id(auth, spreadsheetId) {
     });
 }
 
-function upload_certificate(auth, filepath, filename)
+
+function give_read_only_permission_to_user(drive, fileId, emailAddress)
+{
+    var permission = {
+        type: 'user',
+        role: 'reader',
+        emailAddress: emailAddress
+    }
+
+    drive.permissions.create({
+        resource: permission,
+        fileId: fileId,
+        fields: 'id',
+    }, function (err, res) {
+        if (err) {
+          // Handle error...
+          console.log(err);
+        } else {
+          //console.log('Permission ID: ', res.data.id);
+        }
+    });
+}
+
+
+function upload_certificate(auth, filepath, emailAddress)
 {
     return new Promise(async (resolve, reject) => {
 
         var folder_id = await get_certificate_folder_id(auth, global_data.index_table_id);
 
+        var filename = emailAddress;
         var fileMetadata = {
             name: `${filename}.pdf`,
             parents: [folder_id]
@@ -66,6 +91,7 @@ function upload_certificate(auth, filepath, filename)
                 reject(err);
             } else {
                 //console.log("file uploaded to drive successfully", file.data.webViewLink);
+                give_read_only_permission_to_user(drive, file.data.id, emailAddress); // not awaiting, let it be asynchronus
                 resolve(file.data.webViewLink);
             }
         });

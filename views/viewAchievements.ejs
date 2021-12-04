@@ -55,6 +55,7 @@
                         <th scope="col" class="d-none d-lg-block">Details/Location</th>
                         <th scope="col">Level</th>
                         <th scope="col">Award</th>
+                        <th scope="col">Certificate</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +83,13 @@
                                 </td>
                                 <td>
                                     <%=achievements[achievement][i][6]%>
+                                </td>
+                                <td>
+                                    <% if(achievements[achievement][i][7] != 'None') { %>
+                                        <a href="<%=achievements[achievement][i][7]%>" target="_blank">Certificate Link</a>
+                                    <% } else { %>
+                                        <%=achievements[achievement][i][7]%>
+                                    <% } %>
                                 </td>
                             </tr>
                             <% count +=1 %>
