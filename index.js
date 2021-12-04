@@ -19,7 +19,7 @@ const fs = require('fs');
 const fileUpload = require('express-fileupload');
 const add_file_to_temp = require('./functions/add_file_to_temp');
 const upload_certificate = require('./functions/upload_certificate');
-
+require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 const app = express();

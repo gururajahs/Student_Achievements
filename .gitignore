@@ -1,3 +1,2 @@
 /node_modules
-# /auth/service_account_credentials.json
-# /auth/protected_Data.json
+.env
