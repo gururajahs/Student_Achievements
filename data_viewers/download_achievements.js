@@ -1,6 +1,6 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
-const protected_data = require("../auth/protected_Data.json");
+const global_data = require("../auth/global_data.json");
 const fs = require('fs');
 
 function create_query_spreadsheet(drive, folderId, email)
@@ -223,7 +223,7 @@ function download_achievements(email, data)
     return new Promise(async (resolve, reject) => {
 
         const drive = google.drive({version: 'v3', auth});
-        const spreadsheetId = await create_query_spreadsheet(drive, protected_data.student_achievements_folder_id, email);
+        const spreadsheetId = await create_query_spreadsheet(drive, global_data.student_achievements_folder_id, email);
         await add_data_to_spreadsheet(auth, spreadsheetId, data);
         await download_file(drive, spreadsheetId);
         await delete_query_spreadsheet(drive, spreadsheetId);

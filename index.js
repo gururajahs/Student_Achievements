@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const auth = require('./auth/get_auth');
-const protected_data = require('./auth/global_data');
+const global_data = require('./auth/global_data');
 const add_achievement = require('./data_collectors/add_achievement');
 const get_user_data = require('./data_collectors/get_user_data');
 const validate_ph_number = require('./functions/validate_ph_number');
@@ -24,7 +24,7 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 const app = express();
-app.locals.departments = protected_data.all_departments;
+app.locals.departments = global_data.all_departments;
 
 
 app.use(bodyParser.json());
@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     res.render("index.ejs", { error: '' });
-    // console.log(protected_data.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    // console.log(global_data.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.GOOGLE_APPLICATION_CREDENTIALS);
 });
 
 app.post("/student_signup", (req, res) => {
@@ -120,7 +120,7 @@ app.post("/register", async (req, res) => {
         if (!departments_set.has(userData.department))
             throw new Error("Invalid department");
 
-        var isPresent = await isBatchPresent(auth, protected_data.index_table_id, userData.batch);
+        var isPresent = await isBatchPresent(auth, global_data.index_table_id, userData.batch);
         if (isPresent == false)
             throw new Error("Invalid batch");
 
@@ -261,7 +261,7 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.email = req.body.email;
         userData.image = req.body.image;
         // is_lecturer(userData.email);
-        app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
+        app.locals.all_batches = await get_batches(auth, global_data.index_table_id);
         res.render("verify_lecturer.ejs", { userData: userData });
 
     } catch (error) {
@@ -335,7 +335,7 @@ async function creating_batch(req, res, next) {
         try {
             var batch_year = parseInt(req.body.batch_year);
             await create_batch(batch_year);
-            app.locals.all_batches = await get_batches(auth, protected_data.index_table_id);
+            app.locals.all_batches = await get_batches(auth, global_data.index_table_id);
             console.log("createBatches : all batches", app.locals.all_batches);
             next();
         } catch (error) {

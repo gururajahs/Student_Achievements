@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 const auth = require("../auth/get_auth");
 const get_department_ids = require('../functions/get_department_ids');
-const protected_data = require("../auth/global_data");
+const global_data = require("../auth/global_data");
 const isBatchPresent = require("../functions/isBatchPresent");
 
 
@@ -312,8 +312,8 @@ function create_batch_for_all_departments(sheets, batch) {
 
         const drive = google.drive({ version: 'v3', auth });
 
-        const departments = protected_data.all_departments;
-        const department_ids = await get_department_ids(auth, protected_data.index_table_id);
+        const departments = global_data.all_departments;
+        const department_ids = await get_department_ids(auth, global_data.index_table_id);
 
         var promises = [];
         for (let department of departments) // creating all the spreadsheets first as this has to done sequentially and slowly because of user rate limit exceeded
@@ -323,7 +323,7 @@ function create_batch_for_all_departments(sheets, batch) {
         }
         var spreadsheetIds = await Promise.all(promises);
 
-        await add_batch_to_index_table(sheets, protected_data.index_table_id, departments, spreadsheetIds, batch);
+        await add_batch_to_index_table(sheets, global_data.index_table_id, departments, spreadsheetIds, batch);
 
         resolve(spreadsheetIds);
 
@@ -342,7 +342,7 @@ async function main(year) {
 
         var batch = `batch-${year}-${year+4}`;
 
-        var isPresent = await isBatchPresent(auth, protected_data.index_table_id, batch);
+        var isPresent = await isBatchPresent(auth, global_data.index_table_id, batch);
 
         if (isPresent == true) {
             console.log("batch already present");

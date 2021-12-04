@@ -1,5 +1,5 @@
 const {google} = require('googleapis');
-const protected_data = require("../auth/global_data");
+const global_data = require("../auth/global_data");
 const get_department_ids = require("../functions/get_department_ids");
 
 
@@ -164,7 +164,7 @@ function view_achievements(auth, departments, batches, start_academic_year, end_
 
         batches = await get_batches_having_academic_year(batches, start_academic_year, end_academic_year);
 
-        var department_batches = await get_batch_ids_of_department(sheets, protected_data.index_table_id, departments, batches);
+        var department_batches = await get_batch_ids_of_department(sheets, global_data.index_table_id, departments, batches);
 
         var promises = [];
         for(let department in department_batches)

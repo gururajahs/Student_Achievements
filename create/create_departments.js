@@ -1,6 +1,6 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
-const protected_data = require("../auth/global_data");
+const global_data = require("../auth/global_data");
 
 function create_folder(drive, folderId, foldername)
 {
@@ -218,8 +218,8 @@ function add_folders_to_index_table(spreadsheetId, departments, department_ids, 
 
 async function main()
 { 
-    const folderId = protected_data.student_achievements_folder_id;
-    const departments = protected_data.all_departments;
+    const folderId = global_data.student_achievements_folder_id;
+    const departments = global_data.all_departments;
     const drive = google.drive({version: 'v3', auth});
 
     var promises = [];
@@ -236,7 +236,7 @@ async function main()
     const department_folder_ids = folder_ids.slice(0, -1);
     const certificates_folder_id = folder_ids[folder_ids.length-1];
 
-    await add_folders_to_index_table(protected_data.index_table_id, departments, department_folder_ids, certificate_foldername, certificates_folder_id);
+    await add_folders_to_index_table(global_data.index_table_id, departments, department_folder_ids, certificate_foldername, certificates_folder_id);
 }
 
 main();

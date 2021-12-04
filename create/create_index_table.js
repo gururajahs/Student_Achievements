@@ -1,6 +1,6 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
-var protected_data = require("../auth/global_data");
+var global_data = require("../auth/global_data");
 
 function create_index_table(auth, folderId)
 {
@@ -30,7 +30,7 @@ function create_index_table(auth, folderId)
 
 async function main()
 { 
-    const folderId = protected_data.student_achievements_folder_id;
+    const folderId = global_data.student_achievements_folder_id;
     var index_table_id = await create_index_table(auth, folderId);
     console.log("Index table Id: ", index_table_id, "\nadd this to .env");
 }

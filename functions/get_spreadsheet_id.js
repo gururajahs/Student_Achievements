@@ -1,5 +1,5 @@
 const {google} = require('googleapis');
-const protected_data = require("../auth/global_data");
+const global_data = require("../auth/global_data");
 
 function get_department_sheet_id(sheets, spreadsheetId, department) {
     
@@ -81,8 +81,8 @@ function get_spreadsheet_id(auth, department, batch) {
     return new Promise(async (resolve, reject) => {
        
         const sheets = google.sheets({version: 'v4', auth});
-        const department_sheet_id = await get_department_sheet_id(sheets, protected_data.index_table_id, department);
-        const spreadsheet_id = await get_batch_spreadsheetId(sheets, protected_data.index_table_id, department_sheet_id, batch);
+        const department_sheet_id = await get_department_sheet_id(sheets, global_data.index_table_id, department);
+        const spreadsheet_id = await get_batch_spreadsheetId(sheets, global_data.index_table_id, department_sheet_id, batch);
         resolve(spreadsheet_id);
 
     });

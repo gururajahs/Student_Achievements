@@ -1,5 +1,5 @@
 const {google} = require('googleapis');
-const protected_data = require('../auth/global_data');
+const global_data = require('../auth/global_data');
 const fs = require('fs');
 
 
@@ -41,7 +41,7 @@ function upload_certificate(auth, filepath, filename)
 {
     return new Promise(async (resolve, reject) => {
 
-        var folder_id = await get_certificate_folder_id(auth, protected_data.index_table_id);
+        var folder_id = await get_certificate_folder_id(auth, global_data.index_table_id);
 
         var fileMetadata = {
             name: `${filename}.pdf`,
