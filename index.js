@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const auth = require('./auth/get_auth');
-const protected_data = require('./auth/protected_Data.json');
+const protected_data = require('./auth/global_data');
 const add_achievement = require('./data_collectors/add_achievement');
 const get_user_data = require('./data_collectors/get_user_data');
 const validate_ph_number = require('./functions/validate_ph_number');
@@ -19,6 +19,7 @@ const fs = require('fs');
 const fileUpload = require('express-fileupload');
 const add_file_to_temp = require('./functions/add_file_to_temp');
 const upload_certificate = require('./functions/upload_certificate');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 3000;
@@ -38,7 +39,6 @@ app.use('/img', express.static(__dirname + 'public/img'));
 app.use('/js', express.static(__dirname + 'public/js'));
 
 
-// should be removed when u want to use localhost
 app.enable('trust proxy');
 app.use((req, res, next) => {
     //console.log(req.headers.host);
@@ -52,6 +52,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     res.render("index.ejs", { error: '' });
+    // console.log(protected_data.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.STUDENT_ACHIEVEMENT_FOLDER_ID, process.env.GOOGLE_APPLICATION_CREDENTIALS);
 });
 
 app.post("/student_signup", (req, res) => {

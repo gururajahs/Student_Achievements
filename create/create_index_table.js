@@ -1,7 +1,6 @@
 const {google} = require('googleapis');
 const auth = require("../auth/get_auth");
-const fs = require('fs');
-var protected_data = require("../auth/protected_Data.json");
+var protected_data = require("../auth/global_data");
 
 function create_index_table(auth, folderId)
 {
@@ -22,7 +21,7 @@ function create_index_table(auth, folderId)
             if (err) {
                 console.error(err);
             } else {
-                console.log('File(Folder) Id: ', file.data.id);
+                //console.log('Index table Id: ', file.data.id);
                 resolve(file.data.id);
             }
         });
@@ -33,15 +32,7 @@ async function main()
 { 
     const folderId = protected_data.student_achievements_folder_id;
     var index_table_id = await create_index_table(auth, folderId);
-    protected_data.index_table_id = index_table_id;
-    const data_string = JSON.stringify(protected_data);
-    fs.writeFile("./auth/protected_Data.json", data_string, err => {
-        if (err) {
-            console.log('Error writing file', err)
-        } else {
-            console.log('Successfully wrote file')
-        }
-    });
+    console.log("Index table Id: ", index_table_id, "\nadd this to .env");
 }
 
 main();

@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 const auth = require("../auth/get_auth");
 const get_department_ids = require('../functions/get_department_ids');
-const protected_data = require("../auth/protected_Data.json");
+const protected_data = require("../auth/global_data");
 const isBatchPresent = require("../functions/isBatchPresent");
 
 

@@ -1,5 +1,5 @@
 const {google} = require('googleapis');
-const protected_data = require("../auth/protected_Data.json");
+const protected_data = require("../auth/global_data");
 
 function get_department_sheet_id(sheets, spreadsheetId, department) {
     
