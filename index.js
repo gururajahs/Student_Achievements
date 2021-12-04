@@ -303,7 +303,7 @@ app.post("/studentAchievements", async(req, res) => {
 });
 
 
-app.post('/download', async(req, res) => {
+app.post('/download', async (req, res) => {
 
     var data = JSON.parse(req.body.data);
     var filepath = `./temp/${Date.now()}.xlsx`;
