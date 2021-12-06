@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Achievement</title>
     <!-- Google API -->
-    <meta name="google-signin-client_id" content="272476288648-km8fne9ac14oek1rod26m9f9d4hrr8fo.apps.googleusercontent.com">
+    <% dotenv.config();  %>
+    <meta name="google-signin-client_id" content="<%=process.env.CLIENT_ID%>">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!-- CSS -->

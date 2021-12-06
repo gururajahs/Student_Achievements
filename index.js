@@ -20,11 +20,12 @@ const fileUpload = require('express-fileupload');
 const add_file_to_temp = require('./functions/add_file_to_temp');
 const upload_certificate = require('./functions/upload_certificate');
 
-require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 const app = express();
 app.locals.departments = global_data.all_departments;
+app.locals.dotenv = require('dotenv');
+app.locals.dotenv.config();
 
 
 app.use(bodyParser.json());
@@ -260,7 +261,7 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.name = req.body.name;
         userData.email = req.body.email;
         userData.image = req.body.image;
-        // is_lecturer(userData.email);
+        is_lecturer(userData.email);
         app.locals.all_batches = await get_batches(auth, global_data.index_table_id);
         res.render("verify_lecturer.ejs", { userData: userData });
 
