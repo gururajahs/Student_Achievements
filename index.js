@@ -261,13 +261,13 @@ app.post("/verify_lecturer", async(req, res) => {
         userData.name = req.body.name;
         userData.email = req.body.email;
         userData.image = req.body.image;
-        is_lecturer(userData.email);
+        await is_lecturer(userData.email);
         app.locals.all_batches = await get_batches(auth, global_data.index_table_id);
         res.render("verify_lecturer.ejs", { userData: userData });
 
     } catch (error) {
         console.log(error);
-        res.render("index.ejs", { isValid: false, error: 'Not a lecturer' });
+        res.render("index.ejs", { error: 'Not a lecturer' });
     }
 });
 
